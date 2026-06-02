@@ -15,10 +15,10 @@ Gather all changes on the current branch relative to the base branch (main/maste
 
 ### 1. Gather Context
 
-Run the bundled script:
+Run the bundled script (path relative to this skill's directory):
 
 ```
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/gather_branch_context.py"
+python3 scripts/gather_branch_context.py
 ```
 
 Optional flags:

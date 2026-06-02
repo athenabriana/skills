@@ -20,10 +20,10 @@ If not authenticated, instruct the user to run `gh auth login`.
 
 ### Phase 1: Gather Context
 
-Run the bundled script to collect all context in one call:
+Run the bundled script (path relative to this skill's directory) to collect all context in one call:
 
 ```
-python "${CLAUDE_PLUGIN_ROOT}/scripts/gather_pr_context.py"
+python scripts/gather_pr_context.py
 ```
 
 Returns JSON with: `branch`, `upstream`, `base_branch`, `commit_log`, `diff_stat`, `uncommitted_changes`, and `pr_template` (if found).

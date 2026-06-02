@@ -35,9 +35,9 @@ If not authenticated, instruct the user to run `gh auth login`.
    - Or use the PR number/URL the user provides
 
 2. **Fetch failing checks**
-   - Preferred: run the bundled script
+   - Preferred: run the bundled script (path relative to this skill's directory)
      ```
-     python "${CLAUDE_PLUGIN_ROOT}/scripts/inspect_pr_checks.py" --repo "." --pr "<number-or-url>"
+     python scripts/inspect_pr_checks.py --repo "." --pr "<number-or-url>"
      ```
      Add `--json` for machine-friendly output.
    - Fallback:
@@ -106,6 +106,6 @@ Fetch failing PR checks, pull GitHub Actions logs, and extract a failure snippet
 
 Usage:
 
-- `python "${CLAUDE_PLUGIN_ROOT}/scripts/inspect_pr_checks.py" --repo "." --pr "123"`
-- `python "${CLAUDE_PLUGIN_ROOT}/scripts/inspect_pr_checks.py" --repo "." --pr "https://github.com/org/repo/pull/123" --json`
-- `python "${CLAUDE_PLUGIN_ROOT}/scripts/inspect_pr_checks.py" --repo "." --max-lines 200 --context 40`
+- `python scripts/inspect_pr_checks.py --repo "." --pr "123"`
+- `python scripts/inspect_pr_checks.py --repo "." --pr "https://github.com/org/repo/pull/123" --json`
+- `python scripts/inspect_pr_checks.py --repo "." --max-lines 200 --context 40`

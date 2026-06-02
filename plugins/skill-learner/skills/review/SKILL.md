@@ -15,10 +15,10 @@ Interactive review of auto-extracted skills waiting in `~/.claude/skills/review/
 
 ### 1. List Pending Skills
 
-Run the listing script:
+Run the listing script (path relative to this skill's directory):
 
 ```
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/list-pending-skills.py"
+python3 scripts/list-pending-skills.py
 ```
 
 Returns JSON with all pending skills (sorted by confidence) and folder counts.
@@ -62,7 +62,7 @@ For each skill, starting with highest confidence:
 For each decision, run:
 
 ```
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/manage-skill.py" <action> <skill-name>
+python3 scripts/manage-skill.py <action> <skill-name>
 ```
 
 Where `<action>` is `approve`, `reject`, or `skip`.

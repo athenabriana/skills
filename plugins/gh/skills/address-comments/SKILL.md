@@ -15,7 +15,7 @@ Guide to find the open PR for the current branch and address its comments with g
 
 ## 1) Inspect comments needing attention
 
-- Run scripts/fetch_comments.py which will print out all the comments and review threads on the PR
+- Run scripts/fetch_comments.py (path relative to this skill's directory), which will print out all the comments and review threads on the PR
 
 ## 2) Ask the user for clarification
 
