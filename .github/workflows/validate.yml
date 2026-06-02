@@ -3,9 +3,8 @@ name: Validate
 on:
   pull_request:
     paths:
-      - ".claude-plugin/marketplace.json"
       - "**/SKILL.md"
-      - "plugins/**"
+      - "skills/**"
 
 jobs:
   validate:
@@ -17,12 +16,6 @@ jobs:
 
       - name: Install dependencies
         run: bun install
-
-      - name: Validate marketplace.json
-        run: bun .github/scripts/validate-marketplace.ts .claude-plugin/marketplace.json
-
-      - name: Check plugins sorted
-        run: bun .github/scripts/check-marketplace-sorted.ts
 
       - name: Validate frontmatter
         run: bun .github/scripts/validate-frontmatter.ts

@@ -1,8 +1,0 @@
-{
-  "name": "gh",
-  "description": "GitHub PR workflows: open PRs, address review comments, debug and fix failing CI checks",
-  "author": {
-    "name": "Athena Freitas",
-    "url": "https://github.com/athenacfr"
-  }
-}

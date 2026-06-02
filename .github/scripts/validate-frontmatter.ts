@@ -48,18 +48,13 @@ interface ValidationIssue {
   message: string;
 }
 
-function validateSkill(
-  frontmatter: Record<string, unknown>,
-): ValidationIssue[] {
+function validateSkill(frontmatter: Record<string, unknown>): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
 
   if (!frontmatter["name"] || typeof frontmatter["name"] !== "string") {
     issues.push({ level: "error", message: 'Missing required "name" field' });
   }
-  if (
-    !frontmatter["description"] ||
-    typeof frontmatter["description"] !== "string"
-  ) {
+  if (!frontmatter["description"] || typeof frontmatter["description"] !== "string") {
     issues.push({
       level: "error",
       message: 'Missing required "description" field',
@@ -69,9 +64,7 @@ function validateSkill(
   return issues;
 }
 
-async function findSkillFiles(
-  baseDir: string,
-): Promise<{ path: string }[]> {
+async function findSkillFiles(baseDir: string): Promise<{ path: string }[]> {
   const results: { path: string }[] = [];
 
   async function walk(dir: string) {
@@ -134,9 +127,7 @@ async function main() {
   }
 
   console.log("---");
-  console.log(
-    `Validated ${files.length} files: ${totalErrors} errors`,
-  );
+  console.log(`Validated ${files.length} files: ${totalErrors} errors`);
 
   if (totalErrors > 0) process.exit(1);
 }

@@ -1,41 +1,29 @@
-# Skills Marketplace
+# Skills
 
-A Claude Code plugin marketplace containing four plugin groups: `gh`, `research`, `skill-learner`, and `spec-driven`. Also installable standalone via the [vercel-labs/skills](https://github.com/vercel-labs/skills) CLI (`npx skills add athenabriana/skills`), which discovers skills through `marketplace.json`.
+A repo of agent skills following the [Agent Skills](https://agentskills.io) spec, installable via the [vercel-labs/skills](https://github.com/vercel-labs/skills) CLI: `npx skills add athenabriana/skills`. The CLI auto-discovers the catalog layout `skills/<group>/<name>/SKILL.md`.
 
 ## Structure
 
 ```
-plugins/
+skills/
 ├── gh/                          # GitHub PR workflows
-│   ├── .claude-plugin/plugin.json
-│   └── skills/open-pr/, address-comments/, fix-ci/, branch-context/
+│   └── open-pr/, address-comments/, fix-ci/, branch-context/
 ├── research/                    # Topic & code research
-│   ├── .claude-plugin/plugin.json
-│   └── skills/topic/, code/
-├── skill-learner/               # Background session learning
-│   ├── .claude-plugin/plugin.json
-│   ├── hooks/hooks.json         # SessionStart + Stop hooks
-│   ├── scripts/                 # hook-only scripts (on-stop, extract, parse, check)
-│   ├── references/
-│   └── skills/review/
+│   └── topic/, code/
 └── spec-driven/                 # Spec-driven development
-    ├── .claude-plugin/plugin.json
-    └── skills/create/, design/, run/
+    └── tlc-spec-driven/         # vendored from tech-leads-club/agent-skills (CC-BY-4.0)
 ```
-
-Marketplace metadata: `.claude-plugin/marketplace.json` (root), per-plugin: `plugins/<name>/.claude-plugin/plugin.json`.
 
 ### Naming Conventions
 
-- Skills live in `plugins/<group>/skills/<name>/SKILL.md`; the frontmatter `name` carries the group prefix (e.g. `gh-fix-ci`)
-- Each skill is self-contained: its scripts live in `skills/<name>/scripts/`, reference docs in `skills/<name>/references/*.md`
-- Plugin-level `scripts/` is reserved for hook scripts (only `skill-learner` has them) — hooks resolve via `${CLAUDE_PLUGIN_ROOT}`, which only exists in plugin context
+- Skills live in `skills/<group>/<name>/SKILL.md`; the frontmatter `name` carries the group prefix (e.g. `gh-fix-ci`) since it becomes the install directory name
+- Each skill is self-contained: scripts in `skills/<group>/<name>/scripts/`, reference docs in `skills/<group>/<name>/references/*.md`
 
 ## Skills
 
-Each skill is a folder with a `SKILL.md` containing YAML frontmatter (`name`, `description`, `license`, `metadata`) followed by Markdown instructions. The `description` field doubles as the trigger — it tells Claude Code when to invoke the skill.
+Each skill is a folder with a `SKILL.md` containing YAML frontmatter (`name`, `description`, `license`, `metadata`) followed by Markdown instructions. The `description` field doubles as the trigger — it tells the agent when to invoke the skill.
 
-Skills may include a `references/` subfolder with supplementary Markdown docs that get loaded as context. Skills use built-in Claude Code subagent types (`research:web-researcher`, `research:doc-analyst`, `research:repo-explorer`) — no custom agent definitions needed.
+Skills may include a `references/` subfolder with supplementary Markdown docs that get loaded as context.
 
 ### Scripting Principle
 
@@ -53,7 +41,7 @@ Examples of what should be a script:
 - Keep SKILL.md focused on the workflow and decision-making logic
 - Use `references/` for static context the LLM needs (coding principles, validation checklists)
 - Trigger descriptions should be specific — list exact phrases the user might say
-- Reference skill scripts by path relative to the skill's directory (e.g. `scripts/foo.py`) — never `${CLAUDE_PLUGIN_ROOT}`, which breaks standalone installs (vercel CLI copies only the skill folder)
+- Reference skill scripts by path relative to the skill's directory (e.g. `scripts/foo.py`) — never `${CLAUDE_PLUGIN_ROOT}`, which only exists in Claude Code plugin context and breaks standalone installs
 
 ## Scripts
 
@@ -66,4 +54,4 @@ Examples of what should be a script:
 
 - No AI attribution in commits, PRs, or code comments
 - Conventional commit style: `<type>(<scope>): <description>`
-- Scope should be the plugin group name: `gh`, `research`, `spec-driven`, or `marketplace`
+- Scope should be the skill group name (`gh`, `research`, `spec-driven`) or `repo` for repo-wide changes

@@ -4,7 +4,7 @@
   "scripts": {
     "fmt": "oxfmt --write .",
     "fmt:check": "oxfmt --check .",
-    "validate": "bun .github/scripts/validate-marketplace.ts .claude-plugin/marketplace.json && bun .github/scripts/validate-frontmatter.ts && bun .github/scripts/check-marketplace-sorted.ts"
+    "validate": "bun .github/scripts/validate-frontmatter.ts"
   },
   "devDependencies": {
     "lefthook": "latest",
