@@ -7,7 +7,7 @@ A repo of agent skills following the [Agent Skills](https://agentskills.io) spec
 ```
 skills/
 ├── gh/                          # GitHub PR workflows
-│   └── open-pr/, address-comments/, fix-ci/, branch-context/
+│   └── open-pr/, address-comments/, fix-pr/, branch-context/
 ├── research/                    # Topic & code research
 │   └── topic/, code/
 └── spec-driven/                 # Spec-driven development
@@ -16,7 +16,7 @@ skills/
 
 ### Naming Conventions
 
-- Skills live in `skills/<group>/<name>/SKILL.md`; the frontmatter `name` carries the group prefix (e.g. `gh-fix-ci`) since it becomes the install directory name
+- Skills live in `skills/<group>/<name>/SKILL.md`; the frontmatter `name` carries the group prefix (e.g. `gh-fix-pr`) since it becomes the install directory name
 - Each skill is self-contained: scripts in `skills/<group>/<name>/scripts/`, reference docs in `skills/<group>/<name>/references/*.md`
 
 ## Skills
