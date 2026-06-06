@@ -1,44 +1,51 @@
 ---
 name: readme
-description: Generate or rewrite a repository README in a minimal centered-header style. Use when user says "write a readme", "generate readme", "update the readme", "document this repo", or asks for a README for any project. Inspects the repo to derive name, badges, and install/usage commands, then writes a terse README with a centered identity block, flat-square badges, an italic tagline, and copy-paste command blocks.
+description: Generate or rewrite a repository README in a minimal centered-header style. Use when user says "write a readme", "generate readme", "update the readme", "document this repo", or asks for a README for any project. Inspects the repo to derive name, badges, and install/usage commands, then writes a terse, all-lowercase README with a centered identity block, flat-square badges, an italic tagline, and copy-paste command blocks.
 license: MIT
 metadata:
   author: Athena Freitas - github.com/athenacfr
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # README Generator
 
 Write READMEs that respect the reader: a centered identity block, then copy-paste commands. Prose only where a command can't speak for itself.
 
+## Typography
+
+Two rules apply to every line of output:
+
+- **All lowercase**: headings, lead-ins, taglines, badge labels, table text. Verbatim tokens (commands, filenames, flags) and acronyms (PR, CI, CLI) keep their casing.
+- **Commas, not em dashes**: where an em dash would go, write a comma (or a colon before an expansion).
+
 ## Style contract
 
 Every README is exactly these blocks, top to bottom:
 
-1. **Centered header** — wrap in `<div align="center">`:
-   - `# <repo-name>` — match the project's own casing
+1. **Centered header**: wrap in `<div align="center">`:
+   - `# <repo-name>`, lowercase
    - One line of [shields.io](https://shields.io) badges: `style=flat-square`, base color `111111`. One badge per fact that is _true_ of the repo (license file → license badge; published package → registry badge; public repo → github badge). A repo with zero verifiable facts gets zero badges.
    - Preview image (`width="1000"`) if a screenshot/preview asset exists in the repo
-   - `_<tagline>_` — one italic sentence that says what this is; wit is welcome, vagueness is not
+   - `_<tagline>_`, one italic sentence that says what this is; wit is welcome, vagueness is not
    - close `</div>`
-2. **Action blocks** — 2–4 of them. Each is a terse imperative lead-in ("Run instantly:", "Install globally:", "Develop from source:") followed by a fenced `bash` block. The first block is the fastest path to value.
-3. **One compact section** (optional) — a single table or short list for content that can't be a command: a skills/recipes catalog, a structure map, a recovery procedure. One section, not several.
-4. **`<sub>` footer** (optional) — one line of attribution/credits.
+2. **Action blocks**: 2–4 of them. Each is a terse imperative lead-in ("run instantly:", "install globally:", "develop from source:") followed by a fenced `bash` block. The first block is the fastest path to value.
+3. **One compact section** (optional): a single table or short list for content that can't be a command: a skills/recipes catalog, a structure map, a recovery procedure. One section, not several.
+4. **`<sub>` footer** (optional): one line of attribution/credits.
 
 That's the whole README. If a section doesn't fit one of these four slots, it doesn't go in.
 
 ## Reference
 
-The shape to reproduce (from [t1code](https://github.com/maria-rcks/t1code)):
+The shape to reproduce (adapted from [t1code](https://github.com/maria-rcks/t1code)):
 
 ````markdown
 <div align="center">
 
 # t1code
 
-[![License](https://img.shields.io/badge/license-MIT-111111?style=flat-square)](./LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-111111?style=flat-square)](./LICENSE)
 [![npm](https://img.shields.io/npm/v/%40maria__rcks%2Ft1code?color=111111&label=npm&style=flat-square)](https://www.npmjs.com/package/@maria_rcks/t1code)
-[![GitHub](https://img.shields.io/badge/github-maria--rcks%2Ft1code-111111?style=flat-square&logo=github)](https://github.com/maria-rcks/t1code)
+[![github](https://img.shields.io/badge/github-maria--rcks%2Ft1code-111111?style=flat-square&logo=github)](https://github.com/maria-rcks/t1code)
 
 <img src="./assets/repo/t1code-preview.webp" alt="t1code terminal UI screenshot" width="1000" />
 
@@ -46,19 +53,19 @@ _T3Code, but in your terminal._
 
 </div>
 
-Run instantly:
+run instantly:
 
 ```bash
 bunx @maria_rcks/t1code
 ```
 
-Install globally:
+install globally:
 
 ```bash
 bun add -g @maria_rcks/t1code
 ```
 
-Develop from source:
+develop from source:
 
 ```bash
 git clone https://github.com/maria-rcks/t1code.git
@@ -67,7 +74,7 @@ bun install
 bun dev:tui
 ```
 
-<sub>Based on T3 Code by [@t3dotgg](https://github.com/t3dotgg) and [@juliusmarminge](https://github.com/juliusmarminge).</sub>
+<sub>based on T3 Code by [@t3dotgg](https://github.com/t3dotgg) and [@juliusmarminge](https://github.com/juliusmarminge).</sub>
 ````
 
 ## Workflow
@@ -85,7 +92,7 @@ ls justfile Makefile *.toml 2>/dev/null        # task runner → action blocks
 ls assets/ docs/ 2>/dev/null                   # preview image
 ```
 
-Read the repo enough to know what it _does_ — the tagline and the first action block come from purpose, not file listings. If a README already exists, mine it for facts (catalog tables, attribution), then rewrite it into the contract above.
+Read the repo enough to know what it _does_: the tagline and the first action block come from purpose, not file listings. If a README already exists, mine it for facts (catalog tables, attribution), then rewrite it into the contract above.
 
 ### 2. Derive the action blocks
 
@@ -98,7 +105,7 @@ Pick by repo type:
 | Skill/plugin set | install one-liner → what's inside (catalog table)                   |
 | Private/personal | primary daily commands → recovery/bootstrap procedure               |
 
-Every command must work as pasted — verify binaries and script names against the repo before writing them.
+Every command must work as pasted: verify binaries and script names against the repo before writing them.
 
 ### 3. Write
 
