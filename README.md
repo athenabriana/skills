@@ -1,51 +1,42 @@
-# Athena Skills
+<div align="center">
 
-Agent skills following the [Agent Skills](https://agentskills.io) spec. Works with Claude Code, Cursor, Codex, and any agent supported by the [skills CLI](https://github.com/vercel-labs/skills).
+# skills
 
-## Installation
+[![GitHub](https://img.shields.io/badge/github-athenabriana%2Fskills-111111?style=flat-square&logo=github)](https://github.com/athenabriana/skills)
+[![Spec](https://img.shields.io/badge/spec-agentskills.io-111111?style=flat-square)](https://agentskills.io)
+
+_Agent skills for Claude Code, Cursor, Codex, and any agent the [skills CLI](https://github.com/vercel-labs/skills) speaks to._
+
+</div>
+
+Install all of them:
 
 ```bash
 npx skills add athenabriana/skills
 ```
 
-## What's Inside
+Develop locally:
 
-### Skills (user-invokable via `/skill-name`)
-
-| Skill                 | Group       | Description                                                                                                                              |
-| --------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `gh-open-pr`          | gh          | Create a PR from the current branch                                                                                                      |
-| `gh-address-comments` | gh          | Address review comments on GitHub PRs                                                                                                    |
-| `gh-fix-pr`           | gh          | Finalize and green a PR: review, simplify, checks, comments, CI watch                                                                    |
-| `branch-context`      | gh          | Summarize all changes on the branch vs main                                                                                              |
-| `research-topic`      | research    | Deep research using parallel agents                                                                                                      |
-| `research-code`       | research    | Find, clone, and explore relevant repos                                                                                                  |
-| `tlc-spec-driven`     | spec-driven | Spec-driven development: Specify, Design, Tasks, Execute ([tech-leads-club](https://github.com/tech-leads-club/agent-skills), CC-BY-4.0) |
-
-### Bundled scripts
-
-Each skill is self-contained — its helper scripts live in the skill folder (`scripts/`), so they ship with the install.
-
-| Script                     | Skill                              | Purpose                                                       |
-| -------------------------- | ---------------------------------- | ------------------------------------------------------------- |
-| `gather_pr_context.py`     | `gh-open-pr`                       | Collects branch, commits, diff, PR template in one call       |
-| `fetch_comments.py`        | `gh-address-comments`, `gh-fix-pr` | Fetches all PR comments and review threads via GraphQL        |
-| `inspect_pr_checks.py`     | `gh-fix-pr`                        | Fetches failing CI checks and extracts log snippets           |
-| `reply_resolve_thread.py`  | `gh-fix-pr`                        | Replies to a review thread and/or resolves it via GraphQL     |
-| `gather_branch_context.py` | `branch-context`                   | Collects branch diff and commit context vs main               |
-| `search_repos.py`          | `research-code`                    | Searches GitHub by keyword + topic, dedupes, filters by stars |
-
-## Structure
-
-```
-skills/
-├── gh/            open-pr/, address-comments/, fix-pr/, branch-context/
-├── research/      topic/, code/
-└── spec-driven/   tlc-spec-driven/
+```bash
+git clone git@github.com:athenabriana/skills.git
+cd skills
+bun install
+bun validate
 ```
 
-Each skill folder holds a `SKILL.md` plus optional `scripts/` and `references/`.
+## What's inside
 
-## License
+| Skill                 | Group       | Description                                                           |
+| --------------------- | ----------- | --------------------------------------------------------------------- |
+| `gh-open-pr`          | gh          | Create a PR from the current branch                                   |
+| `gh-address-comments` | gh          | Address review comments on GitHub PRs                                 |
+| `gh-fix-pr`           | gh          | Finalize and green a PR: review, simplify, checks, comments, CI watch |
+| `branch-context`      | gh          | Summarize all changes on the branch vs main                           |
+| `research-topic`      | research    | Deep research using parallel agents                                   |
+| `research-code`       | research    | Find, clone, and explore relevant repos                               |
+| `tlc-spec-driven`     | spec-driven | Spec-driven development: Specify, Design, Tasks, Execute              |
+| `readme`              | docs        | Generate a minimal centered-header README from repo facts             |
 
-Individual components retain their original licenses.
+Each skill folder is self-contained — `SKILL.md` plus optional `scripts/` and `references/` ship with the install.
+
+<sub>`tlc-spec-driven` is based on [tech-leads-club/agent-skills](https://github.com/tech-leads-club/agent-skills) (CC-BY-4.0). Individual components retain their original licenses.</sub>
