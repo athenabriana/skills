@@ -1,6 +1,6 @@
 ---
 name: branch-context
-description: Gather and summarize all changes on the current branch compared to main. Use when user says "compare against main", "branch context", "what changed on this branch", "summarize my branch", "diff against main", "review my changes", or "what did I do on this branch".
+description: Gather and summarize all changes on the current branch compared to main. Use when user says "compare against main", "branch context", "what changed on this branch", "summarize my branch", "diff against main", "review my changes", or "what did I do on this branch". Do NOT use to fix or green a PR (use /gh-fix-pr), open a PR (use /gh-open-pr), or simplify and edit the diff (use /quality-simplify) — this only summarizes, it never edits.
 license: MIT
 metadata:
   author: Athena Freitas - github.com/athenacfr

@@ -1,6 +1,6 @@
 ---
 name: gh-fix-pr
-description: Finalize and green the open GitHub PR for the current branch, end-to-end. Reviews the diff for correctness bugs and simplification opportunities, runs the project's local checks (lint, typecheck, tests), triages review comments (fixes what makes sense, replies and resolves threads), pushes, then watches CI until green — diagnosing failures from actual logs. Use when user says "fix PR", "finish the PR", "green the PR", "leave the PR ready", or "address comments and fix CI". Do NOT use for creating PRs (use /gh-open-pr).
+description: Finalize and green the open GitHub PR for the current branch, end-to-end. Reviews the diff for correctness bugs and simplification opportunities, runs the project's local checks (lint, typecheck, tests), triages review comments (fixes what makes sense, replies and resolves threads), pushes, then watches CI until green — diagnosing failures from actual logs. Use when user says "fix PR", "finish the PR", "green the PR", "leave the PR ready", or "address comments and fix CI". Do NOT use for creating PRs (use /gh-open-pr), for triaging all open PRs and dependency updates (use /gh-maintenance), or for watching a PR on a loop (use /gh-watch-pr).
 license: MIT
 metadata:
   author: Athena Freitas - github.com/athenacfr

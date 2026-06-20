@@ -19,6 +19,8 @@ For each finding: file:line, what breaks, a concrete input/scenario that trigger
 
 ## Pass 2 — Quality (simplify; no behavior changes)
 
+These criteria are shared with the standalone `/quality-simplify` skill (`skills/quality/simplify/references/quality-checklist.md`) — keep the two in sync so a diff is judged identically here and there.
+
 Only touch code already changed by this branch — do not refactor untouched code "while at it".
 
 - **Reuse** — logic duplicated within the diff, or re-implementing a helper that already exists in the codebase (search before concluding it doesn't)
