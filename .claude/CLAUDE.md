@@ -12,8 +12,12 @@ skills/
 │   └── topic/, code/, digest/
 ├── build/                       # shape the idea, build it overnight
 │   └── shape/, night-shift/
-└── quality/                     # code quality
-    └── improve-code/            # adapted from Claude Code /simplify (Apache-2.0)
+├── quality/                     # code quality
+│   └── improve-code/            # adapted from Claude Code /simplify (Apache-2.0)
+├── docs/                        # repo docs
+│   └── readme/
+└── meta/                        # cross-cutting
+    └── take/
 ```
 
 ### Naming Conventions
@@ -57,4 +61,4 @@ Examples of what should be a script:
 
 - No AI attribution in commits, PRs, or code comments
 - Conventional commit style: `<type>(<scope>): <description>`
-- Scope should be the skill group name (`gh`, `research`, `build`, `quality`, `docs`) or `repo` for repo-wide changes
+- Scope should be the skill group name (`gh`, `research`, `build`, `quality`, `docs`, `meta`) or `repo` for repo-wide changes

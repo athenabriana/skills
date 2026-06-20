@@ -42,6 +42,7 @@ bun validate
 | `night-shift`         | build    | loop   | run one pre-shaped task overnight, ending at a draft PR (never merges) |
 | `improve-code`        | quality  | manual | improve a diff's quality with a hard regression guard (no bugs)      |
 | `readme`              | docs     | manual | generate a minimal centered-header README from repo facts           |
+| `take`                | meta     | manual | honest, decisive recommendation — commit, name the unseen tension, no sycophancy |
 
 skills are grouped by **flow** (the manual + loop skills of a flow stay together) and tagged by **mode**:
 
