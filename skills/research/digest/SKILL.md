@@ -3,7 +3,7 @@ name: research-digest
 description: A scheduled, read-only research/monitoring digest — reload a standing question/watch queue and produce a dated, cited brief each morning (competitor releases, a tracked repo's new issues/releases, a topic's new sources). Reuses the research-topic parallel-agent engine; writes nothing but the digest. Use when the user says "nightly research digest", "watch/track <topic|repo|competitor>", "tell me each morning about X", or "run the research queue". Do NOT use for an ad-hoc single question (use /research-topic) or for PR/dependency tending (use /gh-maintenance or /loop).
 license: MIT
 metadata:
-  author: Athena Freitas - github.com/athenacfr
+  author: Athena Briana - github.com/athenabriana
   version: 1.0.0
 ---
 

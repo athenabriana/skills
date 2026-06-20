@@ -3,7 +3,7 @@ name: readme
 description: Generate or rewrite a repository README in a minimal centered-header style. Use when user says "write a readme", "generate readme", "update the readme", "document this repo", or asks for a README for any project. Inspects the repo to derive name, badges, and install/usage commands, then writes a terse, all-lowercase README with a centered identity block, flat-square badges, an italic tagline, and copy-paste command blocks.
 license: MIT
 metadata:
-  author: Athena Freitas - github.com/athenacfr
+  author: Athena Briana - github.com/athenabriana
   version: 1.1.0
 ---
 

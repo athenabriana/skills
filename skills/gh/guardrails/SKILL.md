@@ -1,9 +1,9 @@
 ---
 name: gh-guardrails
-description: The safety substrate for any unattended/across-time run. Installs and verifies the layer that MUST accompany increased autonomy — a deterministic PreToolUse hook that blocks tier-2 (irreversible) operations, git-worktree isolation for local autonomous runs, a two-tier reversible/irreversible boundary, and an active self-test that proves the guard is live before a run proceeds. Use when the user says "make this safe to run unattended", "install the autonomy guardrails", "set up the no-merge hook", or "what can run without me". Pair this with every loop/overnight/scheduled skill. Do NOT use to do the work itself (see /gh-watch-pr, /gh-maintenance, /research-digest, /tlc-spec-driven).
+description: The safety substrate for any unattended/across-time run. Installs and verifies the layer that MUST accompany increased autonomy — a deterministic PreToolUse hook that blocks tier-2 (irreversible) operations, git-worktree isolation for local autonomous runs, a two-tier reversible/irreversible boundary, and an active self-test that proves the guard is live before a run proceeds. Use when the user says "make this safe to run unattended", "install the autonomy guardrails", "set up the no-merge hook", or "what can run without me". Pair this with every loop/overnight/scheduled skill. Do NOT use to do the work itself (see /gh-watch-pr, /gh-maintenance, /research-digest, /shape).
 license: MIT
 metadata:
-  author: Athena Freitas - github.com/athenacfr
+  author: Athena Briana - github.com/athenabriana
   version: 1.0.0
 ---
 

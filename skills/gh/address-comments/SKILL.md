@@ -3,7 +3,7 @@ name: gh-address-comments
 description: Address review and issue comments on the open GitHub PR for the current branch using gh CLI. Use when user says "address PR comments", "fix review feedback", "respond to PR review", or "handle PR comments". Verifies gh auth first and prompts to authenticate if not logged in. Do NOT use for creating PRs, full PR finalization with CI watch (use /gh-fix-pr), or general Git operations.
 license: MIT
 metadata:
-  author: Athena Freitas - github.com/athenacfr
+  author: Athena Briana - github.com/athenabriana
   version: 1.0.0
 ---
 

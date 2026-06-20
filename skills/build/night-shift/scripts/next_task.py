@@ -18,7 +18,7 @@ Emits {done, total, remaining, next: {id, title, files, raw} | null}. When
 next is null, the backlog is empty (the loop should no-op and report).
 
 Usage:
-  python next_task.py --tasks .specs/features/<feature>/tasks.md
+  python next_task.py --tasks .shape/<slug>/tasks.md
 """
 
 from __future__ import annotations

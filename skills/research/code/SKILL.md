@@ -3,7 +3,7 @@ name: research-code
 description: Code-focused research that finds, clones, and explores relevant repositories. Use when user says "find repos for", "how do others implement", "code research", "find examples of", "explore how [project] works", "clone and analyze", or asks about implementation patterns, library comparisons, or codebase architecture. Do NOT use for general topic research (use /research-topic instead).
 license: MIT
 metadata:
-  author: Athena Freitas - github.com/athenacfr
+  author: Athena Briana - github.com/athenabriana
   version: 1.0.0
 ---
 

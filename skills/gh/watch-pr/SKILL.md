@@ -3,7 +3,7 @@ name: gh-watch-pr
 description: Supervised, session-scoped self-monitoring of the current branch's PR — watch it for new review-bot/reviewer comments, failed CI, and merge conflicts, and self-address them by handing off to gh-fix-pr, stopping at its approval gate. The "I'm at my desk" loop, not an AFK one. Use when the user says "watch my PR", "babysit this PR", "keep my PR green while I work", or "ping fix-pr when CI/comments change". Do NOT use for the initial fix pass (use /gh-fix-pr), to open a PR (use /gh-open-pr), or for an overnight/machine-off run (use a Cloud Routine — see /gh-guardrails scheduling-decision.md).
 license: MIT
 metadata:
-  author: Athena Freitas - github.com/athenacfr
+  author: Athena Briana - github.com/athenabriana
   version: 1.0.0
 ---
 
@@ -11,7 +11,7 @@ metadata:
 
 Turn the PR you're iterating on into a hands-light loop **while you're at your desk**: each tick it checks for new bot/reviewer comments, red CI, or conflicts, and when there's work it hands off to your flagship `/gh-fix-pr` — which keeps its own approval gate before any push. You stay the writer of the merge decision; the loop just removes the "keep refreshing the PR tab" toil.
 
-This is deliberately **session-scoped and supervised**, not AFK. For machine-off overnight work, use a Cloud Routine (the `gh-maintenance` event routine, or the overnight-spec recipe) — see `gh-guardrails/references/scheduling-decision.md`.
+This is deliberately **session-scoped and supervised**, not AFK. For machine-off overnight work, use a Cloud Routine (the `gh-maintenance` event routine, or the night-shift recipe) — see `gh-guardrails/references/scheduling-decision.md`.
 
 ## Two ways to run it
 

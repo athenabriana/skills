@@ -15,7 +15,7 @@ claude/-prefixed branch, so it does NOT need this — see
 ../references/scheduling-decision.md.
 
 Usage:
-  python enter_worktree.py --label overnight-spec
+  python enter_worktree.py --label night-shift
   python enter_worktree.py --label watch-pr --base main --repo /path/to/repo
 """
 

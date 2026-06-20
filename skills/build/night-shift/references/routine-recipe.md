@@ -1,14 +1,14 @@
-# Cloud Routine recipe — one spec task per night, draft-PR only
+# Cloud Routine recipe — one shaped task per night, draft-PR only
 
-Schedule `overnight-spec` as a Cloud Routine (via `/schedule` or
+Schedule `night-shift` as a Cloud Routine (via `/schedule` or
 claude.ai/code/routines — not a session `/loop`, which expires and dies on
 sleep). Same cloud constraints: fresh clone, **no local files**, **no approval
 prompts mid-run**, durable output only via a `claude/` branch / PR.
 
 ## Setup checklist
 
-- [ ] **Commit the spec.** `.specs/features/<feature>/{spec,tasks}.md` and the
-      `overnight-spec` + `tlc-spec-driven` skills must be committed to the target
+- [ ] **Commit the shaped tasks.** `.shape/<slug>/{BRIEF,tasks}.md` and the
+      `night-shift` + `shape` skills must be committed to the target
       repo — the fresh clone can only see what's in git.
 - [ ] **Withhold merge capability** (the real never-merge guarantee): the
       routine's GitHub token/App has no merge permission, "Allow unrestricted
@@ -22,7 +22,7 @@ prompts mid-run**, durable output only via a `claude/` branch / PR.
 
 ## The routine prompt (self-contained — no session memory)
 
-> Run the `overnight-spec` skill against `.specs/features/<feature>/tasks.md` in
+> Run the `night-shift` skill against `.shape/<slug>/tasks.md` in
 > this repo. First run the guard self-test; abort if it fails. Implement the ONE
 > next unchecked task only. Hard limits: touch at most **N files / M diff lines**
 > — if the task would exceed that, stop and open the partial draft PR instead of

@@ -3,7 +3,7 @@ name: gh-open-pr
 description: Create a GitHub pull request from the current branch. Use when user says "open PR", "create PR", "submit PR", "make a pull request", or "push and open PR". Gathers commit history, drafts a title and description, and opens the PR via gh CLI. Do NOT use for addressing PR comments (use /gh-address-comments) or finalizing/greening an existing PR (use /gh-fix-pr).
 license: MIT
 metadata:
-  author: Athena Freitas - github.com/athenacfr
+  author: Athena Briana - github.com/athenabriana
   version: 1.0.0
 ---
 

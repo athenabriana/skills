@@ -6,12 +6,14 @@ A repo of agent skills following the [Agent Skills](https://agentskills.io) spec
 
 ```
 skills/
-├── gh/                          # GitHub PR workflows
-│   └── open-pr/, address-comments/, fix-pr/, branch-context/
-├── research/                    # Topic & code research
-│   └── topic/, code/
-└── spec-driven/                 # Spec-driven development
-    └── tlc-spec-driven/         # vendored from tech-leads-club/agent-skills (CC-BY-4.0)
+├── gh/                          # GitHub PR workflows + autonomy
+│   └── open-pr/, address-comments/, fix-pr/, maintenance/, watch-pr/, guardrails/, branch-context/
+├── research/                    # research + scheduled digest
+│   └── topic/, code/, digest/
+├── build/                       # shape the idea, build it overnight
+│   └── shape/, night-shift/
+└── quality/                     # code quality
+    └── improve-code/            # adapted from Claude Code /simplify (Apache-2.0)
 ```
 
 ### Naming Conventions
@@ -54,4 +56,4 @@ Examples of what should be a script:
 
 - No AI attribution in commits, PRs, or code comments
 - Conventional commit style: `<type>(<scope>): <description>`
-- Scope should be the skill group name (`gh`, `research`, `spec-driven`) or `repo` for repo-wide changes
+- Scope should be the skill group name (`gh`, `research`, `build`, `quality`, `docs`) or `repo` for repo-wide changes
