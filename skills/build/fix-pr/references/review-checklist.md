@@ -19,7 +19,7 @@ For each finding: file:line, what breaks, a concrete input/scenario that trigger
 
 ## Pass 2 — Quality (simplify; no behavior changes)
 
-These criteria are shared with the standalone `/improve-code` skill (`skills/quality/improve-code/references/quality-checklist.md`) — keep the two in sync so a diff is judged identically here and there.
+These criteria are shared with the standalone `/improve-code` skill (`skills/build/improve-code/references/quality-checklist.md`) — keep the two in sync so a diff is judged identically here and there.
 
 Only touch code already changed by this branch — do not refactor untouched code "while at it".
 

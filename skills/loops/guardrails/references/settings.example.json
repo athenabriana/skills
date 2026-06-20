@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python skills/gh/guardrails/scripts/guard_irreversible.py"
+            "command": "python skills/loops/guardrails/scripts/guard_irreversible.py"
           }
         ]
       }

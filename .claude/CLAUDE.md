@@ -6,23 +6,17 @@ A repo of agent skills following the [Agent Skills](https://agentskills.io) spec
 
 ```
 skills/
-├── gh/                          # GitHub PR workflows + autonomy
-│   └── open-pr/, address-comments/, fix-pr/, maintenance/, watch-pr/, guardrails/, branch-context/
-├── research/                    # research + scheduled digest
-│   └── topic/, code/, digest/
-├── build/                       # shape the idea, build it overnight
-│   └── shape/, night-shift/
-├── quality/                     # code quality
-│   └── improve-code/            # adapted from Claude Code /simplify (Apache-2.0)
-├── docs/                        # repo docs
-│   └── readme/
-└── meta/                        # cross-cutting
-    └── take/
+├── build/                       # write & ship code, you-driven
+│   └── shape/, open-pr/, address-comments/, fix-pr/, branch-context/, improve-code/
+├── loops/                       # run across time (scheduled / event-driven)
+│   └── maintenance/, watch-pr/, night-shift/, digest/, guardrails/
+└── utils/                       # standalone helpers
+    └── topic/, code/, readme/, take/
 ```
 
 ### Naming Conventions
 
-- Skills live in `skills/<group>/<name>/SKILL.md`; the frontmatter `name` carries the group prefix (e.g. `gh-fix-pr`) since it becomes the install directory name
+- Skills live in `skills/<group>/<name>/SKILL.md`. The frontmatter `name` is the stable install/invoke identity (e.g. `gh-fix-pr`, `take`) and is kept FIXED across folder moves — it does not have to match the group (groups organize by use; names are the established triggers)
 - Each skill is self-contained: scripts in `skills/<group>/<name>/scripts/`, reference docs in `skills/<group>/<name>/references/*.md`
 
 ## Skills
@@ -61,4 +55,4 @@ Examples of what should be a script:
 
 - No AI attribution in commits, PRs, or code comments
 - Conventional commit style: `<type>(<scope>): <description>`
-- Scope should be the skill group name (`gh`, `research`, `build`, `quality`, `docs`, `meta`) or `repo` for repo-wide changes
+- Scope should be the skill group name (`build`, `loops`, `utils`) or `repo` for repo-wide changes
