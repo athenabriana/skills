@@ -80,16 +80,6 @@ Then fix, commit, push, and go back to Phase 4. Guessing the root cause wastes a
 
 **Loop limit:** after 3 failed fix cycles, stop and report to the user with the diagnosis of each attempt.
 
-## Anti-Patterns (DO NOT)
-
-- **DO NOT** edit files based on the check name alone without reading logs
-- **DO NOT** assume the error from a previous run still applies — always fetch fresh logs
-- **DO NOT** retry the same fix if it failed — re-diagnose with new logs
-- **DO NOT** resolve a thread without replying to it first
-- **DO NOT** resolve threads you answered with disagreement — leave those for the reviewer
-- **DO NOT** push or reply to threads before the Phase 3 approval
-- **DO NOT** make unrelated "while I'm at it" changes beyond what the review/comments call for
-
 ## Bundled Resources
 
 ### references/review-checklist.md

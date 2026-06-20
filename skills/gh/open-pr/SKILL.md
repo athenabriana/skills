@@ -70,11 +70,3 @@ Fallback body format (only when no PR template exists):
    - Add `--label`, `--reviewer`, `--assignee` flags if the user specifies them
 
 4. Output the PR URL
-
-## Anti-Patterns (DO NOT)
-
-- **DO NOT** create the PR without showing the draft to the user first
-- **DO NOT** add AI attribution or "Co-Authored-By" lines
-- **DO NOT** push force or rebase without explicit user request
-- **DO NOT** list files individually in the PR body — group changes by purpose
-- **DO NOT** include changes from the base branch in the description — only describe what this branch adds

@@ -41,6 +41,7 @@ Examples of what should be a script:
 ### Writing Guidelines
 
 - Keep SKILL.md focused on the workflow and decision-making logic
+- No anti-pattern / "DO NOT" lists — enforce irreversible hazards with hooks (see `gh-guardrails`); keep guidance positive and lean (negative lists are context noise and a weaker signal for the model)
 - Use `references/` for static context the LLM needs (coding principles, validation checklists)
 - Trigger descriptions should be specific — list exact phrases the user might say
 - Reference skill scripts by path relative to the skill's directory (e.g. `scripts/foo.py`) — never `${CLAUDE_PLUGIN_ROOT}`, which only exists in Claude Code plugin context and breaks standalone installs

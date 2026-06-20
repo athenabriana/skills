@@ -25,13 +25,6 @@ For local / Desktop-scheduled autonomous runs and parallel tasks, run inside a t
 
 `references/scheduling-decision.md` is the decision table for `/loop` vs Desktop task vs Cloud Routine vs Channels vs `/goal` vs the Monitor tool, with their real limits — so an AFK overnight job is never scheduled as a session `/loop` that silently dies.
 
-## Anti-Patterns (DO NOT)
-
-- **DO NOT** treat the hook as the primary control — it is a tripwire behind withheld capability. A determined model can route around any string matcher.
-- **DO NOT** rely on Auto Mode classifiers as a substitute for human review on tier-2 actions — their adversarial robustness is contested (~17% vendor vs ~81% independent false-negative rate).
-- **DO NOT** run an unattended write without passing `selftest_guard.py` first.
-- **DO NOT** commit the hook only to your local `~/.claude` and assume a cloud routine honors it — it must be in the target repo.
-
 ## Bundled Resources
 
 ### scripts/guard_irreversible.py

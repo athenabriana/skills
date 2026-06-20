@@ -46,13 +46,6 @@ Before asserting how something works: check the codebase, then its docs, then th
 
 Shaping ends at alignment + BRIEF (+ slices). Building is `/gh-open-pr` → `/gh-fix-pr`, or the overnight loop (`/night-shift`) reloads `.shape/<slug>/tasks.md` and builds one slice per run. **Safety valve:** if building reveals the idea was underspecified (surprises pile up), STOP and re-shape — that's the signal alignment was incomplete, not a license to improvise.
 
-## Anti-Patterns (DO NOT)
-
-- **DON'T** write a long doc before you've aligned — interrogate first, capture second.
-- **DON'T** start coding before you can restate the idea and the user confirms it.
-- **DON'T** treat BRIEF.md as a rigid spec — it's shared understanding, kept light and editable.
-- **DON'T** fabricate behavior to fill a gap — ask or flag it.
-
 ## Bundled Resources
 
 ### references/grill-me.md

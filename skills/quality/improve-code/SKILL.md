@@ -80,18 +80,6 @@ Stop short of changes that hurt the code even if they shrink it:
 - Don't make the code harder to debug, extend, or read in pursuit of "elegance".
 - When an edit's value is marginal and its risk to clarity is real, leave it.
 
-## Anti-Patterns (DO NOT)
-
-- **DO NOT** change behavior — if you're unsure an edit is behavior-preserving,
-  leave it and flag it instead.
-- **DO NOT** batch many edits and check once — apply incrementally with a check
-  between them.
-- **DO NOT** simplify untested logic on faith — flag it or add a check first.
-- **DO NOT** touch code outside this branch's diff.
-- **DO NOT** report or "fix" bugs here — that's correctness review (`/gh-fix-pr`).
-- **DO NOT** introduce nested ternaries or dense one-liners "to simplify".
-- **DO NOT** claim a helper already exists without searching for it first.
-
 ## Bundled Resources
 
 ### references/quality-checklist.md

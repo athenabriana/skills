@@ -42,13 +42,6 @@ a Cloud Routine. It builds on `/shape` (the brief + sliced tasks) and
 - **Halt loud.** The worst overnight outcome is "no progress + a clear blocker note", never a runaway or a fabricated fix.
 - **Cost.** Single-agent only inside the loop (no fan-out — ~15× tokens compounds per iteration) until a week of usage is measured at claude.ai. Cron-once per night.
 
-## Anti-Patterns (DO NOT)
-
-- **DO NOT** run a continuous `while-true` loop on a real codebase.
-- **DO NOT** implement more than the one selected task, or invent work not in `tasks.md`.
-- **DO NOT** merge, or push to a protected branch — draft PR + human review only.
-- **DO NOT** assume a local `.shape/` is visible to a cloud routine — it must be committed.
-
 ## Bundled Resources
 
 ### scripts/next_task.py
