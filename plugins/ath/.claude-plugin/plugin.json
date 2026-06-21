@@ -1,7 +1,7 @@
 {
   "name": "ath",
   "description": "Athena's agent skills as one plugin: shape & ship code, run work across time on a no-merge guardrail hook, and standalone helpers. Skills are invoked as /ath:<skill> (e.g. /ath:shape-idea). Ships a PreToolUse guard hook and a SessionStart operating-context hook.",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "author": {
     "name": "Athena Briana",
     "email": "me@athenabriana.com"

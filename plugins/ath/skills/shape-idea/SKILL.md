@@ -4,7 +4,7 @@ description: Align on the idea before building — Claude develops a draft, loop
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 1.6.0
+  version: 1.7.0
 ---
 
 # Shape
@@ -52,7 +52,7 @@ Before the gate, the load-bearing technical decisions must be **made or explicit
 - **Error & edge handling** — failure & rollback, empty/huge inputs, first-run vs repeat, migrating data that already exists.
 - **Integration points** — what it touches: existing systems, dependencies, external services.
 
-These are the decisions that bite *after* you've built against them — expensive to undo — so they get closed here, before slicing. A fork left open is what the gate blocks on.
+These are the decisions that bite *after* you've built against them — expensive to undo — so they get closed here, before slicing. A fork left open is what the gate blocks on. For Large work, record the closed decisions in the brief's `## design` section; for Medium, inline in the decisions.
 
 ## Capture the alignment (lightweight, on disk)
 
@@ -60,7 +60,9 @@ Write a single `.shape/<slug>.md` — the converged draft itself: **what** we're
 
 `<slug>` is a short kebab name for the idea. If `.shape/<slug>.md` already exists for a *different* idea, suffix it (`-2`) or ask — never silently overwrite another brief.
 
-For Large work add a `## tasks` section to the same file — **vertical slices** (each a thin end-to-end cut that delivers something visible) as a GitHub-style checklist (`- [ ]`) the build side consumes.
+For **Large** work, capture the closed technical decisions in a `## design` section — components and their boundaries, the data model, key data flows, and the decisions that bite — so the architecture is reviewable as one block and the build side (`/ath:implement-idea`, `/ath:night-shift`) reads it as the intent. **Medium** work keeps these inline in the decisions above; no `## design` block (that would be ceremony for a small feature).
+
+Also for Large work, add a `## tasks` section to the same file — **vertical slices** (each a thin end-to-end cut that delivers something visible) as a GitHub-style checklist (`- [ ]`) the build side consumes.
 
 ## Don't fabricate
 
