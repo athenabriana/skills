@@ -17,7 +17,7 @@ A validated `.shape/<slug>.md` (brief + a `## tasks` checklist). If there's no s
 
 ## Workflow
 
-1. **Load the brief.** Read `.shape/<slug>.md` whole: what/why, the decisions made, the **reuse** notes, the `## design` block (components, data model, data flow — present for Large work; follow it), what's **out of scope** (a hard line — do not build it), and the `## tasks` slices.
+1. **Load the brief.** Read `.shape/<slug>.md` whole: what/why, the decisions made, the **reuse** notes, the `## design` block (components, data model, data flow — Large work; follow it), the `## behavior` map (happy path + edge→outcome — **build to this; it's the acceptance contract**), what's **out of scope** (a hard line — do not build it), and the `## tasks` slices.
 2. **Reuse first.** Before writing anything, confirm the code/patterns named in the brief's reuse notes still exist, and prefer extending them over reinventing. If they've moved or changed, flag it and adjust rather than guessing.
 3. **Implement every unchecked slice, in order.** Each slice is a thin end-to-end cut — build it as one. Stay inside scope; the out-of-scope bucket is a boundary, not a suggestion.
 4. **Keep the gate green as you go.** Detect the project's checks in this order of authority: CLAUDE.md / docs → CI workflow files → `package.json` / `justfile` / `Makefile` / `pyproject.toml`. Run lint/format/typecheck/tests; fix before moving on. Run what CI runs, not a subset.

@@ -53,7 +53,7 @@ Launch ALL concurrently — review agents in a single message, scripts/checks as
 
    Each verifies every finding against the actual file (not just the diff) and returns: `file:line | what | evidence | suggested fix | confidence`.
    For tiny diffs (≲2 files / ≲100 lines), skip the fan-out and apply the checklist in the main context.
-   If a `.shape/*.md` brief matches this branch, pass it to the agents as the intended scope — review the diff against what was agreed (did it build the shaped thing, and only that?), not just generic correctness.
+   If a `.shape/*.md` brief matches this branch, pass it to the agents as the intended scope — review the diff against what was agreed (did it build the shaped thing, and only that?), not just generic correctness. Its `## behavior` map is the acceptance contract: check the happy path is built and each mapped edge is handled per its expected outcome — a mapped behavior with no corresponding code or test is a finding.
 
 2. **Comments fetch** (background): `python scripts/fetch_comments.py` — conversation comments, reviews, and review threads (with `id` and `isResolved`) as JSON.
 3. **Local checks** (background): detect the project's check commands in this order of authority: project CLAUDE.md / docs, CI workflow files (`.github/workflows/`), then `package.json` / `justfile` / `Makefile` / `pyproject.toml`. Run the full gate CI runs — lint, format, typecheck, tests — as concurrent background shells. A baseline run that surfaces pre-existing failures while the review agents work.
