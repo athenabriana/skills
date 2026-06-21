@@ -4,7 +4,7 @@ description: Align on the idea before building — Claude develops a draft, loop
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 1.10.0
+  version: 1.11.0
 ---
 
 # Shape
@@ -36,11 +36,11 @@ You bring the idea; Claude develops it, then loops with you through the **`AskUs
 5. **Adversarial completeness pass (when the gray areas run dry).** Don't *review* the brief — try to **break** it; the same model that wrote the map rubber-stamps it on a re-read. Three moves, looping anything they surface back to step 3:
    - **Run the generators** (`references/completeness-generators.md`) to manufacture questions along the axes omission hides in — input dimensions, external outputs' empty/limit/shape-change cases, state & lifecycle, failure & recovery, concurrency, trust boundary, data lifecycle, observability. Output is questions, not filled sections.
    - **Spawn an independent reviewer** (Agent tool, fresh context) given ONLY the brief and the mandate *"you did not write this — find what's missing, unmapped, or self-contradicting."* The author can't see its own omissions; a reviewer with no memory of the conversation that produced the brief can. Large always; Medium when it's worth the one fan-out.
-   - **Check traceability** — every mapped behavior traces to a task/slice and every task to a behavior; an unlinked item is a mechanically-visible omission.
+   - **Render the trace** — lay out behavior → slice → test as a coverage table, not a mental check: every mapped behavior traces to a slice and every slice to a behavior. An unlinked row IS the omission — made visible rather than asserted. This is the table the gate shows; "I checked traceability" becomes proof the user can see.
 
    What you're hunting: (a) **unresolved load-bearing decisions** (a technical fork building can't proceed without, still blank or "TBD"); (b) **unmapped or unanswered behavior** (a happy-path step glossed over, an edge with no decided outcome); (c) **material contradictions**. Load-bearing gaps, behavior holes, and real conflicts only — don't manufacture nitpicks, or the loop never closes.
 
-6. **The exit gate — blocks on open load-bearing decisions.** Don't gate blind: first **show the artifact the user is signing off on** — a tight recap of the happy path plus the full edge→outcome table — so "is this complete?" is answerable at a glance instead of forcing them to reopen the file. Then list what's **still open** (unresolved load-bearing decisions + parked questions). Then ask one `AskUserQuestion`:
+6. **The exit gate — blocks on open load-bearing decisions.** Don't gate blind: first **show the artifact the user is signing off on** — a tight recap of the happy path, the full edge→outcome table, and the **coverage table** (behavior → slice → test) with `⚠️` on any unmapped row plus a one-line counter (`N behaviors, M mapped, K open`) — so "is this complete?" is answerable at a glance instead of forcing them to reopen the file. Rendering the coverage is what turns the completeness pass from a claim into something the user can verify. Then list what's **still open** (unresolved load-bearing decisions + parked questions). Then ask one `AskUserQuestion`:
    - **If any load-bearing decision is still open:** do NOT offer a clean "build". The only options are **resolve it now** or **defer explicitly** ("decide at build time" — recorded as such in the brief). Never a silent "build anyway".
    - **If nothing load-bearing is open:** *adjust something, or ready to build?* Adjust → back into the loop. Ready → write/finalize `.shape/<slug>.md`, **stop**, and tell the user exactly what to run (see "Hand off").
 
@@ -64,7 +64,7 @@ These are the decisions that bite *after* you've built against them — expensiv
 The behaviors are what guarantee the built thing matches the idea — so map them **meticulously, not as a sketch**. An unmapped behavior is an unverified assumption about the final result; the completeness of this map is the fidelity between idea and outcome.
 
 - **Happy path** — walk the main flow step by step and concretely: input → what happens → observable output. Don't abbreviate; the steps you skip are the gaps that surface in review.
-- **Edge cases** — every meaningful deviation, each with its **expected outcome**: empty / zero / huge input, invalid input, first-run vs repeat, concurrent use, failure & rollback, denied permission/auth, partial or interrupted runs, migrating existing data. Map the *outcome*, not just that the case exists.
+- **Edge cases** — every meaningful deviation, each with its **expected outcome**, phrased `WHEN <case> THEN <observable outcome>` so each row reads directly as a test: empty / zero / huge input, invalid input, first-run vs repeat, concurrent use, failure & rollback, denied permission/auth, partial or interrupted runs, migrating existing data. Map the *outcome*, not just that the case exists.
 
 Walking each behavior surfaces decisions you haven't made — those go back into the loop as gray areas, and each edge's outcome drives its handling in the technical forks. **A behavior with no decided outcome is an open item the gate blocks on.** Litmus for whether an edge's outcome is load-bearing (not just a minor case): **does its outcome contradict the `why`?** If choosing the wrong outcome would make the built thing betray its own reason for existing — a privacy app that leaks, a grounded-answer tool that hallucinates when retrieval is empty — it's load-bearing, and the gate blocks on it like any other fork. The "error & edge handling" bullet is generic; this test is what promotes a specific edge to load-bearing. This map doubles as the acceptance criteria: each behavior is something `/ath:ship-pr` and the local gate check against, and each happy-path segment is a vertical slice. Record it in a `## behavior` section for Large work (happy path + an edge→outcome table); inline for Medium.
 
@@ -76,9 +76,9 @@ Write a single `.shape/<slug>.md` — the converged draft itself: **what** we're
 
 For **Large** work, capture the closed technical decisions in a `## design` section — components and their boundaries, the data model, key data flows, and the decisions that bite — so the architecture is reviewable as one block and the build side (`/ath:implement-idea`, `/ath:night-shift`) reads it as the intent. **Medium** work keeps these inline in the decisions above; no `## design` block (that would be ceremony for a small feature).
 
-For Large work, also capture the **behavior map** in a `## behavior` section — the happy path step by step plus an edge→expected-outcome table. It's the acceptance contract the build and review check against (Medium keeps it inline).
+For Large work, also capture the **behavior map** in a `## behavior` section — the happy path step by step plus an edge→outcome table whose rows are phrased `WHEN … THEN …` (each row a test). It's the acceptance contract the build and review check against (Medium keeps it inline).
 
-Also for Large work, add a `## tasks` section to the same file — **vertical slices** (each a thin end-to-end cut that delivers something visible) as a GitHub-style checklist (`- [ ]`) the build side consumes. **Each slice cites the behavior(s) it delivers, and every mapped behavior has at least one slice** — that two-way trace is what makes an omission show up as an unlinked item rather than a silent gap.
+Also for Large work, add a `## tasks` section to the same file — **vertical slices** (each a thin end-to-end cut that delivers something visible) as a GitHub-style checklist (`- [ ]`) the build side consumes. **Each slice cites the behavior(s) it delivers, and every mapped behavior has at least one slice** — that two-way trace is what makes an omission show up as an unlinked item rather than a silent gap, and it's what the gate renders as the coverage table.
 
 ## Don't fabricate
 
