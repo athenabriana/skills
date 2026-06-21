@@ -1,0 +1,25 @@
+{
+  "name": "athenabriana",
+  "owner": {
+    "name": "Athena Briana",
+    "email": "me@athenabriana.com"
+  },
+  "description": "Athena's agent skills, grouped by use into installable plugins.",
+  "plugins": [
+    {
+      "name": "build",
+      "source": "./plugins/build",
+      "description": "write & ship code, you-driven: shape, open-pr, fix-pr, address-comments, branch-context, improve-code"
+    },
+    {
+      "name": "loops",
+      "source": "./plugins/loops",
+      "description": "run across time (scheduled / event-driven) on a no-merge guardrail hook: maintenance, watch-pr, night-shift, digest, guardrails"
+    },
+    {
+      "name": "utils",
+      "source": "./plugins/utils",
+      "description": "standalone helpers: research (topic / code), readme, take"
+    }
+  ]
+}

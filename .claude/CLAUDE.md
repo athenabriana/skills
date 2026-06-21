@@ -1,23 +1,29 @@
 # Skills
 
-A repo of agent skills following the [Agent Skills](https://agentskills.io) spec, installable via the [vercel-labs/skills](https://github.com/vercel-labs/skills) CLI: `npx skills add athenabriana/skills`. The CLI auto-discovers the catalog layout `skills/<group>/<name>/SKILL.md`.
+A **Claude Code plugin marketplace**: three plugins (`build`, `loops`, `utils`) grouped by use. Install via `claude plugin marketplace add athenabriana/skills` then `claude plugin install <plugin>@athenabriana`. Skills are invoked as `/<plugin>:<skill>` (e.g. `/build:fix-pr`). The `loops` plugin ships a `PreToolUse` guard hook that auto-activates on install.
 
 ## Structure
 
 ```
-skills/
-├── build/                       # write & ship code, you-driven
-│   └── shape/, open-pr/, address-comments/, fix-pr/, branch-context/, improve-code/
-├── loops/                       # run across time (scheduled / event-driven)
-│   └── maintenance/, watch-pr/, night-shift/, digest/, guardrails/
-└── utils/                       # standalone helpers
-    └── topic/, code/, readme/, take/
+.claude-plugin/marketplace.json    # lists the build / loops / utils plugins
+plugins/
+├── build/                         # write & ship code, you-driven
+│   ├── .claude-plugin/plugin.json
+│   └── skills/  → shape, open-pr, address-comments, fix-pr, branch-context, improve-code
+├── loops/                         # run across time (scheduled / event-driven)
+│   ├── .claude-plugin/plugin.json
+│   ├── hooks/hooks.json           # the no-merge PreToolUse guard — auto-activates
+│   └── skills/  → maintenance, watch-pr, night-shift, digest, guardrails
+└── utils/                         # standalone helpers
+    ├── .claude-plugin/plugin.json
+    └── skills/  → topic, code, readme, take
 ```
 
 ### Naming Conventions
 
-- Skills live in `skills/<group>/<name>/SKILL.md`. The frontmatter `name` is the stable install/invoke identity (e.g. `gh-fix-pr`, `take`) and is kept FIXED across folder moves — it does not have to match the group (groups organize by use; names are the established triggers)
-- Each skill is self-contained: scripts in `skills/<group>/<name>/scripts/`, reference docs in `skills/<group>/<name>/references/*.md`
+- Skills live in `plugins/<plugin>/skills/<name>/SKILL.md`. The frontmatter `name` is **bare** (e.g. `fix-pr`, `take`) — the plugin namespace supplies the prefix, so the skill is invoked as `/<plugin>:<name>` (`/build:fix-pr`). Do not put the group in the name.
+- Each skill is self-contained: `scripts/` and `references/*.md` relative to the skill dir.
+- A plugin ships hooks in `plugins/<plugin>/hooks/hooks.json` (auto-activate when the plugin is enabled). Use them to enforce irreversible hazards — see the `loops` no-merge guard. Hook commands reference scripts via `${CLAUDE_PLUGIN_ROOT}/skills/<name>/scripts/...`.
 
 ## Skills
 
@@ -39,10 +45,10 @@ Examples of what should be a script:
 ### Writing Guidelines
 
 - Keep SKILL.md focused on the workflow and decision-making logic
-- No anti-pattern / "DO NOT" lists — enforce irreversible hazards with hooks (see `gh-guardrails`); keep guidance positive and lean (negative lists are context noise and a weaker signal for the model)
+- No anti-pattern / "DO NOT" lists — enforce irreversible hazards with hooks (see `/loops:guardrails`); keep guidance positive and lean (negative lists are context noise and a weaker signal for the model)
 - Use `references/` for static context the LLM needs (coding principles, validation checklists)
 - Trigger descriptions should be specific — list exact phrases the user might say
-- Reference skill scripts by path relative to the skill's directory (e.g. `scripts/foo.py`) — never `${CLAUDE_PLUGIN_ROOT}`, which only exists in Claude Code plugin context and breaks standalone installs
+- Skill workflows reference their own scripts relatively (e.g. `scripts/foo.py`). Only **hooks** use `${CLAUDE_PLUGIN_ROOT}` (the plugin's absolute install path) — skill bodies should not.
 
 ## Scripts
 

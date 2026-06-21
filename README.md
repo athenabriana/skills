@@ -3,53 +3,61 @@
 # skills
 
 [![github](https://img.shields.io/badge/github-athenabriana%2Fskills-111111?style=flat-square&logo=github)](https://github.com/athenabriana/skills)
-[![spec](https://img.shields.io/badge/spec-agentskills.io-111111?style=flat-square)](https://agentskills.io)
 
-_agent skills for claude code, cursor, codex, and any agent the [skills CLI](https://github.com/vercel-labs/skills) speaks to._
+_a claude code plugin marketplace — agent skills grouped by use, with the guardrail hook shipped alongside the loops that need it._
 
 </div>
 
-install all of them:
+add the marketplace, then install the plugin(s) you want:
 
 ```bash
-npx skills add athenabriana/skills
+claude plugin marketplace add athenabriana/skills
+claude plugin install build@athenabriana
+claude plugin install loops@athenabriana    # ships the no-merge guardrail hook
+claude plugin install utils@athenabriana
 ```
+
+skills are invoked as `/<plugin>:<skill>` — e.g. `/build:fix-pr`, `/loops:night-shift`, `/utils:take`.
+
+## what's inside
+
+### `build` — write & ship code, you-driven
+
+| skill | description |
+| ------------------------- | --------------------------------------------------------------------- |
+| `/build:shape`            | align on the idea before building — grill-me, lightweight brief, slices |
+| `/build:open-pr`          | create a PR from the current branch                                   |
+| `/build:address-comments` | address review comments on github PRs                                 |
+| `/build:fix-pr`           | finalize and green a PR: review, simplify, checks, comments, CI watch |
+| `/build:branch-context`   | summarize all changes on the branch vs main                           |
+| `/build:improve-code`     | improve a diff's quality with a hard regression guard (no bugs)       |
+
+### `loops` — run across time (scheduled / event-driven)
+
+ships a `PreToolUse` guard hook (blocks merge / approve / force-push / branch-delete) that **auto-activates** when the plugin is enabled.
+
+| skill | description |
+| --------------------- | --------------------------------------------------------------------- |
+| `/loops:maintenance`  | triage PRs + dependabot/outdated, report what's mergeable (never merges) |
+| `/loops:watch-pr`     | supervised in-session loop that tends the current PR via `/build:fix-pr` |
+| `/loops:night-shift`  | run one pre-shaped task overnight, ending at a draft PR (never merges) |
+| `/loops:digest`       | scheduled, read-only research/monitoring digest to slack or a branch  |
+| `/loops:guardrails`   | the safety substrate: tier-1/2 boundary, worktree isolation, the guard hook + self-test |
+
+### `utils` — standalone helpers
+
+| skill | description |
+| --------------- | --------------------------------------------------------------------- |
+| `/utils:topic`  | deep research using parallel agents                                   |
+| `/utils:code`   | find, clone, and explore relevant repos                               |
+| `/utils:readme` | generate a minimal centered-header README from repo facts             |
+| `/utils:take`   | honest, decisive recommendation — commit, name the unseen tension, no sycophancy |
 
 develop locally:
 
 ```bash
 git clone git@github.com:athenabriana/skills.git
-cd skills
-bun install
-bun validate
+claude --plugin-dir ./skills/plugins/loops    # load a plugin from disk to test
 ```
 
-## what's inside
-
-| skill                 | group | description                                                           |
-| --------------------- | ----- | --------------------------------------------------------------------- |
-| `shape`               | build | align on the idea before building — grill-me, lightweight brief, slices |
-| `gh-open-pr`          | build | create a PR from the current branch                                   |
-| `gh-address-comments` | build | address review comments on github PRs                                 |
-| `gh-fix-pr`           | build | finalize and green a PR: review, simplify, checks, comments, CI watch |
-| `branch-context`      | build | summarize all changes on the branch vs main                          |
-| `improve-code`        | build | improve a diff's quality with a hard regression guard (no bugs)      |
-| `gh-maintenance`      | loops | triage PRs + dependabot/outdated, report what's mergeable (never merges) |
-| `gh-watch-pr`         | loops | supervised in-session loop that tends the current PR via gh-fix-pr   |
-| `night-shift`         | loops | run one pre-shaped task overnight, ending at a draft PR (never merges) |
-| `research-digest`     | loops | scheduled, read-only research/monitoring digest to slack or a branch |
-| `gh-guardrails`       | loops | safety substrate for loops: no-merge hook, worktree isolation, self-test |
-| `research-topic`      | utils | deep research using parallel agents                                  |
-| `research-code`       | utils | find, clone, and explore relevant repos                             |
-| `readme`              | utils | generate a minimal centered-header README from repo facts          |
-| `take`                | utils | honest, decisive recommendation — commit, name the unseen tension, no sycophancy |
-
-skills are grouped by **use**:
-
-- **build** — write &amp; ship code, you-driven (shape → open-pr → fix-pr, plus improve-code / branch-context).
-- **loops** — run across time, scheduled or event-driven, all sitting on `gh-guardrails`; set up as Cloud Routines (see each skill's `references/`).
-- **utils** — standalone helpers (research, readme, take).
-
-each skill folder is self-contained, `SKILL.md` plus optional `scripts/` and `references/` ship with the install.
-
-<sub>`improve-code` is adapted from Claude Code's `/simplify` (Anthropic, Apache-2.0). individual components retain their original licenses.</sub>
+<sub>`/build:improve-code` is adapted from Claude Code's `/simplify` (Anthropic, Apache-2.0). individual components retain their original licenses.</sub>

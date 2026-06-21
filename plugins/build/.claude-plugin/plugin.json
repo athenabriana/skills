@@ -1,0 +1,10 @@
+{
+  "name": "build",
+  "description": "Write & ship code, you-driven: align on the idea (shape), open and finalize PRs (open-pr, fix-pr), address review comments, summarize the branch, and improve a diff's quality. Invoked as /build:<skill>.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Athena Briana",
+    "email": "me@athenabriana.com"
+  },
+  "license": "MIT"
+}
