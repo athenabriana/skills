@@ -4,7 +4,7 @@ description: Align on the idea before building — Claude drafts a short brief w
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 # Shape
@@ -34,7 +34,7 @@ Size the ask to the stakes: cheap-to-reverse decisions lead with your pick (veto
 
 ## Capture the alignment (lightweight, on disk)
 
-Write `.shape/<slug>/BRIEF.md` — the converged draft itself: **what** we're building, **why**, the **decisions** made, what we're **NOT** doing, and open questions. There's no separate write-up step; the draft you iterated *is* the brief. This is durable context (survives a context reset; a fresh session or the overnight loop reloads it), **not** a contract to satisfy line-by-line. For Large work also write `.shape/<slug>/tasks.md` — **vertical slices** (each a thin end-to-end cut that delivers something visible), as a checklist the build side consumes.
+Write a single `.shape/<slug>.md` — the converged draft itself: **what** we're building, **why**, the **decisions** made, what we're **NOT** doing, and open questions. Everything lives in one file so editing it later carries the full context. There's no separate write-up step; the draft you iterated *is* the brief. This is durable context (survives a context reset; a fresh session or the overnight loop reloads it), **not** a contract to satisfy line-by-line. For Large work add a `## tasks` section to the same file — **vertical slices** (each a thin end-to-end cut that delivers something visible) as a GitHub-style checklist (`- [ ]`) the build side consumes.
 
 ## Don't fabricate
 
@@ -42,7 +42,7 @@ Before asserting how something works: check the codebase, then its docs, then th
 
 ## Hand off to build
 
-Shaping ends at alignment + BRIEF (+ slices). Building is `/build:open-pr` → `/build:fix-pr`, or the overnight loop (`/loops:night-shift`) reloads `.shape/<slug>/tasks.md` and builds one slice per run. **Safety valve:** if building reveals the idea was underspecified (surprises pile up), STOP and re-shape — that's the signal alignment was incomplete, not a license to improvise.
+Shaping ends at alignment captured in `.shape/<slug>.md` (brief + slices). Building is `/build:open-pr` → `/build:fix-pr`, or the overnight loop (`/loops:night-shift`) reloads `.shape/<slug>.md` and builds one slice per run. **Safety valve:** if building reveals the idea was underspecified (surprises pile up), STOP and re-shape — that's the signal alignment was incomplete, not a license to improvise.
 
 ## Bundled Resources
 

@@ -43,7 +43,8 @@ For each real fork:
   not the whole document again.
 - **Reflect back:** "So we're building X, for Y, and NOT doing Z — right?"
   Alignment = the user confirms your restatement with no corrections.
-- Stop when a restatement produces no changes. That converged draft *is* `BRIEF.md`.
+- Stop when a restatement produces no changes. That converged draft *is* the
+  single `.shape/<slug>.md` (brief + a `## tasks` section for the slices).
 - Keep **deferred decisions visible** — anything handed back to you ("your call")
   gets noted, so it's not silently assumed.
 - If a fork can't be settled without facts, go check (codebase → docs → web) and

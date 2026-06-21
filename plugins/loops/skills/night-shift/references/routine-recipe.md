@@ -7,9 +7,9 @@ prompts mid-run**, durable output only via a `claude/` branch / PR.
 
 ## Setup checklist
 
-- [ ] **Commit the shaped tasks.** `.shape/<slug>/{BRIEF,tasks}.md` and the
-      `night-shift` + `shape` skills must be committed to the target
-      repo — the fresh clone can only see what's in git.
+- [ ] **Commit the shaped file.** `.shape/<slug>.md` (brief + `## tasks`
+      checklist) and the `night-shift` + `shape` skills must be committed to the
+      target repo — the fresh clone can only see what's in git.
 - [ ] **Withhold merge capability** (the real never-merge guarantee): the
       routine's GitHub token/App has no merge permission, "Allow unrestricted
       branch pushes" is OFF (so it can only push `claude/` branches), and no
@@ -21,7 +21,7 @@ prompts mid-run**, durable output only via a `claude/` branch / PR.
 
 ## The routine prompt (self-contained — no session memory)
 
-> Run the `night-shift` skill against `.shape/<slug>/tasks.md` in
+> Run the `night-shift` skill against `.shape/<slug>.md` in
 > this repo. First run the guard self-test; abort if it fails. Implement the ONE
 > next unchecked task only. Hard limits: touch at most **N files / M diff lines**
 > — if the task would exceed that, stop and open the partial draft PR instead of

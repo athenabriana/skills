@@ -4,7 +4,7 @@ description: Run ONE pre-shaped task overnight as a desired-state cron-once loop
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Night Shift (cron-once, draft-PR only)
@@ -21,17 +21,17 @@ a Cloud Routine. It builds on `/build:shape` (the brief + sliced tasks) and
 
 ## Prerequisites
 
-- A `/build:shape` brief with a committed `.shape/<slug>/tasks.md`. A Cloud Routine clones fresh with no local files, so `.shape/` MUST be committed for the run to see it. If there is no ready task list, the run NO-OPs and reports.
+- A `/build:shape` brief committed as `.shape/<slug>.md` with a `## tasks` checklist. A Cloud Routine clones fresh with no local files, so `.shape/` MUST be committed for the run to see it. If there is no ready task list, the run NO-OPs and reports.
 - `/loops:guardrails` installed and its self-test passing (the first step below).
 
 ## Workflow (one iteration = one task)
 
 1. **Guard self-test (gate).** Run `loops:guardrails`' `selftest_guard.py`. If it fails, ABORT — do not run unguarded.
-2. **Pick ONE task.** `python scripts/next_task.py --tasks .shape/<slug>/tasks.md` → the first unchecked task `{id, title, files}` (zero tokens; the script decides which, never the model). If `next` is null, no-op and report "backlog empty".
-3. **Implement ONLY that task**, honoring the re-shape safety valve: if implementing the one task reveals **>5 emergent steps**, STOP, formalize them into `tasks.md` (or hand back to `/build:shape`), and report — do not expand scope.
+2. **Pick ONE task.** `python scripts/next_task.py --tasks .shape/<slug>.md` → the first unchecked task `{id, title, files}` from the file's `## tasks` section (zero tokens; the script decides which, never the model). If `next` is null, no-op and report "backlog empty".
+3. **Implement ONLY that task**, honoring the re-shape safety valve: if implementing the one task reveals **>5 emergent steps**, STOP, formalize them into the `## tasks` section (or hand back to `/build:shape`), and report — do not expand scope.
 4. **Stay in the smart zone.** Do file discovery in a read-only sub-agent that returns a ~1–2k-token brief; the single writer edits with a clean context. If the scope brief comes back empty (a grep miss), ABORT rather than concluding the code is unimplemented and duplicating it.
 5. **Run the local gate** (lint/format/typecheck/tests) until clean, capped like build:fix-pr Phase 5: at most **3 log-gated retries**, and only on a known-flake signature — a real failure short-circuits to "halt + report".
-6. **Commit to a `claude/` (or `auto/`) branch, open a DRAFT PR** (chain to `/build:open-pr` for title/body), check the task's box in `tasks.md`, and **STOP**. You review and merge in the morning.
+6. **Commit to a `claude/` (or `auto/`) branch, open a DRAFT PR** (chain to `/build:open-pr` for title/body), check the task's box in the `## tasks` section of `.shape/<slug>.md`, and **STOP**. You review and merge in the morning.
 
 ## Guardrails
 
@@ -45,7 +45,7 @@ a Cloud Routine. It builds on `/build:shape` (the brief + sliced tasks) and
 ## Bundled Resources
 
 ### scripts/next_task.py
-Parses `tasks.md` and emits the first unchecked task as JSON (`{done, total, remaining, next}`) — the deterministic one-task selector.
+Parses the `## tasks` section of `.shape/<slug>.md` and emits the first unchecked task as JSON (`{done, total, remaining, next}`) — the deterministic one-task selector.
 
 ### references/routine-recipe.md
 The Cloud Routine setup: commit `.shape/`, withhold merge scope, the guard hook + probe, the draft-PR-only prompt with the scope ceiling, and the cost cap.
