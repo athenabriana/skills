@@ -4,60 +4,60 @@
 
 [![github](https://img.shields.io/badge/github-athenabriana%2Fskills-111111?style=flat-square&logo=github)](https://github.com/athenabriana/skills)
 
-_a claude code plugin marketplace — agent skills grouped by use, with the guardrail hook shipped alongside the loops that need it._
+_a claude code plugin — agent skills grouped by use, with the guardrail hook and an operating-context hook shipped alongside them._
 
 </div>
 
-add the marketplace, then install the plugin(s) you want:
+add the marketplace, then install the one plugin:
 
 ```bash
 claude plugin marketplace add athenabriana/skills
-claude plugin install build@athenabriana
-claude plugin install loops@athenabriana    # ships the no-merge guardrail hook
-claude plugin install utils@athenabriana
+claude plugin install ath@athenabriana
 ```
 
-skills are invoked as `/<plugin>:<skill>` — e.g. `/build:fix-pr`, `/loops:night-shift`, `/utils:take`.
+it ships a `PreToolUse` no-merge guard hook and a `SessionStart` operating-context hook, both auto-active on install. skills are invoked as `/ath:<skill>` — e.g. `/ath:shape`, `/ath:night-shift`, `/ath:take`.
 
 ## what's inside
 
-### `build` — write & ship code, you-driven
+one plugin, `ath`; the skills are organized by use.
+
+### shape & ship — write & ship code, you-driven
 
 | skill | description |
 | ------------------------- | --------------------------------------------------------------------- |
-| `/build:shape`            | align on the idea before building — draft-first brief, react & revise, slices |
-| `/build:open-pr`          | create a PR from the current branch                                   |
-| `/build:address-comments` | address review comments on github PRs                                 |
-| `/build:fix-pr`           | finalize and green a PR: review, simplify, checks, comments, CI watch |
-| `/build:branch-context`   | summarize all changes on the branch vs main                           |
-| `/build:improve-code`     | improve a diff's quality with a hard regression guard (no bugs)       |
+| `/ath:shape`            | align on the idea before building — develop, loop on gray areas via questions, validate |
+| `/ath:open-pr`          | create a PR from the current branch                                   |
+| `/ath:address-comments` | address review comments on github PRs                                 |
+| `/ath:fix-pr`           | finalize and green a PR: review, simplify, checks, comments, CI watch |
+| `/ath:branch-context`   | summarize all changes on the branch vs main                           |
+| `/ath:improve-code`     | improve a diff's quality with a hard regression guard (no bugs)       |
 
-### `loops` — run across time (scheduled / event-driven)
+### loops — run across time (scheduled / event-driven)
 
-ships a `PreToolUse` guard hook (blocks merge / approve / force-push / branch-delete) that **auto-activates** when the plugin is enabled.
+these run on the no-merge guard hook (blocks merge / approve / force-push / branch-delete).
 
 | skill | description |
 | --------------------- | --------------------------------------------------------------------- |
-| `/loops:maintenance`  | triage PRs + dependabot/outdated, report what's mergeable (never merges) |
-| `/loops:watch-pr`     | supervised in-session loop that tends the current PR via `/build:fix-pr` |
-| `/loops:night-shift`  | run one pre-shaped task overnight, ending at a draft PR (never merges) |
-| `/loops:digest`       | scheduled, read-only research/monitoring digest to slack or a branch  |
-| `/loops:guardrails`   | the safety substrate: tier-1/2 boundary, worktree isolation, the guard hook + self-test |
+| `/ath:maintenance`  | triage PRs + dependabot/outdated, report what's mergeable (never merges) |
+| `/ath:watch-pr`     | supervised in-session loop that tends the current PR via `/ath:fix-pr` |
+| `/ath:night-shift`  | run one pre-shaped task overnight, ending at a draft PR (never merges) |
+| `/ath:digest`       | scheduled, read-only research/monitoring digest to slack or a branch  |
+| `/ath:guardrails`   | the safety substrate: tier-1/2 boundary, worktree isolation, the guard hook + self-test |
 
-### `utils` — standalone helpers
+### helpers — standalone
 
 | skill | description |
 | --------------- | --------------------------------------------------------------------- |
-| `/utils:topic`  | deep research using parallel agents                                   |
-| `/utils:code`   | find, clone, and explore relevant repos                               |
-| `/utils:readme` | generate a minimal centered-header README from repo facts             |
-| `/utils:take`   | honest, decisive recommendation — commit, name the unseen tension, no sycophancy |
+| `/ath:topic`  | deep research using parallel agents                                   |
+| `/ath:code`   | find, clone, and explore relevant repos                               |
+| `/ath:readme` | generate a minimal centered-header README from repo facts             |
+| `/ath:take`   | honest, decisive recommendation — commit, name the unseen tension, no sycophancy |
 
 develop locally:
 
 ```bash
 git clone git@github.com:athenabriana/skills.git
-claude --plugin-dir ./skills/plugins/loops    # load a plugin from disk to test
+claude --plugin-dir ./skills/plugins/ath    # load the plugin from disk to test
 ```
 
-<sub>`/build:improve-code` is adapted from Claude Code's `/simplify` (Anthropic, Apache-2.0). individual components retain their original licenses.</sub>
+<sub>`/ath:improve-code` is adapted from Claude Code's `/simplify` (Anthropic, Apache-2.0). individual components retain their original licenses.</sub>
