@@ -1,6 +1,6 @@
 ---
 name: improve-code
-description: Improve the quality of the code this branch changed — reuse, simplification, dead weight, efficiency, altitude, consistency — and apply the cleanups, quality only and strictly behavior-preserving, with a hard regression guard (verify behavior, re-run checks after every edit). Use when the user says "improve this code", "clean this up", "simplify the diff", "tidy this code", "reduce complexity", or "refactor for clarity". Do NOT use to find or fix bugs (that is correctness review — use /ath:ship-pr), to open a PR (use /ath:ship-pr), or to touch code this branch did not change.
+description: Improve the quality of the code this branch changed — reuse, simplification, dead weight, efficiency, altitude, consistency — and apply the cleanups, quality only and strictly behavior-preserving, with a hard regression guard (verify behavior, re-run checks after every edit). Use when the user says "improve this code", "clean this up", "simplify the diff", "tidy this code", "reduce complexity", or "refactor for clarity". Do NOT use to find or fix bugs (that is correctness review — use /ath:ship), to open a PR (use /ath:ship), or to touch code this branch did not change.
 license: Apache-2.0
 metadata:
   author: adapted from Claude Code's /simplify (Anthropic, Apache-2.0), with stricter regression guards, by Athena Briana - github.com/athenabriana
@@ -10,11 +10,11 @@ metadata:
 # Improve Code
 
 A focused quality pass over the current change: make it simpler, leaner, and more
-consistent **without changing behavior**. The standalone version of `ath:ship-pr`'s
+consistent **without changing behavior**. The standalone version of `ath:ship`'s
 Pass 2 — reach for it any time, not just when finalizing a PR.
 
 **Quality only.** It does not hunt for or fix bugs. If you want correctness
-review, that is Pass 1 of `/ath:ship-pr` — use that skill. Mixing the two makes
+review, that is Pass 1 of `/ath:ship` — use that skill. Mixing the two makes
 both passes worse.
 
 ## Regression guard (the #1 rule)
@@ -84,5 +84,5 @@ Stop short of changes that hurt the code even if they shrink it:
 
 ### references/quality-checklist.md
 The six quality criteria applied here — the canonical checklist, kept consistent
-with `ath:ship-pr` Pass 2 so the standalone and PR-finalization flows judge a diff
+with `ath:ship` Pass 2 so the standalone and PR-finalization flows judge a diff
 the same way.

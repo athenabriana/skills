@@ -16,7 +16,7 @@ On each iteration:
    - a failed/red CI check,
    - a merge conflict / out-of-date base.
 2. If nothing is new, say so in **one line** and stop for this iteration.
-3. If there is something new, run `/ath:ship-pr` to handle it — and **stop at its
+3. If there is something new, run `/ath:ship` to handle it — and **stop at its
    Phase-3 approval gate**. Do not push or reply to threads until I approve.
 
 Hard rules:

@@ -1,6 +1,6 @@
 ---
 name: gather-branch-context
-description: Gather and summarize all changes on the current branch compared to main. Use when user says "compare against main", "branch context", "what changed on this branch", "summarize my branch", "diff against main", "review my changes", or "what did I do on this branch". Do NOT use to fix or green a PR (use /ath:ship-pr), open a PR (use /ath:ship-pr), or improve the diff's quality (use /ath:improve-code) — this only summarizes, it never edits.
+description: Gather and summarize all changes on the current branch compared to main. Use when user says "compare against main", "branch context", "what changed on this branch", "summarize my branch", "diff against main", "review my changes", or "what did I do on this branch". Do NOT use to fix or green a PR (use /ath:ship), open a PR (use /ath:ship), or improve the diff's quality (use /ath:improve-code) — this only summarizes, it never edits.
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
@@ -75,6 +75,6 @@ Read through the full diff and provide:
 
 Based on the state of the branch:
 
-- If clean and ready: "Want me to open a PR? (/ath:ship-pr)"
+- If clean and ready: "Want me to open a PR? (/ath:ship)"
 - If uncommitted changes: "You have uncommitted changes — want to commit first?"
 - If issues found: "Want me to fix any of these before opening a PR?"

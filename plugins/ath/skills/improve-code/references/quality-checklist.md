@@ -14,7 +14,7 @@ compact code — never trade legibility for fewer lines (no nested ternaries, no
 dense one-liners). Prefer a `switch` or an `if`/`else` chain over stacked
 ternaries for multiple conditions.
 
-These six criteria mirror `ath:ship-pr`'s Pass 2 so the standalone simplify pass and
+These six criteria mirror `ath:ship`'s Pass 2 so the standalone simplify pass and
 the PR-finalization pass judge a diff identically.
 
 - **Reuse** — logic duplicated within the diff, or re-implementing a helper that

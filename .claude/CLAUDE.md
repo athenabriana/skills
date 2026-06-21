@@ -1,6 +1,6 @@
 # Skills
 
-A **Claude Code plugin** (`ath`) published through a one-plugin marketplace. Install via `claude plugin marketplace add athenabriana/skills` then `claude plugin install ath@athenabriana`. Skills are invoked as `/ath:<skill>` (e.g. `/ath:ship-pr`). The plugin ships a `PreToolUse` no-merge guard hook and a `SessionStart` operating-context hook, both auto-active when the plugin is enabled.
+A **Claude Code plugin** (`ath`) published through a one-plugin marketplace. Install via `claude plugin marketplace add athenabriana/skills` then `claude plugin install ath@athenabriana`. Skills are invoked as `/ath:<skill>` (e.g. `/ath:ship`). The plugin ships a `PreToolUse` no-merge guard hook and a `SessionStart` operating-context hook, both auto-active when the plugin is enabled.
 
 ## Structure
 
@@ -18,14 +18,14 @@ plugins/ath/
 │   ├── inject_operating_context.py     # SessionStart hook script
 │   └── operating-context.md            # the injected operating frame (edit to tune)
 └── skills/                             # all skills flat; verb-led names, grouped by use in docs only
-    ├── shape-idea, implement-idea, ship-pr, address-comments, gather-branch-context, improve-code
+    ├── shape-idea, implement-idea, ship, address-comments, gather-branch-context, improve-code
     ├── maintain-repo, watch-pr, night-shift, digest-research
     └── research-topic, research-code, write-readme, answer-yourself
 ```
 
 ### Naming Conventions
 
-- Skills live in `plugins/ath/skills/<name>/SKILL.md`. Names are **verb-led** (`shape-idea`, `gather-branch-context`, `ship-pr`) — invoked as `/ath:<name>` (`/ath:ship-pr`). No group prefix; the use grouping (shape & ship / loops / helpers) is a docs concept (the README sections), not part of the name. Keep the dir name identical to the frontmatter `name`.
+- Skills live in `plugins/ath/skills/<name>/SKILL.md`. Names are **verb-led** (`shape-idea`, `gather-branch-context`, `ship`) — invoked as `/ath:<name>` (`/ath:ship`). No group prefix; the use grouping (shape & ship / loops / helpers) is a docs concept (the README sections), not part of the name. Keep the dir name identical to the frontmatter `name`.
 - Each skill is self-contained: `scripts/` and `references/*.md` relative to the skill dir.
 - The plugin ships hooks in `plugins/ath/hooks/hooks.json` (auto-activate when the plugin is enabled). Use them to enforce irreversible hazards (the no-merge guard) and to inject session-start context. Hook commands reference files via `${CLAUDE_PLUGIN_ROOT}/...` (e.g. `${CLAUDE_PLUGIN_ROOT}/hooks/guard_irreversible.py`).
 

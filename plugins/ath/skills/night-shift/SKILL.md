@@ -30,8 +30,8 @@ plugin's guard hook (the safety layer, in `hooks/` — auto-active, no install).
 2. **Pick ONE task.** `python scripts/next_task.py --tasks .shape/<slug>.md` → the first unchecked task `{id, title, files}` from the file's `## tasks` section (zero tokens; the script decides which, never the model). If `next` is null, no-op and report "backlog empty".
 3. **Implement ONLY that task**, honoring the re-shape safety valve: if implementing the one task reveals **>5 emergent steps**, STOP, formalize them into the `## tasks` section (or hand back to `/ath:shape-idea`), and report — do not expand scope.
 4. **Stay in the smart zone.** Do file discovery in a read-only sub-agent that returns a ~1–2k-token brief; the single writer edits with a clean context. If the scope brief comes back empty (a grep miss), ABORT rather than concluding the code is unimplemented and duplicating it.
-5. **Run the local gate** (lint/format/typecheck/tests) until clean, capped like ath:ship-pr Phase 5: at most **3 log-gated retries**, and only on a known-flake signature — a real failure short-circuits to "halt + report".
-6. **Commit to a `claude/` (or `auto/`) branch, open a DRAFT PR** (chain to `/ath:ship-pr` for title/body), check the task's box in the `## tasks` section of `.shape/<slug>.md`, and **STOP**. You review and merge in the morning.
+5. **Run the local gate** (lint/format/typecheck/tests) until clean, capped like ath:ship Phase 5: at most **3 log-gated retries**, and only on a known-flake signature — a real failure short-circuits to "halt + report".
+6. **Commit to a `claude/` (or `auto/`) branch, open a DRAFT PR** (chain to `/ath:ship` for title/body), check the task's box in the `## tasks` section of `.shape/<slug>.md`, and **STOP**. You review and merge in the morning.
 
 ## Guardrails
 
