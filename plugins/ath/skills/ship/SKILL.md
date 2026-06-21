@@ -4,7 +4,7 @@ description: Take the current branch to landed — your way. Quality-pass the di
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 # Ship
@@ -16,13 +16,22 @@ Take the current branch all the way to landed — reviewed, checks green, commit
 - For the PR path: `gh` authenticated (`gh auth status`, repo + workflow scopes). If not, instruct the user to run `gh auth login`.
 - Resolve the current branch's PR up front: `gh pr view --json number,url,title,baseRefName`. If one exists, it's the default destination ("finish the PR").
 
-## Step 1 — Pick the destination
+## Step 1 — Settle the destination (default when known, ask only on doubt)
 
-Ask one `AskUserQuestion` with the three landings (lead with the one that fits the current state — "finish the PR" if a PR already exists, else "open a PR"):
+Don't ask reflexively. If the landing is already settled by signal, **take it and just state which and why** — the question is for genuine ambiguity, not a toll on every run.
+
+**Take it without asking when:**
+- a **recalled memory** or repo convention names this repo's landing habit (e.g. "this repo lands by direct push to main", "always via PR"),
+- the landing was **decided earlier this session or on this branch**,
+- the repo state is unambiguous — a PR already open for this branch → finish that PR.
+
+**Ask one `AskUserQuestion` only when** there's no such signal, or signals conflict. Lead with the best-fit lean:
 
 - **Open / finish a PR** — full flow: create the PR if none exists, triage review comments, push, watch CI until green.
 - **Push to a feature branch** — commit and push to a non-protected branch (the current one, or a new name you give). No PR. Reversible, so ship runs it.
 - **Push to main (or another protected branch)** — ship does the whole quality pass and commits, then **hands you the exact push command** and stops. Your guard reserves protected-branch landing for a human; ship never runs it.
+
+When the user confirms or corrects a destination that wasn't obvious, it's worth remembering as this repo's habit so future runs skip the ask.
 
 ## Step 2 — Quality pass + green the gate (always, every destination)
 
