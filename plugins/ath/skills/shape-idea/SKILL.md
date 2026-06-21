@@ -1,10 +1,10 @@
 ---
 name: shape-idea
-description: Align on the idea before building — Claude develops a draft, then loops with you through the question tool on the gray areas, runs a consistency pass when they run dry, and ends by asking whether to adjust or build. Auto-sizes by complexity. Use when the user says "shape this", "let's plan", "think this through", "what should we build", "discuss before building", or starts a non-trivial feature or project. Do NOT use for tiny mechanical changes (just do them), for code-quality cleanups (use /ath:improve-code), or to find bugs (use /ath:ship-pr).
+description: Align on the idea before building — Claude develops a draft, loops with you through the question tool on the gray areas (including the load-bearing technical decisions — data model, interfaces, error handling), runs a completeness + consistency pass, and gates on adjust-or-build, blocking while any load-bearing decision is still open. Auto-sizes by complexity. Use when the user says "shape this", "let's plan", "think this through", "what should we build", "discuss before building", or starts a non-trivial feature or project. Do NOT use for tiny mechanical changes (just do them), for code-quality cleanups (use /ath:improve-code), or to find bugs (use /ath:ship-pr).
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 1.5.0
+  version: 1.6.0
 ---
 
 # Shape
@@ -16,10 +16,10 @@ Reach a **shared understanding of the idea before any code**. The asset that mat
 ## Auto-size by complexity
 
 - **Tiny** (≤3 files, one obvious change): skip shaping — just build it.
-- **Medium** (a clear feature): the loop, light — a couple of gray areas, quick reuse scan, then the gate.
-- **Large / fuzzy** (new domain, real ambiguity): the full loop — design sketch (reuse + components + data), slice into pieces, then the gate.
+- **Medium** (a clear feature): the loop — gray areas + reuse scan + the load-bearing technical forks, then the gate.
+- **Large / fuzzy** (new domain, real ambiguity): the full loop — reuse + components + data-flow design, the technical forks, slice into pieces, then the gate.
 
-Always required: reach alignment and stop at a validated brief. Size is a running estimate, not locked at the start — if a "Tiny/Medium" task keeps surfacing gray areas mid-flow, re-size up and shape it properly.
+Always required: reach alignment, **close the load-bearing technical decisions**, and stop at a validated brief. Size is a running estimate, not locked at the start — if a "Tiny/Medium" task keeps surfacing gray areas mid-flow, re-size up and shape it properly.
 
 ## The loop
 
@@ -33,19 +33,26 @@ You bring the idea; Claude develops it, then loops with you through the **`AskUs
 
 4. **Loop.** Fold each answer into the draft, re-surface anything new it opens, ask again. Keep going until a round surfaces no new gray areas.
 
-5. **Consistency pass (when the gray areas run dry).** Make ONE pass over the whole brief for *material* internal contradictions — a decision that fights another, a task the scope excludes, an edge case nothing handles. Resolve what's clearly resolvable; raise the rest as gray areas (back to step 3). Material conflicts only — don't manufacture nitpicks, or the loop never closes.
+5. **Completeness + consistency pass (when the gray areas run dry).** Make ONE pass over the whole brief for two things: (a) **unresolved load-bearing decisions** — a technical fork building can't proceed without (data model, contract/interface, where logic lives, error/edge handling, integration points) still blank or "TBD"; and (b) **material contradictions** — a decision that fights another, a task the scope excludes, an edge case nothing handles. Anything found goes back to step 3 as a gray area. Load-bearing gaps and real conflicts only — don't manufacture nitpicks, or the loop never closes.
 
-6. **The exit gate.** When it's consistent, ask one `AskUserQuestion`: **adjust something, or ready to build?** Adjust → back into the loop. Ready → write/finalize `.shape/<slug>.md`, **stop**, and tell the user exactly what to run (see "Hand off").
+6. **The exit gate — blocks on open load-bearing decisions.** First list what's **still open** (unresolved load-bearing decisions + parked questions). Then ask one `AskUserQuestion`:
+   - **If any load-bearing decision is still open:** do NOT offer a clean "build". The only options are **resolve it now** or **defer explicitly** ("decide at build time" — recorded as such in the brief). Never a silent "build anyway".
+   - **If nothing load-bearing is open:** *adjust something, or ready to build?* Adjust → back into the loop. Ready → write/finalize `.shape/<slug>.md`, **stop**, and tell the user exactly what to run (see "Hand off").
 
 Size the ask to the stakes: cheap-to-reverse decisions lead with your pick (the user vetoes if wrong); expensive-to-undo ones lay the options out and let them choose. Full playbook in `references/draft-first.md`.
 
-## Sketch the "how" before slicing (auto-sized)
+## Decide the technical forks (required for Medium+)
 
-Part of develop (step 1) for Large work: sketch *how* you'll build it before turning it into tasks — draft-first, same as the brief. Keep it proportional and stop the moment you're writing more design than the feature warrants.
+Before the gate, the load-bearing technical decisions must be **made or explicitly deferred** — not left implicit. This is the substance the old Design phase carried; surface each that genuinely could go more than one way as a tool question (draft-first: your lean + the alternatives). Skip only what the codebase or goal already settles. Don't write a design document — close the decisions.
 
-- **Reuse first** (even for Medium) — what existing code, patterns, or modules does this build on? Name them. The cheapest way to avoid reinventing something that already exists.
-- **Components & data** (Large) — the key pieces and how they talk, plus the data model if there is one. A few bullets or mermaid lines, not a document.
-- **The decisions that bite** — architectural forks go through the loop like any other gray area, so they're decided before they're baked into slices.
+- **Reuse** — what existing code, patterns, or modules this builds on. Name them (the cheapest guard against reinventing).
+- **Data model / shape** — the entities, fields, and relationships, or the shape of the data flowing through.
+- **Contracts & interfaces** — the function/API/CLI signatures and the boundaries between the pieces.
+- **Where the logic lives** — which component/layer owns what, and how the pieces talk (a few bullets or mermaid lines for Large work, not a document).
+- **Error & edge handling** — failure & rollback, empty/huge inputs, first-run vs repeat, migrating data that already exists.
+- **Integration points** — what it touches: existing systems, dependencies, external services.
+
+These are the decisions that bite *after* you've built against them — expensive to undo — so they get closed here, before slicing. A fork left open is what the gate blocks on.
 
 ## Capture the alignment (lightweight, on disk)
 

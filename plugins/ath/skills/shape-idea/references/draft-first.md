@@ -47,10 +47,16 @@ Ask the forks through the **`AskUserQuestion` tool** — concrete options the us
   call), never a wall.
 - After each round, **fold the answers into the draft and show only what
   changed** — the diff, not the whole document again.
-- **When the gray areas run dry, make ONE consistency pass** over the whole
-  brief: material contradictions only (a decision that fights another, a task
-  the scope excludes, an edge case nothing handles). Resolve the clear ones,
-  raise the rest back as questions. Don't manufacture nitpicks.
+- **When the gray areas run dry, make ONE completeness + consistency pass** over
+  the whole brief: (a) any **load-bearing technical decision still open** — data
+  model, contract/interface, where logic lives, error/edge handling, integration
+  — that building can't proceed without; and (b) **material contradictions** (a
+  decision that fights another, a task the scope excludes, an edge case nothing
+  handles). Raise both back as questions. Load-bearing gaps and real conflicts
+  only — don't manufacture nitpicks.
+- **The gate blocks on open load-bearing decisions.** Never offer a clean "build"
+  while one is unresolved — the user must resolve it or defer it explicitly
+  ("decide at build time", recorded in the brief). No silent "build anyway".
 - **Reflect back:** "So we're building X, for Y, and NOT doing Z — right?"
 - **Alignment is active, not silent.** It's confirmed when the user restates the
   idea in their own words or explicitly approves the written brief — never by the
