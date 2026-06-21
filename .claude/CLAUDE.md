@@ -1,6 +1,6 @@
 # Skills
 
-A **Claude Code plugin** (`ath`) published through a one-plugin marketplace. Install via `claude plugin marketplace add athenabriana/skills` then `claude plugin install ath@athenabriana`. Skills are invoked as `/ath:<skill>` (e.g. `/ath:fix-pr`). The plugin ships a `PreToolUse` no-merge guard hook and a `SessionStart` operating-context hook, both auto-active when the plugin is enabled.
+A **Claude Code plugin** (`ath`) published through a one-plugin marketplace. Install via `claude plugin marketplace add athenabriana/skills` then `claude plugin install ath@athenabriana`. Skills are invoked as `/ath:<skill>` (e.g. `/ath:build-ship-pr`). The plugin ships a `PreToolUse` no-merge guard hook and a `SessionStart` operating-context hook, both auto-active when the plugin is enabled.
 
 ## Structure
 
@@ -12,17 +12,17 @@ plugins/ath/
 │   ├── hooks.json                      # PreToolUse no-merge guard + SessionStart context
 │   ├── inject_operating_context.py     # SessionStart hook script
 │   └── operating-context.md            # the injected operating frame (edit to tune)
-└── skills/                             # all skills, flat, bare names — grouped by use only in docs
-    ├── shape, open-pr, address-comments, fix-pr, branch-context, improve-code   # write & ship
-    ├── maintenance, watch-pr, night-shift, digest, guardrails                   # loops
-    └── topic, code, readme, take                                                # helpers
+└── skills/                             # all skills flat; names carry a use-group prefix
+    ├── build-shape, build-implement, build-ship-pr, build-address-comments, build-branch-context, build-improve-code
+    ├── loop-maintenance, loop-watch-pr, loop-night-shift, loop-digest, loop-guardrails
+    └── util-topic, util-code, util-readme, util-take
 ```
 
 ### Naming Conventions
 
-- Skills live in `plugins/ath/skills/<name>/SKILL.md`. The frontmatter `name` is **bare** (e.g. `fix-pr`, `take`) — the plugin namespace supplies the prefix, so the skill is invoked as `/ath:<name>` (`/ath:fix-pr`). Do not put a use-group in the name; the use grouping is a docs/organization concept only.
+- Skills live in `plugins/ath/skills/<name>/SKILL.md`. The frontmatter `name` carries a **use-group prefix** — `build-` (write & ship), `loop-` (run across time), `util-` (helpers) — e.g. `build-ship-pr`, `util-take`. It's invoked as `/ath:<name>` (`/ath:build-ship-pr`), so the group is visible at the call site. The prefix is part of the name; keep it consistent with the skill's group and match the dir name to it.
 - Each skill is self-contained: `scripts/` and `references/*.md` relative to the skill dir.
-- The plugin ships hooks in `plugins/ath/hooks/hooks.json` (auto-activate when the plugin is enabled). Use them to enforce irreversible hazards (the no-merge guard) and to inject session-start context. Hook commands reference files via `${CLAUDE_PLUGIN_ROOT}/...` (e.g. `${CLAUDE_PLUGIN_ROOT}/skills/guardrails/scripts/guard_irreversible.py`).
+- The plugin ships hooks in `plugins/ath/hooks/hooks.json` (auto-activate when the plugin is enabled). Use them to enforce irreversible hazards (the no-merge guard) and to inject session-start context. Hook commands reference files via `${CLAUDE_PLUGIN_ROOT}/...` (e.g. `${CLAUDE_PLUGIN_ROOT}/skills/loop-guardrails/scripts/guard_irreversible.py`).
 
 ## Skills
 
@@ -44,7 +44,7 @@ Examples of what should be a script:
 ### Writing Guidelines
 
 - Keep SKILL.md focused on the workflow and decision-making logic
-- Keep guidance positive and lean by default — enforce irreversible hazards with hooks (see `/ath:guardrails`), not prose. Don't write catalogs of anti-patterns / "DO NOT" lists; they're context noise and a weaker signal. A single sharp caution is allowed where negation is genuinely the clearest signal (e.g. a skill warning about its own failure mode) — the ban is on lists and reflexive negation, not on ever saying "don't".
+- Keep guidance positive and lean by default — enforce irreversible hazards with hooks (see `/ath:loop-guardrails`), not prose. Don't write catalogs of anti-patterns / "DO NOT" lists; they're context noise and a weaker signal. A single sharp caution is allowed where negation is genuinely the clearest signal (e.g. a skill warning about its own failure mode) — the ban is on lists and reflexive negation, not on ever saying "don't".
 - Use `references/` for static context the LLM needs (coding principles, validation checklists)
 - Trigger descriptions should be specific — list exact phrases the user might say
 - Skill workflows reference their own scripts relatively (e.g. `scripts/foo.py`). Only **hooks** use `${CLAUDE_PLUGIN_ROOT}` (the plugin's absolute install path) — skill bodies should not.
@@ -60,4 +60,4 @@ Examples of what should be a script:
 
 - No AI attribution in commits, PRs, or code comments
 - Conventional commit style: `<type>(<scope>): <description>`
-- Scope is the skill name (`shape`, `maintenance`, …), the use-group (`shape`/`loops`/`helpers`) when a change spans one, `hooks` for the hook layer, or `repo` for repo-wide changes
+- Scope is the skill name (`build-shape`, `loop-maintenance`, …), the use-group (`build`/`loop`/`util`) when a change spans one, `hooks` for the hook layer, or `repo` for repo-wide changes
