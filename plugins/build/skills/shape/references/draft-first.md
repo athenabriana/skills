@@ -30,7 +30,7 @@ A decision earns a question only when it **genuinely could go more than one way*
 and the goal or codebase doesn't already settle it. Everything else: decide it,
 note it, move on. That filter is what keeps this from becoming an interrogation.
 
-For each real fork:
+Ask the forks through the **`AskUserQuestion` tool** — concrete options the user picks, not open prose. For each real fork:
 
 - Present **concrete options** — "card layout" vs "table", not "Option A / B".
 - State **your lean and why**, so the user can rubber-stamp it in one word.
@@ -43,9 +43,14 @@ For each real fork:
 - On the **single highest-stakes fork**, ask how the user would decide *before*
   revealing your pick — anchoring is strongest on the decision that matters most,
   so don't pre-frame that one. Everything else stays draft-first.
-- One **small batch** of forks at a time (3–5 max), never a wall.
-- After each round, **revise the draft and show only what changed** — the diff,
-  not the whole document again.
+- One **small batch** of forks at a time via `AskUserQuestion` (up to 4 per
+  call), never a wall.
+- After each round, **fold the answers into the draft and show only what
+  changed** — the diff, not the whole document again.
+- **When the gray areas run dry, make ONE consistency pass** over the whole
+  brief: material contradictions only (a decision that fights another, a task
+  the scope excludes, an edge case nothing handles). Resolve the clear ones,
+  raise the rest back as questions. Don't manufacture nitpicks.
 - **Reflect back:** "So we're building X, for Y, and NOT doing Z — right?"
 - **Alignment is active, not silent.** It's confirmed when the user restates the
   idea in their own words or explicitly approves the written brief — never by the

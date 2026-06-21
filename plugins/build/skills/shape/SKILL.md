@@ -1,10 +1,10 @@
 ---
 name: shape
-description: Align on the idea before building — Claude drafts a short brief with its best-guess decisions already filled in, surfaces only the forks that genuinely could go either way (each with a recommended pick), and revises against your reactions until you both hold the same picture. Auto-sizes by complexity. Use when the user says "shape this", "let's plan", "think this through", "what should we build", "discuss before building", or starts a non-trivial feature or project. Do NOT use for tiny mechanical changes (just do them), for code-quality cleanups (use /build:improve-code), or to find bugs (use /build:fix-pr).
+description: Align on the idea before building — Claude develops a draft, then loops with you through the question tool on the gray areas, runs a consistency pass when they run dry, and ends by asking whether to adjust or build. Auto-sizes by complexity. Use when the user says "shape this", "let's plan", "think this through", "what should we build", "discuss before building", or starts a non-trivial feature or project. Do NOT use for tiny mechanical changes (just do them), for code-quality cleanups (use /build:improve-code), or to find bugs (use /build:fix-pr).
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 1.4.0
+  version: 1.5.0
 ---
 
 # Shape
@@ -16,30 +16,36 @@ Reach a **shared understanding of the idea before any code**. The asset that mat
 ## Auto-size by complexity
 
 - **Tiny** (≤3 files, one obvious change): skip shaping — just build it.
-- **Medium** (a clear feature): draft → react → quick reuse scan → BRIEF → you validate.
-- **Large / fuzzy** (new domain, real ambiguity): draft → react → design sketch (reuse + components + data) → BRIEF → slice → you validate.
+- **Medium** (a clear feature): the loop, light — a couple of gray areas, quick reuse scan, then the gate.
+- **Large / fuzzy** (new domain, real ambiguity): the full loop — design sketch (reuse + components + data), slice into pieces, then the gate.
 
-Always required: reach alignment and stop at a validated brief. Size is a running estimate, not locked at the start — if a "Tiny/Medium" task keeps surfacing forks mid-flow, re-size up and shape it properly.
+Always required: reach alignment and stop at a validated brief. Size is a running estimate, not locked at the start — if a "Tiny/Medium" task keeps surfacing gray areas mid-flow, re-size up and shape it properly.
 
-## The core move — draft first, then react
+## The loop
 
-Do NOT interrogate from a blank page. Read the one-liner, take a quick look at the codebase, and **write a short draft brief with your best-guess decisions already filled in.** Then hand it back for reaction — the user edits a concrete proposal instead of answering open questions cold (full playbook in `references/draft-first.md`):
+You bring the idea; Claude develops it, then loops with you through the **`AskUserQuestion` tool** until the picture is consistent and you sign off. Never interrogate from a blank page, and never decide silently — drive it through real questions.
 
-- **Ask first on the single highest-stakes fork.** Before you reveal your pick on the one decision that's most expensive to undo, ask how *they'd* call it — anchoring is strongest on the choice that matters most, so don't pre-frame that one. One question, the biggest fork only; everything else stays draft-first.
-- **Lead with the draft** — what we're building, why, the scope edges, and the decisions you've already made.
-- **Decide the obvious yourself; surface only the forks that bite.** When a decision genuinely could go more than one way, present it as concrete options with your lean and the reason — "leaning X because Y; the alternative is Z — keep or change?". If the call is settled by the codebase or the goal, just make it and note it.
-- **The user reacts** — keeps the picks that fit, flips the ones that don't. Editing, not composing.
-- **Revise and re-present only what changed.** Keep going until the user actively validates the brief — not until they merely stop objecting. Silence is disengagement, not agreement.
+1. **Develop the draft (draft-first).** Read the one-liner, look at the codebase, and write a short draft brief with your best-guess decisions filled in — what/why, scope edges, reuse, the decisions you can already make. For Large work, also sketch the *how* (next section) before slicing. Bring something concrete to react to.
 
-Size the ask to the stakes: cheap-to-reverse decisions lead with your pick (veto if wrong); expensive-to-undo ones lay the options out and let the user choose.
+2. **Highest-stakes fork first — ask before you anchor.** On the single decision most expensive to undo, ask the user how *they'd* call it *before* you reveal your own pick (an open `AskUserQuestion`). Anchoring is strongest on the choice that matters most — don't pre-frame that one. One fork only; everything else stays draft-first.
+
+3. **Surface the gray areas as questions.** Everything else that genuinely could go more than one way → ask via `AskUserQuestion`, batched (the tool takes up to 4 at once), each as concrete options with your lean. Decide the obvious yourself; don't ask about what the codebase or goal already settles.
+
+4. **Loop.** Fold each answer into the draft, re-surface anything new it opens, ask again. Keep going until a round surfaces no new gray areas.
+
+5. **Consistency pass (when the gray areas run dry).** Make ONE pass over the whole brief for *material* internal contradictions — a decision that fights another, a task the scope excludes, an edge case nothing handles. Resolve what's clearly resolvable; raise the rest as gray areas (back to step 3). Material conflicts only — don't manufacture nitpicks, or the loop never closes.
+
+6. **The exit gate.** When it's consistent, ask one `AskUserQuestion`: **adjust something, or ready to build?** Adjust → back into the loop. Ready → write/finalize `.shape/<slug>.md`, **stop**, and tell the user exactly what to run (see "Hand off").
+
+Size the ask to the stakes: cheap-to-reverse decisions lead with your pick (the user vetoes if wrong); expensive-to-undo ones lay the options out and let them choose. Full playbook in `references/draft-first.md`.
 
 ## Sketch the "how" before slicing (auto-sized)
 
-Once you both hold the *what*, sketch *how* you'll build it before turning it into tasks — draft-first, same as the brief. Keep it proportional and stop the moment you're writing more design than the feature warrants.
+Part of develop (step 1) for Large work: sketch *how* you'll build it before turning it into tasks — draft-first, same as the brief. Keep it proportional and stop the moment you're writing more design than the feature warrants.
 
 - **Reuse first** (even for Medium) — what existing code, patterns, or modules does this build on? Name them. The cheapest way to avoid reinventing something that already exists.
 - **Components & data** (Large) — the key pieces and how they talk, plus the data model if there is one. A few bullets or mermaid lines, not a document.
-- **The decisions that bite** — surface architectural forks the same draft-first way (your lean + the alternative), so they're decided before they're baked into slices.
+- **The decisions that bite** — architectural forks go through the loop like any other gray area, so they're decided before they're baked into slices.
 
 ## Capture the alignment (lightweight, on disk)
 
@@ -53,13 +59,16 @@ For Large work add a `## tasks` section to the same file — **vertical slices**
 
 Before asserting how something works: check the codebase, then its docs, then the web; if you still don't know, **say so**. A wrong assumption here cascades into the build — and a draft full of confident guesses is worse than one that flags what it's unsure of. Uncertainty flagged beats confidence invented.
 
-## Stop at the brief — validate before building
+## Hand off — you invoke, the skill points the way
 
-Shaping **ends at a written, validated `.shape/<slug>.md`**. Do not start building, do not open a PR, do not chain into another skill. Write the brief, present it, and **wait for the user to validate** — they read it and either approve or send corrections. That explicit approval is the alignment gate: silence is not approval, and an unread brief is not a validated one.
+shape ends at a validated `.shape/<slug>.md` and does **not** build — shaping and execution stay separate. But don't leave the user guessing: when they pick "ready" at the gate, state the exact next step.
 
-Only after validation does building happen, as a **separate, user-initiated step**: `/build:open-pr` → `/build:fix-pr` (which load this brief as the intent behind the work), or the overnight loop (`/loops:night-shift`) reloads `.shape/<slug>.md` and builds one slice per run. **Safety valve:** if building later reveals the idea was underspecified (surprises pile up), STOP and re-shape — that's the signal alignment was incomplete, not a license to improvise.
+- **Daytime:** "Brief saved at `.shape/<slug>.md`. To build: `/build:open-pr`, then `/build:fix-pr` — both load this brief as the intent."
+- **Overnight:** "Commit `.shape/<slug>.md`, then schedule `/loops:night-shift` — it builds one slice per run."
+
+**Safety valve:** if building later reveals the idea was underspecified (surprises pile up), STOP and re-shape — that's the signal alignment was incomplete, not a license to improvise.
 
 ## Bundled Resources
 
 ### references/draft-first.md
-The draft-first playbook — what a draft brief must cover, and how to surface only the genuine forks as recommended-pick choices instead of a wall of questions.
+The draft-first playbook — what a draft brief must cover, and how to surface the genuine forks as tool questions with a recommended pick instead of a wall of open prompts.
