@@ -13,6 +13,8 @@ Mark anything you're guessing so it's visibly a guess, not a fact.
 - **Intent & value** — what we're building, who for, what changes once it ships.
   One sentence.
 - **Scope edges** — what's explicitly OUT; the smallest version still worth shipping.
+- **Reuse** — what existing code, patterns, or modules this should build on.
+  Name them. The cheapest guard against reinventing something that already exists.
 - **Decisions** — the forks (data model, naming, where the logic lives, sync vs
   async). Make the obvious calls; flag only the rest (see below).
 - **Edge cases** — empty / zero / huge inputs; first run vs repeat; failure and
@@ -47,5 +49,7 @@ For each real fork:
   single `.shape/<slug>.md` (brief + a `## tasks` section for the slices).
 - Keep **deferred decisions visible** — anything handed back to you ("your call")
   gets noted, so it's not silently assumed.
+- When a good idea surfaces that's **out of scope**, don't drop it and don't build
+  it — park it in the brief's "deferred" bucket so it's captured for later.
 - If a fork can't be settled without facts, go check (codebase → docs → web) and
   come back with the options, rather than guessing.

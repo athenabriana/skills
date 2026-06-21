@@ -4,7 +4,7 @@ description: Align on the idea before building — Claude drafts a short brief w
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 1.2.0
+  version: 1.3.0
 ---
 
 # Shape
@@ -16,8 +16,8 @@ Reach a **shared understanding of the idea before any code**. The asset that mat
 ## Auto-size by complexity
 
 - **Tiny** (≤3 files, one obvious change): skip shaping — just build it.
-- **Medium** (a clear feature): draft → react → a short BRIEF → build.
-- **Large / fuzzy** (new domain, real ambiguity): draft → react → BRIEF → slice into buildable pieces → optional design notes.
+- **Medium** (a clear feature): draft → react → quick reuse scan → BRIEF → build.
+- **Large / fuzzy** (new domain, real ambiguity): draft → react → design sketch (reuse + components + data) → BRIEF → slice into buildable pieces.
 
 Always required: reach alignment. Everything else scales to the work.
 
@@ -32,9 +32,17 @@ Do NOT interrogate from a blank page. Read the one-liner, take a quick look at t
 
 Size the ask to the stakes: cheap-to-reverse decisions lead with your pick (veto if wrong); expensive-to-undo ones lay the options out and let the user choose.
 
+## Sketch the "how" before slicing (auto-sized)
+
+Once you both hold the *what*, sketch *how* you'll build it before turning it into tasks — draft-first, same as the brief. Keep it proportional and stop the moment you're writing more design than the feature warrants.
+
+- **Reuse first** (even for Medium) — what existing code, patterns, or modules does this build on? Name them. The cheapest way to avoid reinventing something that already exists.
+- **Components & data** (Large) — the key pieces and how they talk, plus the data model if there is one. A few bullets or mermaid lines, not a document.
+- **The decisions that bite** — surface architectural forks the same draft-first way (your lean + the alternative), so they're decided before they're baked into slices.
+
 ## Capture the alignment (lightweight, on disk)
 
-Write a single `.shape/<slug>.md` — the converged draft itself: **what** we're building, **why**, the **decisions** made, what we're **NOT** doing, and open questions. Everything lives in one file so editing it later carries the full context. There's no separate write-up step; the draft you iterated *is* the brief. This is durable context (survives a context reset; a fresh session or the overnight loop reloads it), **not** a contract to satisfy line-by-line. For Large work add a `## tasks` section to the same file — **vertical slices** (each a thin end-to-end cut that delivers something visible) as a GitHub-style checklist (`- [ ]`) the build side consumes.
+Write a single `.shape/<slug>.md` — the converged draft itself: **what** we're building, **why**, the **decisions** made (including what to reuse), what we're **NOT** doing, ideas **deferred** for later, and open questions. Everything lives in one file so editing it later carries the full context. There's no separate write-up step; the draft you iterated *is* the brief. This is durable context (survives a context reset; a fresh session or the overnight loop reloads it), **not** a contract to satisfy line-by-line. For Large work add a `## tasks` section to the same file — **vertical slices** (each a thin end-to-end cut that delivers something visible) as a GitHub-style checklist (`- [ ]`) the build side consumes.
 
 ## Don't fabricate
 
