@@ -25,7 +25,7 @@ skills are invoked as `/<plugin>:<skill>` — e.g. `/build:fix-pr`, `/loops:nigh
 
 | skill | description |
 | ------------------------- | --------------------------------------------------------------------- |
-| `/build:shape`            | align on the idea before building — grill-me, lightweight brief, slices |
+| `/build:shape`            | align on the idea before building — draft-first brief, react & revise, slices |
 | `/build:open-pr`          | create a PR from the current branch                                   |
 | `/build:address-comments` | address review comments on github PRs                                 |
 | `/build:fix-pr`           | finalize and green a PR: review, simplify, checks, comments, CI watch |

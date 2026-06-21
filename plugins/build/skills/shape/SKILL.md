@@ -1,10 +1,10 @@
 ---
 name: shape
-description: Align on the idea before building — Claude interrogates you and you discuss until you both hold the same picture of what to build, then capture a lightweight brief and slice it into buildable pieces. Auto-sizes by complexity. Use when the user says "shape this", "let's plan", "think this through", "what should we build", "discuss before building", or starts a non-trivial feature or project. Do NOT use for tiny mechanical changes (just do them), for code-quality cleanups (use /build:improve-code), or to find bugs (use /build:fix-pr).
+description: Align on the idea before building — Claude drafts a short brief with its best-guess decisions already filled in, surfaces only the forks that genuinely could go either way (each with a recommended pick), and revises against your reactions until you both hold the same picture. Auto-sizes by complexity. Use when the user says "shape this", "let's plan", "think this through", "what should we build", "discuss before building", or starts a non-trivial feature or project. Do NOT use for tiny mechanical changes (just do them), for code-quality cleanups (use /build:improve-code), or to find bugs (use /build:fix-pr).
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Shape
@@ -16,31 +16,29 @@ Reach a **shared understanding of the idea before any code**. The asset that mat
 ## Auto-size by complexity
 
 - **Tiny** (≤3 files, one obvious change): skip shaping — just build it.
-- **Medium** (a clear feature): grill-me → a short BRIEF → build.
-- **Large / fuzzy** (new domain, real ambiguity): grill-me → BRIEF → slice into buildable pieces → optional design notes.
+- **Medium** (a clear feature): draft → react → a short BRIEF → build.
+- **Large / fuzzy** (new domain, real ambiguity): draft → react → BRIEF → slice into buildable pieces → optional design notes.
 
 Always required: reach alignment. Everything else scales to the work.
 
-## The core move — grill-me (Claude interrogates you)
+## The core move — draft first, then react
 
-Do NOT ask the user to write a spec. **Ask them the sharp questions** until you both hold the same picture (full playbook in `references/grill-me.md`):
+Do NOT interrogate from a blank page. Read the one-liner, take a quick look at the codebase, and **write a short draft brief with your best-guess decisions already filled in.** Then hand it back for reaction — the user edits a concrete proposal instead of answering open questions cold (full playbook in `references/draft-first.md`):
 
-- What are we building, and **why** — what changes for the user?
-- What's explicitly **out of scope** / the smallest version still worth shipping?
-- The **decisions that bite later** (data model, where logic lives, naming) — decide now or defer explicitly.
-- The **edge cases** that matter (empty/huge inputs, first-run vs repeat, failure/rollback, migration).
-- What does **"done"** look like, and how do we know it works?
-- **Constraints:** existing patterns, perf, deps, deadline, blast radius.
+- **Lead with the draft** — what we're building, why, the scope edges, and the decisions you've already made.
+- **Decide the obvious yourself; surface only the forks that bite.** When a decision genuinely could go more than one way, present it as concrete options with your lean and the reason — "leaning X because Y; the alternative is Z — keep or change?". If the call is settled by the codebase or the goal, just make it and note it.
+- **The user reacts** — keeps the picks that fit, flips the ones that don't. Editing, not composing.
+- **Revise and re-present only what changed.** Repeat until restating the idea produces no corrections — that convergence *is* the alignment.
 
-Ask in small batches, reflect back ("so we're building X for Y, NOT doing Z — right?"), and keep going until restating the idea produces no more corrections. That confirmation *is* the alignment.
+Size the ask to the stakes: cheap-to-reverse decisions lead with your pick (veto if wrong); expensive-to-undo ones lay the options out and let the user choose.
 
 ## Capture the alignment (lightweight, on disk)
 
-Write `.shape/<slug>/BRIEF.md` — **what** we're building, **why**, the **decisions** made, what we're **NOT** doing, and open questions. This is durable context (survives a context reset; a fresh session or the overnight loop reloads it), **not** a contract to satisfy line-by-line. For Large work also write `.shape/<slug>/tasks.md` — **vertical slices** (each a thin end-to-end cut that delivers something visible), as a checklist the build side consumes.
+Write `.shape/<slug>/BRIEF.md` — the converged draft itself: **what** we're building, **why**, the **decisions** made, what we're **NOT** doing, and open questions. There's no separate write-up step; the draft you iterated *is* the brief. This is durable context (survives a context reset; a fresh session or the overnight loop reloads it), **not** a contract to satisfy line-by-line. For Large work also write `.shape/<slug>/tasks.md` — **vertical slices** (each a thin end-to-end cut that delivers something visible), as a checklist the build side consumes.
 
 ## Don't fabricate
 
-Before asserting how something works: check the codebase, then its docs, then the web; if you still don't know, **say so**. A wrong assumption here cascades into the build — uncertainty flagged beats confidence invented.
+Before asserting how something works: check the codebase, then its docs, then the web; if you still don't know, **say so**. A wrong assumption here cascades into the build — and a draft full of confident guesses is worse than one that flags what it's unsure of. Uncertainty flagged beats confidence invented.
 
 ## Hand off to build
 
@@ -48,5 +46,5 @@ Shaping ends at alignment + BRIEF (+ slices). Building is `/build:open-pr` → `
 
 ## Bundled Resources
 
-### references/grill-me.md
-The interrogation playbook — question categories and how to drive to alignment without writing a spec first.
+### references/draft-first.md
+The draft-first playbook — what a draft brief must cover, and how to surface only the genuine forks as recommended-pick choices instead of a wall of questions.
