@@ -4,7 +4,7 @@ description: Finalize and green the open GitHub PR for the current branch, end-t
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 2.0.0
+  version: 2.1.0
 ---
 
 # Fix PR
@@ -37,6 +37,7 @@ Launch ALL of the following concurrently — review agents in a single message, 
 
    Each agent must verify every finding against the actual file (not just the diff) and return: `file:line | what | evidence | suggested fix | confidence`.
    For tiny diffs (≲2 files / ≲100 lines), skip the fan-out and apply the checklist directly in the main context.
+   If a `.shape/*.md` brief matches this branch, pass it to the agents as the intended scope — review the diff against what was actually agreed (did it build the shaped thing, and only that?), not just generic correctness.
 
 2. **Comments fetch** (background): `python scripts/fetch_comments.py` — prints conversation comments, reviews, and review threads (with `id` and `isResolved`) as JSON.
 3. **Local checks** (background): detect the project's check commands, in this order of authority: project CLAUDE.md / docs, CI workflow files (`.github/workflows/`), then `package.json` scripts / `justfile` / `Makefile` / `pyproject.toml`. Run the full gate — lint, format check, typecheck, tests — as concurrent background shells when the commands are independent. Run what CI runs, not a subset (a typecheck step skipped locally is the classic "fails only in CI" source). This is a baseline run: it surfaces pre-existing failures early, while the review agents work.

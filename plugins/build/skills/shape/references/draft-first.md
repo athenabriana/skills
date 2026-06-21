@@ -40,16 +40,24 @@ For each real fork:
 
 ## How to drive it
 
+- On the **single highest-stakes fork**, ask how the user would decide *before*
+  revealing your pick — anchoring is strongest on the decision that matters most,
+  so don't pre-frame that one. Everything else stays draft-first.
 - One **small batch** of forks at a time (3–5 max), never a wall.
 - After each round, **revise the draft and show only what changed** — the diff,
   not the whole document again.
 - **Reflect back:** "So we're building X, for Y, and NOT doing Z — right?"
-  Alignment = the user confirms your restatement with no corrections.
-- Stop when a restatement produces no changes. That converged draft *is* the
-  single `.shape/<slug>.md` (brief + a `## tasks` section for the slices).
+- **Alignment is active, not silent.** It's confirmed when the user restates the
+  idea in their own words or explicitly approves the written brief — never by the
+  mere absence of objections. No reaction usually means they checked out, not that
+  they agree; prompt for the explicit nod.
+- **Stop at the validated brief.** When the user approves (or sends last edits),
+  that `.shape/<slug>.md` is the artifact — and shaping ends there. Building is a
+  separate step the user starts; do not roll into it.
 - Keep **deferred decisions visible** — anything handed back to you ("your call")
   gets noted, so it's not silently assumed.
 - When a good idea surfaces that's **out of scope**, don't drop it and don't build
-  it — park it in the brief's "deferred" bucket so it's captured for later.
+  it — park it in the brief's out-of-scope bucket as a plain bullet (never a
+  checkbox — the task selector would mistake it for work).
 - If a fork can't be settled without facts, go check (codebase → docs → web) and
   come back with the options, rather than guessing.

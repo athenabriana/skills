@@ -4,7 +4,7 @@ description: Create a GitHub pull request from the current branch. Use when user
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Open Pull Request
@@ -27,6 +27,8 @@ python scripts/gather_pr_context.py
 ```
 
 Returns JSON with: `branch`, `upstream`, `base_branch`, `commit_log`, `diff_stat`, `uncommitted_changes`, and `pr_template` (if found).
+
+If a `.shape/*.md` brief matches this work, read it too — it's the validated intent behind these commits. Ground the PR title and description in what was actually agreed, not just what the diff appears to do.
 
 ### Phase 2: Prepare
 

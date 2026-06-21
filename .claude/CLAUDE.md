@@ -45,7 +45,7 @@ Examples of what should be a script:
 ### Writing Guidelines
 
 - Keep SKILL.md focused on the workflow and decision-making logic
-- No anti-pattern / "DO NOT" lists — enforce irreversible hazards with hooks (see `/loops:guardrails`); keep guidance positive and lean (negative lists are context noise and a weaker signal for the model)
+- Keep guidance positive and lean by default — enforce irreversible hazards with hooks (see `/loops:guardrails`), not prose. Don't write catalogs of anti-patterns / "DO NOT" lists; they're context noise and a weaker signal. A single sharp caution is allowed where negation is genuinely the clearest signal (e.g. a skill warning about its own failure mode) — the ban is on lists and reflexive negation, not on ever saying "don't".
 - Use `references/` for static context the LLM needs (coding principles, validation checklists)
 - Trigger descriptions should be specific — list exact phrases the user might say
 - Skill workflows reference their own scripts relatively (e.g. `scripts/foo.py`). Only **hooks** use `${CLAUDE_PLUGIN_ROOT}` (the plugin's absolute install path) — skill bodies should not.

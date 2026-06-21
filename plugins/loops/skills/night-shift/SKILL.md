@@ -4,7 +4,7 @@ description: Run ONE pre-shaped task overnight as a desired-state cron-once loop
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 # Night Shift (cron-once, draft-PR only)
@@ -39,13 +39,14 @@ a Cloud Routine. It builds on `/build:shape` (the brief + sliced tasks) and
 - **Intra-task scope ceiling.** One-task-per-run does NOT bound the SIZE of that task. Set a hard `max-files` / `max-diff-lines` ceiling in the routine prompt; if the task would exceed it, stop and open the partial draft PR rather than gold-plating (a routine runs with no mid-run human to stop it).
 - **Draft-PR only, never merge.** The land step stays human. Withhold merge capability from the routine (`loops:guardrails/references/autonomy-boundary.md`); the PreToolUse hook is the backstop.
 - **Own circuit breaker.** After N consecutive failed gate runs, write the blocker into the task list / PR and exit. This is your own counter — NOT the Auto Mode breaker (that counts denied actions and does not fire inside a no-prompt routine).
+- **Quarantine a poison task.** If a task fails the gate repeatedly across runs, append a `(blocked: <reason>)` tag to its line. `next_task.py` skips blocked tasks (and counts them), so the same broken task can't be re-attempted every single night — the loop moves to the next one and you triage the blocked one by hand.
 - **Halt loud.** The worst overnight outcome is "no progress + a clear blocker note", never a runaway or a fabricated fix.
 - **Cost.** Single-agent only inside the loop (no fan-out — ~15× tokens compounds per iteration) until a week of usage is measured at claude.ai. Cron-once per night.
 
 ## Bundled Resources
 
 ### scripts/next_task.py
-Parses the `## tasks` section of `.shape/<slug>.md` and emits the first unchecked task as JSON (`{done, total, remaining, next}`) — the deterministic one-task selector.
+Parses the `## tasks` section of `.shape/<slug>.md` and emits the first unchecked, non-blocked task as JSON (`{done, total, blocked, remaining, warnings, next}`) — the deterministic one-task selector. No-ops if the file has headings but no `## tasks` section; skips `(blocked: …)` tasks; warns on malformed checkboxes.
 
 ### references/routine-recipe.md
 The Cloud Routine setup: commit `.shape/`, withhold merge scope, the guard hook + probe, the draft-PR-only prompt with the scope ceiling, and the cost cap.

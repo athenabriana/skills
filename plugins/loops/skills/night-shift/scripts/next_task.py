@@ -11,19 +11,27 @@ live under a `## tasks` heading as GitHub-style checklist items, optionally with
 a stable id and target files in trailing tags:
 
     # build the thing
-    ...brief prose, decisions, what we're NOT doing...
+    ...brief prose, decisions, out-of-scope bullets (NOT checkboxes)...
 
     ## tasks
     - [ ] T1: add input validation to parser  (files: src/parse.ts)
     - [x] T2: write failing test for empty input
     - [ ] T3: handle the empty-input case  (files: src/parse.ts, test/parse.test.ts)
+    - [ ] T4: flaky integration  (blocked: needs staging creds)
 
-Only checkboxes under the tasks heading count — checkbox-looking lines elsewhere
-in the brief (e.g. an open-questions list) are ignored. If the file has no tasks
-heading, the whole file is scanned (back-compat with a bare task list).
+Selection rules:
+  - Only checkboxes UNDER the tasks heading count. If the file has headings but
+    no tasks heading, that's a brief with no task list → no-op (we never scan a
+    structured doc's stray checkboxes). A file with no headings at all is treated
+    as a bare checklist (back-compat).
+  - A task tagged `(blocked: ...)` is skipped and counted, so a poison task can't
+    be re-attempted every night — mark it blocked and the loop moves on.
+  - Lines that look like a checkbox but don't parse (e.g. `-[ ]`, `- [] x`) are
+    reported in `warnings` so a typo doesn't silently drop a task.
 
-Emits {done, total, remaining, next: {id, title, files, raw} | null}. When
-next is null, the backlog is empty (the loop should no-op and report).
+Emits {done, total, blocked, remaining, warnings, next: {id, title, files, raw}
+| null}. When next is null, there is nothing actionable (the loop no-ops and
+reports). An `error` field (with next=null) means the file could not be used.
 
 Usage:
   python next_task.py --tasks .shape/<slug>.md
@@ -34,13 +42,14 @@ from __future__ import annotations
 
 import argparse
 import json
-import sys
-
 import re
 
 CHECK_RE = re.compile(r"^\s*[-*]\s*\[(?P<mark>[ xX])\]\s*(?P<body>.+?)\s*$")
+# Looks like a checkbox to a human but won't parse above — flag, don't drop.
+NEARMISS_RE = re.compile(r"^\s*[-*]?\s*\[[^\]]?\]")
 ID_RE = re.compile(r"^(?P<id>[A-Za-z]+\d+|\d+)[:.\)]\s*(?P<rest>.+)$")
 FILES_RE = re.compile(r"\(files?:\s*(?P<files>[^)]+)\)", re.I)
+BLOCKED_RE = re.compile(r"\(blocked\b", re.I)
 HEADING_RE = re.compile(r"^\s*#{1,6}\s+(?P<text>.+?)\s*$")
 TASKS_HEADING_RE = re.compile(r"^\s*#{1,6}\s+tasks\b", re.I)
 
@@ -55,16 +64,20 @@ def parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
-def tasks_section(lines: list[str]) -> list[str]:
-    """Return only the lines inside the `## tasks` section. If there is no tasks
-    heading, return all lines (a bare checklist file)."""
+def tasks_section(lines: list[str]) -> list[str] | None:
+    """Lines inside the `## tasks` section. None means 'no usable task list':
+    headings exist but none is a tasks heading. A file with no headings at all
+    falls back to the whole file (a bare checklist)."""
     start = None
+    has_heading = False
     for i, line in enumerate(lines):
+        if HEADING_RE.match(line):
+            has_heading = True
         if TASKS_HEADING_RE.match(line):
             start = i + 1
             break
     if start is None:
-        return lines
+        return lines if not has_heading else None
     out: list[str] = []
     for line in lines[start:]:
         if HEADING_RE.match(line):  # next heading ends the section
@@ -88,49 +101,74 @@ def parse_task(body: str, index: int) -> dict:
 
 
 def select(lines: list[str]) -> dict:
-    done = 0
-    total = 0
+    section = tasks_section(lines)
+    if section is None:
+        return {
+            "done": 0, "total": 0, "blocked": 0, "remaining": 0,
+            "warnings": [], "next": None,
+            "error": "no `## tasks` section found in shape file",
+        }
+    done = blocked = total = 0
+    warnings: list[str] = []
     next_task = None
-    for i, line in enumerate(tasks_section(lines), 1):
+    for i, line in enumerate(section, 1):
         m = CHECK_RE.match(line)
         if not m:
+            if NEARMISS_RE.match(line):
+                warnings.append(f"line {i}: looks like a checkbox but did not parse: {line.strip()!r}")
             continue
         total += 1
+        body = m.group("body")
         if m.group("mark").lower() == "x":
             done += 1
+        elif BLOCKED_RE.search(body):
+            blocked += 1
         elif next_task is None:
-            next_task = parse_task(m.group("body"), i)
-    return {"done": done, "total": total, "remaining": total - done, "next": next_task}
+            next_task = parse_task(body, i)
+    return {
+        "done": done,
+        "total": total,
+        "blocked": blocked,
+        "remaining": total - done - blocked,
+        "warnings": warnings,
+        "next": next_task,
+    }
 
 
 def self_test() -> int:
     merged = [
         "# build the thing",
-        "open questions:",
-        "- [ ] should NOT be picked (outside tasks section)",
+        "out of scope:",
+        "- ship the mobile app (revisit)",  # plain bullet, must NOT count
         "",
         "## tasks",
         "- [x] T1: scaffold  (files: a.ts)",
         "- [ ] T2: validate input  (files: src/parse.ts)",
         "- [ ] T3: handle empty case",
+        "- [ ] T4: flaky  (blocked: needs creds)",
+        "- [] T5: empty brackets",  # near-miss -> warning, not a task
         "",
         "## notes",
-        "- [ ] also ignored (after tasks section)",
+        "- [ ] ignored (after tasks section)",
     ]
     r = select(merged)
-    assert r["total"] == 3, r
+    assert r["total"] == 4, r          # T1..T4; T5 not parsed, notes excluded
     assert r["done"] == 1, r
-    assert r["next"]["id"] == "T2", r
-    assert r["next"]["files"] == ["src/parse.ts"], r
+    assert r["blocked"] == 1, r
+    assert r["next"]["id"] == "T2", r  # T4 skipped as blocked
+    assert r["remaining"] == 2, r
+    assert any("T5" in w or "typo" in w for w in r["warnings"]), r
 
-    bare = ["- [x] done one", "- [ ] do two"]  # no tasks heading -> whole file
-    r2 = select(bare)
-    assert r2["total"] == 2 and r2["next"]["title"] == "do two", r2
+    structured_no_tasks = ["# brief", "## decisions", "- [ ] not a task"]
+    assert select(structured_no_tasks)["next"] is None
+    assert "no `## tasks`" in select(structured_no_tasks)["error"]
 
-    empty = ["## tasks", "- [x] all done"]
-    assert select(empty)["next"] is None
+    bare = ["- [x] done one", "- [ ] do two"]  # no headings -> whole file
+    assert select(bare)["next"]["title"] == "do two"
 
-    print("next_task self-test: PASS (3/3)")
+    assert select(["## tasks", "- [x] all done"])["next"] is None
+
+    print("next_task self-test: PASS (4/4)")
     return 0
 
 
