@@ -102,7 +102,7 @@ Edge → outcome:
   migração*
 - [x] S2: skill `frame-problem` — problema/hipótese/impacto/métrica/appetite +
   confidence-tag/skip/echo. — *delivers: frame-problem happy path + edges*
-- [ ] S3: skill `assess-fit` — modos + evidence-tag + cuts/priorização/hipótese.
+- [x] S3: skill `assess-fit` — modos + evidence-tag + cuts/priorização/hipótese.
   — *delivers: assess-fit*
 - [ ] S4: skill `legal-lens` — revisor grounded, BR-default + override,
   severidade + issue-with-solution, append `## legal`. — *delivers: legal-lens*
