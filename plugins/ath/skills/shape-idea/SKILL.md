@@ -4,7 +4,7 @@ description: Align on the idea before building — Claude develops a draft, loop
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 1.11.0
+  version: 1.12.0
 ---
 
 # Shape
@@ -20,6 +20,10 @@ Reach a **shared understanding of the idea before any code**. The asset that mat
 - **Large / fuzzy** (new domain, real ambiguity): the full loop — reuse + components + data-flow design, the technical forks, the behavior map, slice into pieces, then the gate.
 
 Always required: reach alignment, **close the load-bearing technical decisions, map the behavior**, and stop at a validated brief. Size is a running estimate, not locked at the start — if a "Tiny/Medium" task keeps surfacing gray areas mid-flow, re-size up and shape it properly.
+
+## Read upstream intent first
+
+If `.ath/tasks/<slug>/shape.md` already carries `## problem` / `## hypothesis` (from `/ath:frame-problem`) or `## fit` / `## cuts` (from `/ath:assess-fit`), **read them before drafting** — they're the intent this work serves. The problem and success signal anchor the `why`, the appetite bounds the scope, and `## fit` / `## cuts` already settle what's in and what was deliberately dropped — so don't re-litigate a cut the user made upstream, and don't ask gray-area questions the trio already answered. Echo the framing in one line so the user sees it carried through, then develop the design on top of it. No upstream sections is fine — shape from the one-liner as usual.
 
 ## The loop
 

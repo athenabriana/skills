@@ -106,7 +106,7 @@ Edge → outcome:
   — *delivers: assess-fit*
 - [x] S4: skill `legal-lens` — revisor grounded, BR-default + override,
   severidade + issue-with-solution, append `## legal`. — *delivers: legal-lens*
-- [ ] S5: shape-idea lê `## problem`/`## hypothesis`/`## fit` upstream como
+- [x] S5: shape-idea lê `## problem`/`## hypothesis`/`## fit` upstream como
   contexto. — *delivers: integração do fluxo*
 
 ## Out of scope
