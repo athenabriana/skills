@@ -133,7 +133,7 @@ Edge → outcome:
       `<domain>/<kebab-case(title)>.md` slug rule, the `⚠️ unverified` body banner —
       and seed 1–2 `verified` legal example concepts (e.g. LGPD art. 7 bases). —
       _delivers: the format (slug + banner conventions) + a real catalog to read against_
-- [ ] S2: legal-lens **reads** the KB — glob + frontmatter catalog, jurisdiction-
+- [x] S2: legal-lens **reads** the KB — glob + frontmatter catalog, jurisdiction-
       tag + subject selection rule, snapshot read, reads matches, cites; verified-vs-
       unverified weighting; empty-KB fallback. Edit `legal-lens/SKILL.md`. —
       _delivers: grounded-retrieval happy path + empty-KB / unverified / no-match /

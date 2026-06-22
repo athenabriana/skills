@@ -43,6 +43,29 @@ implication and what it would take to be clear:
 These are the common touchpoints, not a checklist to exhaust — follow the
 artifact to where the real exposure is.
 
+## Ground against the knowledge base
+
+Before judging, consult the repo's curated knowledge base — a local, citable
+source so grounding is a mechanism, not just a promise. The format and provenance
+rules live in `references/knowledge-format.md`.
+
+1. **Glob** `.ath/knowledge/` and read each file's frontmatter as a catalog
+   (`type` / `title` / `description` / `tags` / `verification`). Take this read as
+   a single snapshot for the run.
+2. **Select** the entries that match: their jurisdiction tag matches the resolved
+   jurisdiction **and** their title/description/tags overlap the artifact's
+   subject. Read the matched bodies.
+3. **Weight by provenance.** A `verified` entry is settled grounding — cite its
+   `resource` and the concept. An `unverified` entry is a **lead to confirm**,
+   never authority; surface it as a lead and still check before asserting on it.
+   Rank `verified` above `unverified`.
+
+If `.ath/knowledge/` is absent or empty, run exactly as you would without it —
+the base only ever adds grounding, it is never a precondition. When the base has
+no entry for a touchpoint you raise, proceed grounded as usual and note the gap
+("no KB entry for <topic>") so it's visible to curate. Skip any entry missing the
+required `type` field as malformed rather than failing the run.
+
 ## Grounded — the load-bearing rule
 
 A legal lens that fabricates law is worse than none. Cite the specific norm
