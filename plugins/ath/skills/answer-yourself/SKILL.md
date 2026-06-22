@@ -24,4 +24,4 @@ When asked for your judgment, give a real one. The value here is the single thin
 
 ## Boundary
 
-This is for when they want *your* judgment. When the call is genuinely *theirs* to make (real trade-offs only they can weigh — budget, taste, risk appetite), surface the options and let them pick rather than quietly deciding for them. The two are complementary: their decision → options; your judgment → a take.
+This is for when they want _your_ judgment. When the call is genuinely _theirs_ to make (real trade-offs only they can weigh — budget, taste, risk appetite), surface the options and let them pick rather than quietly deciding for them. The two are complementary: their decision → options; your judgment → a take.

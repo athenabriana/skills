@@ -40,7 +40,7 @@ Ask the forks through the **`AskUserQuestion` tool** — concrete options the us
 
 ## How to drive it
 
-- On the **single highest-stakes fork**, ask how the user would decide *before*
+- On the **single highest-stakes fork**, ask how the user would decide _before_
   revealing your pick — anchoring is strongest on the decision that matters most,
   so don't pre-frame that one. Everything else stays draft-first.
 - One **small batch** of forks at a time via `AskUserQuestion` (up to 4 per
@@ -63,7 +63,7 @@ Ask the forks through the **`AskUserQuestion` tool** — concrete options the us
   mere absence of objections. No reaction usually means they checked out, not that
   they agree; prompt for the explicit nod.
 - **Stop at the validated brief.** When the user approves (or sends last edits),
-  that `.shape/<slug>.md` is the artifact — and shaping ends there. Building is a
+  that `.ath/tasks/<slug>/shape.md` is the artifact — and shaping ends there. Building is a
   separate step the user starts; do not roll into it.
 - Keep **deferred decisions visible** — anything handed back to you ("your call")
   gets noted, so it's not silently assumed.

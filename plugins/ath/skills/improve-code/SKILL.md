@@ -26,7 +26,7 @@ a defect, not an improvement. So:
 - **One change at a time.** Apply edits incrementally and re-run the relevant
   check after each, so a regression is isolated to a single edit and caught
   immediately — never batch a pile of edits and check once at the end.
-- **Justify before you touch.** For each edit, be able to say *why* it is
+- **Justify before you touch.** For each edit, be able to say _why_ it is
   behavior-preserving (same inputs → same outputs → same side effects). If you
   can't, don't make it.
 - **Untested code is higher-risk.** If the touched code has no test covering it,
@@ -83,6 +83,7 @@ Stop short of changes that hurt the code even if they shrink it:
 ## Bundled Resources
 
 ### references/quality-checklist.md
+
 The six quality criteria applied here — the canonical checklist, kept consistent
 with `ath:ship` Pass 2 so the standalone and PR-finalization flows judge a diff
 the same way.

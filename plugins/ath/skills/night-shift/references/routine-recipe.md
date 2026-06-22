@@ -7,7 +7,7 @@ prompts mid-run**, durable output only via a `claude/` branch / PR.
 
 ## Setup checklist
 
-- [ ] **Commit the shaped file.** `.shape/<slug>.md` (brief + `## tasks`
+- [ ] **Commit the shaped file.** `.ath/tasks/<slug>/shape.md` (brief + `## tasks`
       checklist) and the `night-shift` + `shape` skills must be committed to the
       target repo — the fresh clone can only see what's in git.
 - [ ] **Withhold merge capability** (the real never-merge guarantee): the
@@ -21,7 +21,7 @@ prompts mid-run**, durable output only via a `claude/` branch / PR.
 
 ## The routine prompt (self-contained — no session memory)
 
-> Run the `night-shift` skill against `.shape/<slug>.md` in
+> Run the `night-shift` skill against `.ath/tasks/<slug>/shape.md` in
 > this repo. First run the guard self-test; abort if it fails. Implement the ONE
 > next unchecked task only. Hard limits: touch at most **N files / M diff lines**
 > — if the task would exceed that, stop and open the partial draft PR instead of
