@@ -138,7 +138,7 @@ Edge → outcome:
       unverified weighting; empty-KB fallback. Edit `legal-lens/SKILL.md`. —
       _delivers: grounded-retrieval happy path + empty-KB / unverified / no-match /
       non-BR / no-entry-match edges_
-- [ ] S3: legal-lens **writes** leads — appends `unverified` OKF concepts with
+- [x] S3: legal-lens **writes** leads — appends `unverified` OKF concepts with
       provenance + banner + citations after research; never writes `verified`;
       verified entries get citation-only appends; slug derivation + collision
       handling. — _delivers: skill-write path + the never-write-verified guard +

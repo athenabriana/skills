@@ -4,7 +4,7 @@ description: Pass a juridical lens over any artifact — an idea, feature, flow,
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Legal lens
@@ -74,6 +74,26 @@ rule exists or applies, **say so explicitly and flag it for a qualified lawyer**
 — never invent a statute, a precedent, or an article number. Confidence-tag
 uncertain points. Where a fact would settle it (does this norm still apply, is
 there a newer one), check before asserting.
+
+## Write back leads (optional)
+
+When research surfaces a norm worth keeping that the base doesn't have yet, you
+may grow it — safely, because writes never touch the trusted core. Follow
+`references/knowledge-format.md`:
+
+- Write a new concept to `.ath/knowledge/<domain>/<kebab-case(title)>.md` with
+  `verification: unverified`, `source: legal-lens`, a `resource`, a `# Citations`
+  section, and the `⚠️ unverified` banner as the first body line. You write
+  `unverified` only — promotion to `verified` is a human's call.
+- If the slug already resolves to an existing file: when it's the **same**
+  concept and `verified`, append to its `# Citations` only, leaving frontmatter
+  and body untouched; when it's the same concept and `unverified`, refresh it
+  (new `timestamp` + citation, staying `unverified`); when it's a genuinely
+  **different** concept, suffix the slug (`-2`) rather than overwrite.
+
+A lead you write this run is for future runs — don't cite it as grounding in the
+same run that minted it (the catalog read was a snapshot, and it's `unverified`
+anyway).
 
 ## Editorial stance
 
