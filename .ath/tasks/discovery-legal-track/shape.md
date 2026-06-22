@@ -100,7 +100,7 @@ Edge → outcome:
   `.ath/tasks/<slug>/shape.md`; implement-idea/night-shift/ship leem o path novo;
   semeia `backlog.md` com o track de UI parkeado. (foundation) — *delivers:
   migração*
-- [ ] S2: skill `frame-problem` — problema/hipótese/impacto/métrica/appetite +
+- [x] S2: skill `frame-problem` — problema/hipótese/impacto/métrica/appetite +
   confidence-tag/skip/echo. — *delivers: frame-problem happy path + edges*
 - [ ] S3: skill `assess-fit` — modos + evidence-tag + cuts/priorização/hipótese.
   — *delivers: assess-fit*
