@@ -81,3 +81,12 @@ jurisdiction: Brazil (default)
 
 Close by naming what needs a real lawyer's sign-off before launch — the lens
 narrows where counsel is needed; it doesn't stand in for it.
+
+## Bundled Resources
+
+### references/knowledge-format.md
+
+The `.ath/knowledge/` convention (OKF) the lens grounds against: layout, slug
+rule, frontmatter + provenance fields (`verification` / `source`), the
+`⚠️ unverified` banner, and worked example concepts. Read it to know the shape
+of the catalog you glob, cite, and write back to.
