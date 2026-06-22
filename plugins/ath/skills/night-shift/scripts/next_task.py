@@ -6,7 +6,7 @@ model implements it, but the SCRIPT decides which one (zero tokens, no free
 association). One task per run is the hard bound that keeps an overnight loop
 from draining the backlog or overbaking into scope creep.
 
-The shape file is a single `.shape/<slug>.md` (brief + tasks in one file). Tasks
+The shape file is a single `.ath/tasks/<slug>/shape.md` (brief + tasks in one file). Tasks
 live under a `## tasks` heading as GitHub-style checklist items, optionally with
 a stable id and target files in trailing tags:
 
@@ -34,7 +34,7 @@ Emits {done, total, blocked, remaining, warnings, next: {id, title, files, raw}
 reports). An `error` field (with next=null) means the file could not be used.
 
 Usage:
-  python next_task.py --tasks .shape/<slug>.md
+  python next_task.py --tasks .ath/tasks/<slug>/shape.md
   python next_task.py --self-test
 """
 
@@ -59,7 +59,7 @@ def parse_args() -> argparse.Namespace:
         description="Select the first unchecked task from a shape file's tasks section.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    p.add_argument("--tasks", help="Path to the shape file (.shape/<slug>.md).")
+    p.add_argument("--tasks", help="Path to the shape file (.ath/tasks/<slug>/shape.md).")
     p.add_argument("--self-test", action="store_true", help="Run built-in tests and exit.")
     return p.parse_args()
 

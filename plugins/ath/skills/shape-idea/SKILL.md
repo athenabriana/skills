@@ -42,7 +42,7 @@ You bring the idea; Claude develops it, then loops with you through the **`AskUs
 
 6. **The exit gate — blocks on open load-bearing decisions.** Don't gate blind: first **show the artifact the user is signing off on** — a tight recap of the happy path, the full edge→outcome table, and the **coverage table** (behavior → slice → test) with `⚠️` on any unmapped row plus a one-line counter (`N behaviors, M mapped, K open`) — so "is this complete?" is answerable at a glance instead of forcing them to reopen the file. Rendering the coverage is what turns the completeness pass from a claim into something the user can verify. Then list what's **still open** (unresolved load-bearing decisions + parked questions). Then ask one `AskUserQuestion`:
    - **If any load-bearing decision is still open:** do NOT offer a clean "build". The only options are **resolve it now** or **defer explicitly** ("decide at build time" — recorded as such in the brief). Never a silent "build anyway".
-   - **If nothing load-bearing is open:** *adjust something, or ready to build?* Adjust → back into the loop. Ready → write/finalize `.shape/<slug>.md`, **stop**, and tell the user exactly what to run (see "Hand off").
+   - **If nothing load-bearing is open:** *adjust something, or ready to build?* Adjust → back into the loop. Ready → write/finalize `.ath/tasks/<slug>/shape.md`, **stop**, and tell the user exactly what to run (see "Hand off").
 
 Size the ask to the stakes: cheap-to-reverse decisions lead with your pick (the user vetoes if wrong); expensive-to-undo ones lay the options out and let them choose. Full playbook in `references/draft-first.md`.
 
@@ -70,9 +70,9 @@ Walking each behavior surfaces decisions you haven't made — those go back into
 
 ## Capture the alignment (lightweight, on disk)
 
-Write a single `.shape/<slug>.md` — the converged draft itself: **what** we're building, **why**, the **decisions** made (including what to reuse), what's **out of scope** (including ideas parked for later, each marked *revisit*), and what's **still open**. Keep out-of-scope and open items as plain bullets — never checkboxes, so the task selector never mistakes them for work. Everything lives in one file so editing it later carries the full context; there's no separate write-up step, the draft you iterated *is* the brief. This is durable context (survives a context reset; a fresh session or the overnight loop reloads it), **not** a contract to satisfy line-by-line.
+Write a single `.ath/tasks/<slug>/shape.md` — the converged draft itself: **what** we're building, **why**, the **decisions** made (including what to reuse), what's **out of scope** (including ideas parked for later, each marked *revisit*), and what's **still open**. Keep out-of-scope and open items as plain bullets — never checkboxes, so the task selector never mistakes them for work. Everything lives in one file so editing it later carries the full context; there's no separate write-up step, the draft you iterated *is* the brief. This is durable context (survives a context reset; a fresh session or the overnight loop reloads it), **not** a contract to satisfy line-by-line.
 
-`<slug>` is a short kebab name for the idea. If `.shape/<slug>.md` already exists for a *different* idea, suffix it (`-2`) or ask — never silently overwrite another brief.
+`<slug>` is a short kebab name for the idea. If `.ath/tasks/<slug>/shape.md` already exists for a *different* idea, suffix it (`-2`) or ask — never silently overwrite another brief.
 
 For **Large** work, capture the closed technical decisions in a `## design` section — components and their boundaries, the data model, key data flows, and the decisions that bite — so the architecture is reviewable as one block and the build side (`/ath:implement-idea`, `/ath:night-shift`) reads it as the intent. **Medium** work keeps these inline in the decisions above; no `## design` block (that would be ceremony for a small feature).
 
@@ -86,10 +86,10 @@ Before asserting how something works: check the codebase, then its docs, then th
 
 ## Hand off — you invoke, the skill points the way
 
-shape ends at a validated `.shape/<slug>.md` and does **not** build — shaping and execution stay separate. But don't leave the user guessing: when they pick "ready" at the gate, state the exact next step.
+shape ends at a validated `.ath/tasks/<slug>/shape.md` and does **not** build — shaping and execution stay separate. But don't leave the user guessing: when they pick "ready" at the gate, state the exact next step.
 
-- **Daytime:** "Brief saved at `.shape/<slug>.md`. To build it: `/ath:implement-idea`, then `/ath:ship` — both load this brief as the intent."
-- **Overnight:** "Commit `.shape/<slug>.md`, then schedule `/ath:night-shift` — it builds one slice per run."
+- **Daytime:** "Brief saved at `.ath/tasks/<slug>/shape.md`. To build it: `/ath:implement-idea`, then `/ath:ship` — both load this brief as the intent."
+- **Overnight:** "Commit `.ath/tasks/<slug>/shape.md`, then schedule `/ath:night-shift` — it builds one slice per run."
 
 **Safety valve:** if building later reveals the idea was underspecified (surprises pile up), STOP and re-shape — that's the signal alignment was incomplete, not a license to improvise.
 

@@ -63,7 +63,7 @@ Ask the forks through the **`AskUserQuestion` tool** — concrete options the us
   mere absence of objections. No reaction usually means they checked out, not that
   they agree; prompt for the explicit nod.
 - **Stop at the validated brief.** When the user approves (or sends last edits),
-  that `.shape/<slug>.md` is the artifact — and shaping ends there. Building is a
+  that `.ath/tasks/<slug>/shape.md` is the artifact — and shaping ends there. Building is a
   separate step the user starts; do not roll into it.
 - Keep **deferred decisions visible** — anything handed back to you ("your call")
   gets noted, so it's not silently assumed.
