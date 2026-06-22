@@ -24,7 +24,7 @@ Everything here exists because of how Cloud Routines actually behave:
 ## 0. The non-negotiable: withhold merge capability
 
 The never-merge guarantee comes from the routine **not being able to merge**, not
-from a prompt or even the hook. Before enabling anything:
+from a prompt. Before enabling anything:
 
 - [ ] The routine's GitHub access is a token/App installation **without** PR-merge
       permission (read + PR-comment + statuses only). Leave **"Allow unrestricted
@@ -33,14 +33,9 @@ from a prompt or even the hook. Before enabling anything:
       permission is what actually stops it.
 - [ ] **No merge-capable connector** is attached (Slack write is fine; nothing that
       can call the GitHub merge endpoint).
-- [ ] The **`ath` plugin** is installed — its `PreToolUse` guard hook
-      (`hooks/hooks.json`) **auto-activates** when the plugin is enabled; no manual
-      `settings.json`.
-- [ ] **Probe it in cloud:** do one `Run now` where the prompt asks the agent to
-      attempt a harmless `gh pr merge --help`-style call and confirm the guard
-      denies it. It is **unverified** whether a plugin hook fires inside a routine —
-      if the probe is NOT denied, rely solely on capability-scoping and treat the
-      hook as absent.
+- [ ] **Branch protection** is enabled on `main`/`master`/`release` (require a PR,
+      block direct and force pushes) — the server-side backstop that holds even if
+      the token scoping above is misconfigured.
 
 ## 1. Slack delivery uses the CONNECTOR, not your MCP tools
 

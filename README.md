@@ -4,7 +4,7 @@
 
 [![github](https://img.shields.io/badge/github-athenabriana%2Fskills-111111?style=flat-square&logo=github)](https://github.com/athenabriana/skills)
 
-_a claude code plugin — agent skills grouped by use, with the guardrail hook and an operating-context hook shipped alongside them._
+_a claude code plugin — agent skills grouped by use, with an operating-context hook shipped alongside them._
 
 </div>
 
@@ -15,7 +15,7 @@ claude plugin marketplace add athenabriana/skills
 claude plugin install ath@athenabriana
 ```
 
-it ships a `PreToolUse` no-merge guard hook and a `SessionStart` operating-context hook, both auto-active on install. skills are invoked as `/ath:<skill>` — e.g. `/ath:shape`, `/ath:night-shift`, `/ath:answer-yourself`.
+it ships a `SessionStart` operating-context hook, auto-active on install. skills are invoked as `/ath:<skill>` — e.g. `/ath:shape`, `/ath:night-shift`, `/ath:answer-yourself`.
 
 ## what's inside
 
@@ -34,7 +34,7 @@ one plugin, `ath`; the skills are organized by use.
 
 ### loops — run across time (scheduled / event-driven)
 
-these run on the no-merge guard hook (blocks merge / approve / force-push / branch-delete).
+for the unattended (Cloud Routine) path, never-merge is enforced by **capability scoping** — the routine runs with a token that has no merge/branch-push permission and no merge-capable connector — backed by GitHub branch protection. Server-side controls, not a local hook.
 
 | skill                  | description                                                              |
 | ---------------------- | ------------------------------------------------------------------------ |

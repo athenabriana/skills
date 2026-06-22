@@ -14,15 +14,15 @@ prompts mid-run**, durable output only via a `claude/` branch / PR.
       routine's GitHub token/App has no merge permission, "Allow unrestricted
       branch pushes" is OFF (so it can only push `claude/` branches), and no
       merge-capable connector is attached.
-- [ ] **Enable the `ath` plugin** — its guard hook auto-activates. **Probe it**
-      with a `Run now` that attempts a blocked op and confirm denial. If a plugin
-      hook doesn't fire in the routine, rely solely on the withheld capability above.
+- [ ] **Enable branch protection** on `main`/`master`/`release` in the repo
+      (require a PR, block direct pushes and force-pushes) — the server-side
+      backstop that holds even if the capability scoping above is misconfigured.
 - [ ] **Network:** Trusted preset is enough (registries + GitHub).
 
 ## The routine prompt (self-contained — no session memory)
 
 > Run the `night-shift` skill against `.ath/tasks/<slug>/shape.md` in
-> this repo. First run the guard self-test; abort if it fails. Implement the ONE
+> this repo. Implement the ONE
 > next unchecked task only. Hard limits: touch at most **N files / M diff lines**
 > — if the task would exceed that, stop and open the partial draft PR instead of
 > expanding. Run the local gate (cap 3 log-gated retries). Commit to a `claude/`

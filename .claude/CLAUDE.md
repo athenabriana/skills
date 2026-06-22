@@ -1,6 +1,6 @@
 # Skills
 
-A **Claude Code plugin** (`ath`) published through a one-plugin marketplace. Install via `claude plugin marketplace add athenabriana/skills` then `claude plugin install ath@athenabriana`. Skills are invoked as `/ath:<skill>` (e.g. `/ath:ship`). The plugin ships a `PreToolUse` no-merge guard hook and a `SessionStart` operating-context hook, both auto-active when the plugin is enabled.
+A **Claude Code plugin** (`ath`) published through a one-plugin marketplace. Install via `claude plugin marketplace add athenabriana/skills` then `claude plugin install ath@athenabriana`. Skills are invoked as `/ath:<skill>` (e.g. `/ath:ship`). The plugin ships a `SessionStart` operating-context hook, auto-active when the plugin is enabled. Never-merge for the unattended path is enforced by cloud capability scoping (see the routine setup docs), not a local hook.
 
 ## Structure
 
@@ -8,12 +8,9 @@ A **Claude Code plugin** (`ath`) published through a one-plugin marketplace. Ins
 .claude-plugin/marketplace.json        # lists the single `ath` plugin
 plugins/ath/
 ├── .claude-plugin/plugin.json
-├── hooks/                             # autonomy-safety + session infra (auto-active, no skill)
-│   ├── hooks.json                      # PreToolUse no-merge guard + SessionStart context
-│   ├── guard_irreversible.py           # the no-merge guard (PreToolUse)
-│   ├── selftest_guard.py               # proves the guard is live
+├── hooks/                             # session infra (auto-active, no skill)
+│   ├── hooks.json                      # SessionStart context injection
 │   ├── enter_worktree.py               # worktree isolation for local autonomous runs
-│   ├── autonomy-boundary.md            # tier-1/2 reversible/irreversible boundary
 │   ├── scheduling-decision.md          # /loop vs Desktop task vs Cloud Routine decision table
 │   ├── inject_operating_context.py     # SessionStart hook script
 │   └── operating-context.md            # the injected operating frame (edit to tune)
@@ -27,7 +24,7 @@ plugins/ath/
 
 - Skills live in `plugins/ath/skills/<name>/SKILL.md`. Names are **verb-led** (`shape`, `gather-branch-context`, `ship`) — invoked as `/ath:<name>` (`/ath:ship`). No group prefix; the use grouping (shape & ship / loops / helpers) is a docs concept (the README sections), not part of the name. Keep the dir name identical to the frontmatter `name`.
 - Each skill is self-contained: `scripts/` and `references/*.md` relative to the skill dir.
-- The plugin ships hooks in `plugins/ath/hooks/hooks.json` (auto-activate when the plugin is enabled). Use them to enforce irreversible hazards (the no-merge guard) and to inject session-start context. Hook commands reference files via `${CLAUDE_PLUGIN_ROOT}/...` (e.g. `${CLAUDE_PLUGIN_ROOT}/hooks/guard_irreversible.py`).
+- The plugin ships hooks in `plugins/ath/hooks/hooks.json` (auto-activate when the plugin is enabled) to inject session-start context. Hook commands reference files via `${CLAUDE_PLUGIN_ROOT}/...` (e.g. `${CLAUDE_PLUGIN_ROOT}/hooks/inject_operating_context.py`). Irreversible hazards on the unattended path are kept out by capability scoping in the cloud routine, not by a local hook.
 
 ## Skills
 
@@ -49,7 +46,7 @@ Examples of what should be a script:
 ### Writing Guidelines
 
 - Keep SKILL.md focused on the workflow and decision-making logic
-- Keep guidance positive and lean by default — enforce irreversible hazards with hooks (the no-merge guard in `hooks/`), not prose. Don't write catalogs of anti-patterns / "DO NOT" lists; they're context noise and a weaker signal. A single sharp caution is allowed where negation is genuinely the clearest signal (e.g. a skill warning about its own failure mode) — the ban is on lists and reflexive negation, not on ever saying "don't".
+- Keep guidance positive and lean by default — enforce irreversible hazards with capability scoping (the unattended routine runs without merge/push permission), not prose. Don't write catalogs of anti-patterns / "DO NOT" lists; they're context noise and a weaker signal. A single sharp caution is allowed where negation is genuinely the clearest signal (e.g. a skill warning about its own failure mode) — the ban is on lists and reflexive negation, not on ever saying "don't".
 - Use `references/` for static context the LLM needs (coding principles, validation checklists)
 - Trigger descriptions should be specific — list exact phrases the user might say
 - Skill workflows reference their own scripts relatively (e.g. `scripts/foo.py`). Only **hooks** use `${CLAUDE_PLUGIN_ROOT}` (the plugin's absolute install path) — skill bodies should not.
@@ -65,4 +62,4 @@ Examples of what should be a script:
 
 - No AI attribution in commits, PRs, or code comments
 - Conventional commit style: `<type>(<scope>): <description>`
-- Scope is the skill name (`shape`, `maintain-repo`, …), `hooks` for the hook/guard layer, or `repo` for repo-wide changes
+- Scope is the skill name (`shape`, `maintain-repo`, …), `hooks` for the hook layer, or `repo` for repo-wide changes

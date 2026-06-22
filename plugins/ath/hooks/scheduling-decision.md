@@ -17,7 +17,8 @@ nothing — `/loop` is not durable.
 
 - **Needs to run while my laptop is closed** → Cloud Routine. Accept: no local
   files (commit state or use a connector), no mid-run approval prompts (so
-  withhold tier-2 capability — `autonomy-boundary.md`).
+  withhold irreversible capability — run the routine with a token that has no
+  merge/branch-push permission and no merge-capable connector).
 - **React the instant a PR/CI/bot event happens, AFK** → Cloud Routine with a
   `pull_request` (or API `/fire`) trigger. Beats polling on latency and cost.
 - **React the instant an event happens, but I'm at my desk with context loaded**

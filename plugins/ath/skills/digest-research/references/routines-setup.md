@@ -30,8 +30,8 @@ asking. So:
 
 - Attach ONLY the delivery connector (Slack) — no GitHub-write/merge connector.
 - Keep network on the **Trusted** preset (registries + the sources you research).
-- The plugin's no-merge PreToolUse hook (`hooks/`, auto-active) denies any stray
-  write/merge command as defense-in-depth.
+- Read-only is enforced by capability: with no write/merge connector attached, a
+  stray write/merge command has nothing to call. That's the control, not a hook.
 
 ## 4. Schedule & cost
 
