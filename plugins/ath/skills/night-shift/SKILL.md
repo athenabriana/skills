@@ -46,7 +46,9 @@ plugin's guard hook (the safety layer, in `hooks/` — auto-active, no install).
 ## Bundled Resources
 
 ### scripts/next_task.py
+
 Parses the `## tasks` section of `.ath/tasks/<slug>/shape.md` and emits the first unchecked, non-blocked task as JSON (`{done, total, blocked, remaining, warnings, next}`) — the deterministic one-task selector. No-ops if the file has headings but no `## tasks` section; skips `(blocked: …)` tasks; warns on malformed checkboxes.
 
 ### references/routine-recipe.md
+
 The Cloud Routine setup: commit `.ath/tasks/`, withhold merge scope, the guard hook + probe, the draft-PR-only prompt with the scope ceiling, and the cost cap.

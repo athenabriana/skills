@@ -1,6 +1,6 @@
 ---
 name: ship
-description: Take the current branch to landed — your way. Quality-pass the diff, green the project's local checks, then land via the destination you choose: push to a feature branch, prepare a push to main, or open/finish a pull request. Reviews the diff for correctness bugs and simplification, runs the project's checks, and — on the PR path — triages review comments, pushes, and watches CI until green. Never merges and never pushes to a protected branch itself (it hands you that command). Use when the user says "ship it", "ship this", "land this branch", "push this to main", "push it to a branch", "open the PR", "finish the PR", or "green the PR". Do NOT use for triaging all open PRs and dependency updates (use /ath:maintain-repo), watching a PR on a loop (use /ath:watch-pr), or just summarizing the branch (use /ath:gather-branch-context).
+description: Take the current branch to landed — your way. Quality-pass the diff, green the project's local checks, then land via the destination you choose — push to a feature branch, prepare a push to main, or open/finish a pull request. Reviews the diff for correctness bugs and simplification, runs the project's checks, and — on the PR path — triages review comments, pushes, and watches CI until green. Never merges and never pushes to a protected branch itself (it hands you that command). Use when the user says "ship it", "ship this", "land this branch", "push this to main", "push it to a branch", "open the PR", "finish the PR", or "green the PR". Do NOT use for triaging all open PRs and dependency updates (use /ath:maintain-repo), watching a PR on a loop (use /ath:watch-pr), or just summarizing the branch (use /ath:gather-branch-context).
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
@@ -21,6 +21,7 @@ Take the current branch all the way to landed — reviewed, checks green, commit
 Don't ask reflexively. If the landing is already settled by signal, **take it and just state which and why** — the question is for genuine ambiguity, not a toll on every run.
 
 **Take it without asking when:**
+
 - a **recalled memory** or repo convention names this repo's landing habit (e.g. "this repo lands by direct push to main", "always via PR"),
 - the landing was **decided earlier this session or on this branch**,
 - the repo state is unambiguous — a PR already open for this branch → finish that PR.
@@ -109,24 +110,30 @@ Everything is committed and the gate is green. Ship stops here and hands off —
 ### On CI failure: diagnose before editing
 
 Read the actual failure logs before touching any source file (multiple failures → fetch all logs concurrently):
+
 - `python scripts/inspect_pr_checks.py --repo "." --pr <number>` (run IDs + failure snippets), or `gh run view <run_id> --log-failed`.
-Identify the root cause with a specific log snippet, then fix → commit → push → watch again. Guessing wastes a 5-20 min CI cycle.
+  Identify the root cause with a specific log snippet, then fix → commit → push → watch again. Guessing wastes a 5-20 min CI cycle.
 
 **Loop limit:** after 3 failed fix cycles, stop and report the diagnosis of each attempt.
 
 ## Bundled Resources
 
 ### references/review-checklist.md
+
 Two-pass diff review checklist for the quality pass: correctness (bug-finding) and quality (simplification) criteria.
 
 ### scripts/gather_pr_context.py
+
 Collect branch, upstream, base, commit log, diff stat, uncommitted changes, and PR template in one call (PR creation). Prints JSON.
 
 ### scripts/fetch_comments.py
+
 Fetch all PR conversation comments, reviews, and review threads (with thread IDs and resolved state) via `gh api graphql`. Prints JSON.
 
 ### scripts/reply_resolve_thread.py
+
 Reply to a review thread and/or resolve it. `--thread-id` from fetch_comments.py; `--body` for the reply; `--no-resolve` to reply without resolving.
 
 ### scripts/inspect_pr_checks.py
+
 Fetch failing PR checks, pull GitHub Actions logs, and extract a failure snippet. Exits non-zero while failures remain.

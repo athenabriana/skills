@@ -40,7 +40,7 @@ Ask the forks through the **`AskUserQuestion` tool** — concrete options the us
 
 ## How to drive it
 
-- On the **single highest-stakes fork**, ask how the user would decide *before*
+- On the **single highest-stakes fork**, ask how the user would decide _before_
   revealing your pick — anchoring is strongest on the decision that matters most,
   so don't pre-frame that one. Everything else stays draft-first.
 - One **small batch** of forks at a time via `AskUserQuestion` (up to 4 per

@@ -31,4 +31,5 @@ Either way: detect "new since last tick" (a new comment, a new head SHA, a CI st
 ## Bundled Resources
 
 ### references/loop.md
+
 A drop-in `.claude/loop.md` that makes a bare `/loop` route the PR-tending maintenance triad (review comments / failed CI / merge conflicts) through `/ath:ship` while keeping the approval gate. Copy it into the target repo or `~/.claude`.

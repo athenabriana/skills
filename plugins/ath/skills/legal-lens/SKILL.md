@@ -1,6 +1,6 @@
 ---
 name: legal-lens
-description: Pass a juridical lens over any artifact — an idea, feature, flow, or document — to surface legal and regulatory implications, compliance gaps, risk, and what a lawyer would require before it ships. Defaults to Brazilian law (LGPD, CDC, Marco Civil…), overridable to any jurisdiction. Grounded: cites the norm when it can, flags uncertainty instead of inventing statutes, and triages for human legal review rather than giving legal advice. Reports significant issues only, each paired with a fix; appends `## legal` to a shape brief when run against one. Use when the user says "legal review", "is this legal", "legal implications", "compliance check", "LGPD", "regulatory risk", or "what would a lawyer object to". Do NOT use as a substitute for a qualified lawyer.
+description: Pass a juridical lens over any artifact — an idea, feature, flow, or document — to surface legal and regulatory implications, compliance gaps, risk, and what a lawyer would require before it ships. Defaults to Brazilian law (LGPD, CDC, Marco Civil…), overridable to any jurisdiction. Grounded — cites the norm when it can, flags uncertainty instead of inventing statutes, and triages for human legal review rather than giving legal advice. Reports significant issues only, each paired with a fix; appends `## legal` to a shape brief when run against one. Use when the user says "legal review", "is this legal", "legal implications", "compliance check", "LGPD", "regulatory risk", or "what would a lawyer object to". Do NOT use as a substitute for a qualified lawyer.
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
@@ -17,6 +17,7 @@ counsel. Default jurisdiction is **Brazilian law**; pass another to override.
 ## Input
 
 Invoke on one of:
+
 - a **slug** → reads `.ath/tasks/<slug>/shape.md` and reviews the framed work;
 - a **file path** → reviews that document (a contract, policy, ToS, spec);
 - a **free description** → reviews the idea as stated.
@@ -45,7 +46,7 @@ artifact to where the real exposure is.
 ## Grounded — the load-bearing rule
 
 A legal lens that fabricates law is worse than none. Cite the specific norm
-(*lei*, *artigo*, regulation) when you know it; when you are unsure whether a
+(_lei_, _artigo_, regulation) when you know it; when you are unsure whether a
 rule exists or applies, **say so explicitly and flag it for a qualified lawyer**
 — never invent a statute, a precedent, or an article number. Confidence-tag
 uncertain points. Where a fact would settle it (does this norm still apply, is

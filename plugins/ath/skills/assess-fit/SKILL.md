@@ -1,6 +1,6 @@
 ---
 name: assess-fit
-description: Pressure-test a framed problem before it becomes design — decide whether it's worth building, what to cut to fit the appetite, in what order what survives, and the one testable hypothesis you're betting on. Advocate for the thesis with evidence, not a cheerleader: name it when the market is overestimated or alternatives are underestimated. Evidence-tags every claim, gives each cut a reason, and writes `## fit` / `## cuts` into `.ath/tasks/<slug>/shape.md`. Use when the user says "is this worth building", "validate the market", "what should we cut", "prioritize these", "pivot or persevere", "TAM/SAM/SOM", or "what's the testable hypothesis". Do NOT use to frame the problem first (use /ath:frame-problem) or to shape the solution/build (use /ath:shape-idea).
+description: Pressure-test a framed problem before it becomes design — decide whether it's worth building, what to cut to fit the appetite, in what order what survives, and the one testable hypothesis you're betting on. Advocate for the thesis with evidence, not a cheerleader — name it when the market is overestimated or alternatives are underestimated. Evidence-tags every claim, gives each cut a reason, and writes `## fit` / `## cuts` into `.ath/tasks/<slug>/shape.md`. Use when the user says "is this worth building", "validate the market", "what should we cut", "prioritize these", "pivot or persevere", "TAM/SAM/SOM", or "what's the testable hypothesis". Do NOT use to frame the problem first (use /ath:frame-problem) or to shape the solution/build (use /ath:shape-idea).
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
@@ -38,8 +38,8 @@ which mode fits where the user is.
   RICE when Reach/Impact/Confidence/Effort exist, else ICE or a small Kano. Don't
   ask for data the user doesn't have; fall back.
 - **Hypothesis** — always close here. Harden the bet into testable form:
-  *"If <change>, then <observable metric> within <timeframe>, because
-  <mechanism>."* A wish ("we'll improve UX") is not a hypothesis; don't close the
+  _"If <change>, then <observable metric> within <timeframe>, because
+  <mechanism>."_ A wish ("we'll improve UX") is not a hypothesis; don't close the
   phase without the testable shape.
 
 ## How it runs
@@ -76,7 +76,7 @@ Kept, in priority order:
 ```
 
 And refine the `## hypothesis` section in place into the testable form. Keep cut
-ideas worth revisiting as plain bullets marked *revisit* — never checkboxes.
+ideas worth revisiting as plain bullets marked _revisit_ — never checkboxes.
 
 ## Hand off
 

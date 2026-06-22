@@ -5,11 +5,11 @@
 Expandir a ath para a **frente do diamante** (Discover/Define) + uma **lente
 jurídica** — o encaixe real do universo ath numa legaltech. Destila a frente da
 Brisa (nise/esperança) em skills finas verb-led, adiciona um revisor de
-perspectiva jurídica *grounded*, e unifica o estado sob `.ath/`. Sem personas,
+perspectiva jurídica _grounded_, e unifica o estado sob `.ath/`. Sem personas,
 sem router, sem acoplamento Inspira.
 
 A ath hoje é entrega de código (shape→implement→ship). O que falta é a frente:
-*descobrir o que vale construir e se aguenta juridicamente* — exatamente o
+_descobrir o que vale construir e se aguenta juridicamente_ — exatamente o
 trabalho de alto valor na Inspira. nise/esperança já fazem framing de problema e
 fit; a lente jurídica é inédita e define o domínio.
 
@@ -61,6 +61,7 @@ Framer, e o track de UI (→ backlog).
 ## Behavior
 
 **frame-problem** happy path:
+
 1. `/ath:frame-problem <descrição>` → sluga a área do problema.
 2. Lê codebase/contexto, rascunha `## problem` + `## hypothesis` com palpites,
    cada assumption com confidence-tag.
@@ -70,12 +71,14 @@ Framer, e o track de UI (→ backlog).
    pra assess-fit ou shape-idea.
 
 **assess-fit** happy path:
+
 1. `/ath:assess-fit <slug>` → lê `## problem`/`## hypothesis`.
 2. Escolhe modo (fit / cuts / priorização / hipótese). Rascunha, evidence-tag
    nos claims.
 3. Loop dos forks. Escreve `## fit`/`## cuts`.
 
 **legal-lens** happy path:
+
 1. `/ath:legal-lens <slug | path | descrição>` (+ jurisdição opcional).
 2. Resolve jurisdição (default BR). Lê o artefato.
 3. Produz findings: implicações + risco + exigências-de-advogado, cada um
@@ -84,35 +87,35 @@ Framer, e o track de UI (→ backlog).
 
 Edge → outcome:
 
-| WHEN | THEN |
-|---|---|
-| frame-problem sem slug existente | cria slug kebab da área do problema |
-| assess-fit sem `## problem` no shape | avisa e sugere rodar frame-problem antes |
-| legal-lens sobre doc fora de `.ath/` | report-only, não escreve seção |
-| legal-lens incerto sobre a lei | sinaliza incerteza explicitamente, não inventa |
-| jurisdição não-BR | usa a passada; sem hardcode |
-| assess-fit: claim sem evidência | tagueia como não-validado, não afirma como fato |
-| frame-problem: usuário pula pergunta | registra skip-with-reason, segue |
+| WHEN                                 | THEN                                            |
+| ------------------------------------ | ----------------------------------------------- |
+| frame-problem sem slug existente     | cria slug kebab da área do problema             |
+| assess-fit sem `## problem` no shape | avisa e sugere rodar frame-problem antes        |
+| legal-lens sobre doc fora de `.ath/` | report-only, não escreve seção                  |
+| legal-lens incerto sobre a lei       | sinaliza incerteza explicitamente, não inventa  |
+| jurisdição não-BR                    | usa a passada; sem hardcode                     |
+| assess-fit: claim sem evidência      | tagueia como não-validado, não afirma como fato |
+| frame-problem: usuário pula pergunta | registra skip-with-reason, segue                |
 
 ## Tasks
 
 - [x] S1: `.ath/` namespace + `backlog.md` — shape-idea escreve
-  `.ath/tasks/<slug>/shape.md`; implement-idea/night-shift/ship leem o path novo;
-  semeia `backlog.md` com o track de UI parkeado. (foundation) — *delivers:
-  migração*
+      `.ath/tasks/<slug>/shape.md`; implement-idea/night-shift/ship leem o path novo;
+      semeia `backlog.md` com o track de UI parkeado. (foundation) — _delivers:
+      migração_
 - [x] S2: skill `frame-problem` — problema/hipótese/impacto/métrica/appetite +
-  confidence-tag/skip/echo. — *delivers: frame-problem happy path + edges*
+      confidence-tag/skip/echo. — _delivers: frame-problem happy path + edges_
 - [x] S3: skill `assess-fit` — modos + evidence-tag + cuts/priorização/hipótese.
-  — *delivers: assess-fit*
+      — _delivers: assess-fit_
 - [x] S4: skill `legal-lens` — revisor grounded, BR-default + override,
-  severidade + issue-with-solution, append `## legal`. — *delivers: legal-lens*
+      severidade + issue-with-solution, append `## legal`. — _delivers: legal-lens_
 - [x] S5: shape-idea lê `## problem`/`## hypothesis`/`## fit` upstream como
-  contexto. — *delivers: integração do fluxo*
+      contexto. — _delivers: integração do fluxo_
 
 ## Out of scope
 
 - Track de UI (build-ui/review-design/scaffold-app), `.ath/design.md` — parkeado
-  em `backlog.md`, *revisit*.
+  em `backlog.md`, _revisit_.
 - Personas, router/dispatcher, inspira-install CLI, session.yaml/config.yaml,
   Framer, audiências executive/content — dropados.
 - Auto-migração do `.shape/` legado — só path novo.
@@ -120,5 +123,5 @@ Edge → outcome:
 ## Open (não-bloqueante)
 
 - legal-lens análise profunda de documento (contratos/peças) — candidato a
-  backlog se a lente provar valor. *revisit*
+  backlog se a lente provar valor. _revisit_
 - formato exato do `backlog.md` — fechar ao semear no S1.

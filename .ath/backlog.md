@@ -1,10 +1,10 @@
 # ath backlog — ideias parkeadas
 
 Parking repo-wide pra boas ideias adiadas de trabalho já shapeado. Consultar aqui
-em vez de abrir slug por slug. Cada item marcado *revisit* foi cortado de um
+em vez de abrir slug por slug. Cada item marcado _revisit_ foi cortado de um
 shape consciente, não esquecido.
 
-## UI build track (da Brisa: tarsila/clarisse/brisar) — *revisit*
+## UI build track (da Brisa: tarsila/clarisse/brisar) — _revisit_
 
 Engavetado em favor do track discovery+jurídico (ver
 `tasks/discovery-legal-track/shape.md`). Distilação já desenhada:

@@ -1,6 +1,6 @@
 ---
 name: frame-problem
-description: Frame the problem before any solution — converge on a sharp problem statement, the bet (hypothesis), who feels it and how badly, the success signal, and the appetite. Draft-first: Claude proposes the trio, then loops with you through the question tool on the gaps, confidence-tagging each field and recording skips with a reason. Writes `## problem` / `## hypothesis` into `.ath/tasks/<slug>/shape.md` for /ath:assess-fit and /ath:shape-idea to build on. Use when the user says "what problem are we solving", "frame the problem", "is this worth solving", "run the trio", "diagnose this", or starts from a fuzzy pain rather than a feature. Do NOT use to pressure-test market fit (use /ath:assess-fit), to shape the solution/build (use /ath:shape-idea), or for a tiny mechanical change.
+description: Frame the problem before any solution — converge on a sharp problem statement, the bet (hypothesis), who feels it and how badly, the success signal, and the appetite. Draft-first — Claude proposes the trio, then loops with you through the question tool on the gaps, confidence-tagging each field and recording skips with a reason. Writes `## problem` / `## hypothesis` into `.ath/tasks/<slug>/shape.md` for /ath:assess-fit and /ath:shape-idea to build on. Use when the user says "what problem are we solving", "frame the problem", "is this worth solving", "run the trio", "diagnose this", or starts from a fuzzy pain rather than a feature. Do NOT use to pressure-test market fit (use /ath:assess-fit), to shape the solution/build (use /ath:shape-idea), or for a tiny mechanical change.
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
@@ -27,7 +27,7 @@ still needs validation before it becomes code:
 - **Who & impact** — who feels it, how many, how badly. An impact nobody can
   size is a `low`-confidence problem.
 - **Hypothesis** — the bet: the change you believe will move the problem, and
-  *why* it would (the mechanism). `/ath:assess-fit` later hardens this into a
+  _why_ it would (the mechanism). `/ath:assess-fit` later hardens this into a
   testable form; here it's the directional bet.
 - **Success signal** — the observable thing that shifts if the problem is being
   solved. One metric beats five.
@@ -63,7 +63,7 @@ you'd defend.
 Write the trio into `.ath/tasks/<slug>/shape.md` as two sections — accreting the
 same file that `/ath:assess-fit` and `/ath:shape-idea` extend, so one file
 carries the full context. `<slug>` is a short kebab name for the problem area; if
-the file exists for a *different* problem, suffix it (`-2`) or ask — never
+the file exists for a _different_ problem, suffix it (`-2`) or ask — never
 overwrite another brief.
 
 ```

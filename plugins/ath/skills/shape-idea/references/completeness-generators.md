@@ -6,7 +6,7 @@ the generator, turn any unanswered case into a gray area, then discard the rest.
 Apply only the axes the work actually touches; don't pad.
 
 The goal isn't to answer every prompt for every feature — it's that the axes you
-would have skipped become *explicit questions* instead of silent omissions.
+would have skipped become _explicit questions_ instead of silent omissions.
 
 - **Input dimensions** — for each input: empty / zero / one / many / huge;
   malformed or wrong-type; missing or optional; untrusted / hostile. What's the
