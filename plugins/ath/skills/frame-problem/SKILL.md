@@ -1,6 +1,6 @@
 ---
 name: frame-problem
-description: Frame the problem before any solution — converge on a sharp problem statement, the bet (hypothesis), who feels it and how badly, the success signal, and the appetite. Draft-first — Claude proposes the trio, then loops with you through the question tool on the gaps, confidence-tagging each field and recording skips with a reason. Writes `## problem` / `## hypothesis` into `.ath/tasks/<slug>/shape.md` for /ath:assess-fit and /ath:shape-idea to build on. Use when the user says "what problem are we solving", "frame the problem", "is this worth solving", "run the trio", "diagnose this", or starts from a fuzzy pain rather than a feature. Do NOT use to pressure-test market fit (use /ath:assess-fit), to shape the solution/build (use /ath:shape-idea), or for a tiny mechanical change.
+description: Frame the problem before any solution — converge on a sharp problem statement, the bet (hypothesis), who feels it and how badly, the success signal, and the appetite. Draft-first — Claude proposes the trio, then loops with you through the question tool on the gaps, confidence-tagging each field and recording skips with a reason. Writes `## problem` / `## hypothesis` into `.ath/tasks/<slug>/shape.md` for /ath:assess-fit and /ath:shape to build on. Use when the user says "what problem are we solving", "frame the problem", "is this worth solving", "run the trio", "diagnose this", or starts from a fuzzy pain rather than a feature. Do NOT use to pressure-test market fit (use /ath:assess-fit), to shape the solution/build (use /ath:shape), or for a tiny mechanical change.
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
@@ -13,7 +13,7 @@ Get the **problem** sharp before anyone talks solution. Shaping the wrong proble
 crisply still ships the wrong thing — this is the lowest-cost moment to catch
 that. The asset is a problem statement you'd defend, not a filled form. You
 converge on the trio, then hand off to `/ath:assess-fit` (is it worth it?) or
-`/ath:shape-idea` (build it).
+`/ath:shape` (build it).
 
 ## What you converge on
 
@@ -61,7 +61,7 @@ you'd defend.
 ## Capture (on disk)
 
 Write the trio into `.ath/tasks/<slug>/shape.md` as two sections — accreting the
-same file that `/ath:assess-fit` and `/ath:shape-idea` extend, so one file
+same file that `/ath:assess-fit` and `/ath:shape` extend, so one file
 carries the full context. Generate `<slug>` as a short kebab name for the problem area; if
 the file exists for a _different_ problem, suffix it (`-2`) or ask — never
 overwrite another brief.
@@ -87,5 +87,5 @@ don't auto-invoke it:
 
 - **Worth pressure-testing?** → `/ath:assess-fit` — market fit, cuts,
   prioritization, and a testable hypothesis, building on this `## problem`.
-- **Ready to build?** → `/ath:shape-idea` — it reads the trio as upstream intent
+- **Ready to build?** → `/ath:shape` — it reads the trio as upstream intent
   and shapes the design, behavior, and slices.

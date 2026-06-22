@@ -29,7 +29,7 @@ inteiro):
 
 - `## problem` / `## hypothesis` — frame-problem (nise)
 - `## fit` / `## cuts` — assess-fit (esperança)
-- `## design` / `## behavior` / `## tasks` — shape-idea (existente, Large)
+- `## design` / `## behavior` / `## tasks` — shape (existente, Large)
 - `## legal` — legal-lens, quando roda contra um shape
 
 Novos skills (verb-led, sem personas, sem router):
@@ -38,7 +38,7 @@ Novos skills (verb-led, sem personas, sem router):
   problem statement, hipótese, quem/impacto, métrica de sucesso, appetite.
   Mecanismos: confidence-tag em cada assumption, skip-with-reason, máx 2
   perguntas/turno, echo das respostas. Draft-first. Escreve
-  `## problem`/`## hypothesis`. Roda antes da shape-idea e a alimenta.
+  `## problem`/`## hypothesis`. Roda antes da shape e a alimenta.
 - **assess-fit** (de esperança): pressiona um problema/ideia framado. Modos:
   market-fit, cuts forçados, priorização, autoria de hipótese testável. Claims
   com evidence-tag. Escreve `## fit`/`## cuts`.
@@ -51,7 +51,7 @@ Novos skills (verb-led, sem personas, sem router):
   minor. Output: reporta na conversa; se o artefato for um shape, adiciona/
   atualiza `## legal`.
 
-shape-idea: core inalterado; passa a **ler** `## problem`/`## hypothesis`/`## fit`
+shape: core inalterado; passa a **ler** `## problem`/`## hypothesis`/`## fit`
 como contexto upstream se presentes. (Não "absorve" mais nise/esperança — elas
 viraram verbos standalone.)
 
@@ -68,7 +68,7 @@ Framer, e o track de UI (→ backlog).
 3. Loop dos gray areas via AskUserQuestion (máx 2/turno), skip-with-reason
    permitido, echo das respostas.
 4. Escreve `## problem`/`## hypothesis` em `.ath/tasks/<slug>/shape.md`; aponta
-   pra assess-fit ou shape-idea.
+   pra assess-fit ou shape.
 
 **assess-fit** happy path:
 
@@ -99,8 +99,8 @@ Edge → outcome:
 
 ## Tasks
 
-- [x] S1: `.ath/` namespace + `backlog.md` — shape-idea escreve
-      `.ath/tasks/<slug>/shape.md`; implement-idea/night-shift/ship leem o path novo;
+- [x] S1: `.ath/` namespace + `backlog.md` — shape escreve
+      `.ath/tasks/<slug>/shape.md`; implement/night-shift/ship leem o path novo;
       semeia `backlog.md` com o track de UI parkeado. (foundation) — _delivers:
       migração_
 - [x] S2: skill `frame-problem` — problema/hipótese/impacto/métrica/appetite +
@@ -109,7 +109,7 @@ Edge → outcome:
       — _delivers: assess-fit_
 - [x] S4: skill `legal-lens` — revisor grounded, BR-default + override,
       severidade + issue-with-solution, append `## legal`. — _delivers: legal-lens_
-- [x] S5: shape-idea lê `## problem`/`## hypothesis`/`## fit` upstream como
+- [x] S5: shape lê `## problem`/`## hypothesis`/`## fit` upstream como
       contexto. — _delivers: integração do fluxo_
 
 ## Out of scope

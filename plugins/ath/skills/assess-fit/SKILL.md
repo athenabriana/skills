@@ -1,6 +1,6 @@
 ---
 name: assess-fit
-description: Pressure-test a framed problem before it becomes design — decide whether it's worth building, what to cut to fit the appetite, in what order what survives, and the one testable hypothesis you're betting on. Advocate for the thesis with evidence, not a cheerleader — name it when the market is overestimated or alternatives are underestimated. Evidence-tags every claim, gives each cut a reason, and writes `## fit` / `## cuts` into `.ath/tasks/<slug>/shape.md`. Use when the user says "is this worth building", "validate the market", "what should we cut", "prioritize these", "pivot or persevere", "TAM/SAM/SOM", or "what's the testable hypothesis". Do NOT use to frame the problem first (use /ath:frame-problem) or to shape the solution/build (use /ath:shape-idea).
+description: Pressure-test a framed problem before it becomes design — decide whether it's worth building, what to cut to fit the appetite, in what order what survives, and the one testable hypothesis you're betting on. Advocate for the thesis with evidence, not a cheerleader — name it when the market is overestimated or alternatives are underestimated. Evidence-tags every claim, gives each cut a reason, and writes `## fit` / `## cuts` into `.ath/tasks/<slug>/shape.md`. Use when the user says "is this worth building", "validate the market", "what should we cut", "prioritize these", "pivot or persevere", "TAM/SAM/SOM", or "what's the testable hypothesis". Do NOT use to frame the problem first (use /ath:frame-problem) or to shape the solution/build (use /ath:shape).
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
@@ -83,7 +83,7 @@ ideas worth revisiting as plain bullets marked _revisit_ — never checkboxes.
 assess-fit ends at a decision, not an automatic next step. State it; don't
 auto-invoke:
 
-- **build-mvp** → `/ath:shape-idea` — it reads `## problem` / `## hypothesis` /
+- **build-mvp** → `/ath:shape` — it reads `## problem` / `## hypothesis` /
   `## fit` as upstream intent and shapes the design, behavior, and slices.
 - **validate-first / low confidence** → suggest running an experiment against the
   testable hypothesis before building.

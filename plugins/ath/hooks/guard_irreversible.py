@@ -2,8 +2,8 @@
 """
 PreToolUse hook: deterministically DENY tier-2 (irreversible) operations during
 any autonomous / unattended run. Generalized, config-driven version of the
-maintenance guard — shared by every across-time skill (watch-pr, night-shift,
-ath:digest-research).
+maintenance guard — shared by every across-time skill (ship's watch loop,
+night-shift, ath:digest-research).
 
 This is defense-in-depth, NOT the primary control. The primary control is to run
 the routine without the capability at all (no merge scope, no write connector —

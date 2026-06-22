@@ -16,7 +16,7 @@ claude/-prefixed branch, so it does NOT need this — see
 
 Usage:
   python enter_worktree.py --label night-shift
-  python enter_worktree.py --label watch-pr --base main --repo /path/to/repo
+  python enter_worktree.py --label night-shift --base main --repo /path/to/repo
 """
 
 from __future__ import annotations

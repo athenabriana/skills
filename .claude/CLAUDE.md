@@ -18,14 +18,14 @@ plugins/ath/
 │   ├── inject_operating_context.py     # SessionStart hook script
 │   └── operating-context.md            # the injected operating frame (edit to tune)
 └── skills/                             # all skills flat; verb-led names, grouped by use in docs only
-    ├── shape-idea, implement-idea, ship, address-comments, gather-branch-context, improve-code
-    ├── maintain-repo, watch-pr, night-shift, digest-research
+    ├── shape, implement, ship, address-comments, gather-branch-context, improve-code
+    ├── maintain-repo, night-shift, digest-research
     └── research-topic, research-code, write-readme, answer-yourself
 ```
 
 ### Naming Conventions
 
-- Skills live in `plugins/ath/skills/<name>/SKILL.md`. Names are **verb-led** (`shape-idea`, `gather-branch-context`, `ship`) — invoked as `/ath:<name>` (`/ath:ship`). No group prefix; the use grouping (shape & ship / loops / helpers) is a docs concept (the README sections), not part of the name. Keep the dir name identical to the frontmatter `name`.
+- Skills live in `plugins/ath/skills/<name>/SKILL.md`. Names are **verb-led** (`shape`, `gather-branch-context`, `ship`) — invoked as `/ath:<name>` (`/ath:ship`). No group prefix; the use grouping (shape & ship / loops / helpers) is a docs concept (the README sections), not part of the name. Keep the dir name identical to the frontmatter `name`.
 - Each skill is self-contained: `scripts/` and `references/*.md` relative to the skill dir.
 - The plugin ships hooks in `plugins/ath/hooks/hooks.json` (auto-activate when the plugin is enabled). Use them to enforce irreversible hazards (the no-merge guard) and to inject session-start context. Hook commands reference files via `${CLAUDE_PLUGIN_ROOT}/...` (e.g. `${CLAUDE_PLUGIN_ROOT}/hooks/guard_irreversible.py`).
 
@@ -65,4 +65,4 @@ Examples of what should be a script:
 
 - No AI attribution in commits, PRs, or code comments
 - Conventional commit style: `<type>(<scope>): <description>`
-- Scope is the skill name (`shape-idea`, `maintain-repo`, …), `hooks` for the hook/guard layer, or `repo` for repo-wide changes
+- Scope is the skill name (`shape`, `maintain-repo`, …), `hooks` for the hook/guard layer, or `repo` for repo-wide changes

@@ -1,5 +1,5 @@
 ---
-name: shape-idea
+name: shape
 description: Align on the idea before building — Claude develops a draft, loops with you through the question tool on the gray areas (the load-bearing technical decisions AND a meticulous behavior map — happy path + edge cases with expected outcomes), runs an adversarial completeness pass (generators + an independent reviewer subagent + behavior↔task traceability), and gates on adjust-or-build, blocking while any load-bearing decision or behavior is still open. Auto-sizes by complexity. Reads upstream `## problem` / `## hypothesis` / `## fit` from /ath:frame-problem and /ath:assess-fit when present, building the design on the framed intent. Use when the user says "shape this", "let's plan", "think this through", "what should we build", "discuss before building", or starts a non-trivial feature or project. Do NOT use for tiny mechanical changes (just do them), for code-quality cleanups (use /ath:improve-code), or to find bugs (use /ath:ship).
 license: MIT
 metadata:
@@ -78,7 +78,7 @@ Write a single `.ath/tasks/<slug>/shape.md` — the converged draft itself: **wh
 
 `<slug>` is a short kebab name for the idea. If `.ath/tasks/<slug>/shape.md` already exists for a _different_ idea, suffix it (`-2`) or ask — never silently overwrite another brief.
 
-For **Large** work, capture the closed technical decisions in a `## design` section — components and their boundaries, the data model, key data flows, and the decisions that bite — so the architecture is reviewable as one block and the build side (`/ath:implement-idea`, `/ath:night-shift`) reads it as the intent. **Medium** work keeps these inline in the decisions above; no `## design` block (that would be ceremony for a small feature).
+For **Large** work, capture the closed technical decisions in a `## design` section — components and their boundaries, the data model, key data flows, and the decisions that bite — so the architecture is reviewable as one block and the build side (`/ath:implement`, `/ath:night-shift`) reads it as the intent. **Medium** work keeps these inline in the decisions above; no `## design` block (that would be ceremony for a small feature).
 
 For Large work, also capture the **behavior map** in a `## behavior` section — the happy path step by step plus an edge→outcome table whose rows are phrased `WHEN … THEN …` (each row a test). It's the acceptance contract the build and review check against (Medium keeps it inline).
 
@@ -92,7 +92,7 @@ Before asserting how something works: check the codebase, then its docs, then th
 
 shape ends at a validated `.ath/tasks/<slug>/shape.md` and does **not** build — shaping and execution stay separate. But don't leave the user guessing: when they pick "ready" at the gate, state the exact next step.
 
-- **Daytime:** "Brief saved at `.ath/tasks/<slug>/shape.md`. To build it: `/ath:implement-idea`, then `/ath:ship` — both load this brief as the intent."
+- **Daytime:** "Brief saved at `.ath/tasks/<slug>/shape.md`. To build it: `/ath:implement`, then `/ath:ship` — both load this brief as the intent."
 - **Overnight:** "Commit `.ath/tasks/<slug>/shape.md`, then schedule `/ath:night-shift` — it builds one slice per run."
 
 **Safety valve:** if building later reveals the idea was underspecified (surprises pile up), STOP and re-shape — that's the signal alignment was incomplete, not a license to improvise.
