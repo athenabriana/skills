@@ -62,7 +62,7 @@ you'd defend.
 
 Write the trio into `.ath/tasks/<slug>/shape.md` as two sections — accreting the
 same file that `/ath:assess-fit` and `/ath:shape-idea` extend, so one file
-carries the full context. `<slug>` is a short kebab name for the problem area; if
+carries the full context. Generate `<slug>` as a short kebab name for the problem area; if
 the file exists for a _different_ problem, suffix it (`-2`) or ask — never
 overwrite another brief.
 
