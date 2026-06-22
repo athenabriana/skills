@@ -104,7 +104,7 @@ Edge → outcome:
   confidence-tag/skip/echo. — *delivers: frame-problem happy path + edges*
 - [x] S3: skill `assess-fit` — modos + evidence-tag + cuts/priorização/hipótese.
   — *delivers: assess-fit*
-- [ ] S4: skill `legal-lens` — revisor grounded, BR-default + override,
+- [x] S4: skill `legal-lens` — revisor grounded, BR-default + override,
   severidade + issue-with-solution, append `## legal`. — *delivers: legal-lens*
 - [ ] S5: shape-idea lê `## problem`/`## hypothesis`/`## fit` upstream como
   contexto. — *delivers: integração do fluxo*
