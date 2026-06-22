@@ -4,7 +4,7 @@ description: Pass a juridical lens over any artifact — an idea, feature, flow,
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Legal lens
@@ -43,6 +43,29 @@ implication and what it would take to be clear:
 These are the common touchpoints, not a checklist to exhaust — follow the
 artifact to where the real exposure is.
 
+## Ground against the knowledge base
+
+Before judging, consult the repo's curated knowledge base — a local, citable
+source so grounding is a mechanism, not just a promise. The format and provenance
+rules live in `references/knowledge-format.md`.
+
+1. **Glob** `.ath/knowledge/` and read each file's frontmatter as a catalog
+   (`type` / `title` / `description` / `tags` / `verification`). Take this read as
+   a single snapshot for the run.
+2. **Select** the entries that match: their jurisdiction tag matches the resolved
+   jurisdiction **and** their title/description/tags overlap the artifact's
+   subject. Read the matched bodies.
+3. **Weight by provenance.** A `verified` entry is settled grounding — cite its
+   `resource` and the concept. An `unverified` entry is a **lead to confirm**,
+   never authority; surface it as a lead and still check before asserting on it.
+   Rank `verified` above `unverified`.
+
+If `.ath/knowledge/` is absent or empty, run exactly as you would without it —
+the base only ever adds grounding, it is never a precondition. When the base has
+no entry for a touchpoint you raise, proceed grounded as usual and note the gap
+("no KB entry for <topic>") so it's visible to curate. Skip any entry missing the
+required `type` field as malformed rather than failing the run.
+
 ## Grounded — the load-bearing rule
 
 A legal lens that fabricates law is worse than none. Cite the specific norm
@@ -51,6 +74,26 @@ rule exists or applies, **say so explicitly and flag it for a qualified lawyer**
 — never invent a statute, a precedent, or an article number. Confidence-tag
 uncertain points. Where a fact would settle it (does this norm still apply, is
 there a newer one), check before asserting.
+
+## Write back leads (optional)
+
+When research surfaces a norm worth keeping that the base doesn't have yet, you
+may grow it — safely, because writes never touch the trusted core. Follow
+`references/knowledge-format.md`:
+
+- Write a new concept to `.ath/knowledge/<domain>/<kebab-case(title)>.md` with
+  `verification: unverified`, `source: legal-lens`, a `resource`, a `# Citations`
+  section, and the `⚠️ unverified` banner as the first body line. You write
+  `unverified` only — promotion to `verified` is a human's call.
+- If the slug already resolves to an existing file: when it's the **same**
+  concept and `verified`, append to its `# Citations` only, leaving frontmatter
+  and body untouched; when it's the same concept and `unverified`, refresh it
+  (new `timestamp` + citation, staying `unverified`); when it's a genuinely
+  **different** concept, suffix the slug (`-2`) rather than overwrite.
+
+A lead you write this run is for future runs — don't cite it as grounding in the
+same run that minted it (the catalog read was a snapshot, and it's `unverified`
+anyway).
 
 ## Editorial stance
 
@@ -81,3 +124,12 @@ jurisdiction: Brazil (default)
 
 Close by naming what needs a real lawyer's sign-off before launch — the lens
 narrows where counsel is needed; it doesn't stand in for it.
+
+## Bundled Resources
+
+### references/knowledge-format.md
+
+The `.ath/knowledge/` convention (OKF) the lens grounds against: layout, slug
+rule, frontmatter + provenance fields (`verification` / `source`), the
+`⚠️ unverified` banner, and worked example concepts. Read it to know the shape
+of the catalog you glob, cite, and write back to.
