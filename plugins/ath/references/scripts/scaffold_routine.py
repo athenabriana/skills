@@ -26,7 +26,7 @@ protected branch. If a task or the gate blocks unrecoverably, write the blocker 
 into the PR description and exit."""
 
 CHECKLIST = """\
-Setup checklist (do this once per repo):
+Do this once per repo:
   [ ] Commit `.ath/tasks/{slug}/shape.md` (brief + `## tasks`) and the `ath`
       plugin to {repo} — the fresh clone sees only what's in git.
   [ ] Capability-scope the routine's token: no merge permission, "Allow
@@ -43,7 +43,7 @@ def render(slug: str, base: str, repo: str | None) -> str:
     repo_ref = f"`{repo}`" if repo else "this repo"
     prompt = PROMPT.format(slug=slug, base=base, repo=repo_ref)
     checklist = CHECKLIST.format(slug=slug, base=base, repo=repo or "the target repo")
-    return f"=== Routine prompt ===\n{prompt}\n\n=== {checklist}"
+    return f"=== Routine prompt ===\n{prompt}\n\n=== Setup checklist ===\n{checklist}"
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
@@ -56,14 +56,18 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 
 
 def self_test() -> int:
-    out = render("skill-flow-tightening", "main", "athenabriana/skills")
+    # Distinctive base ("trunk") so base substitution is tested apart from the
+    # `main` defaults; assert on the section banners so a glued header regresses.
+    out = render("skill-flow-tightening", "trunk", "athenabriana/skills")
+    assert "=== Routine prompt ===" in out
+    assert "=== Setup checklist ===" in out
     assert "ATH_UNATTENDED=1" in out
     assert "claude/skill-flow-tightening" in out
     assert "athenabriana/skills" in out
-    assert "DRAFT PR against `main`" in out
-    assert "branch protection on `main`" in out
+    assert "DRAFT PR against `trunk`" in out
+    assert "branch protection on `trunk`" in out
     bare = render("x", "release", None)
-    assert "this repo" in bare and "release" in bare
+    assert "this repo" in bare and "DRAFT PR against `release`" in bare
     print("scaffold_routine self-test: PASS")
     return 0
 
