@@ -15,7 +15,7 @@ claude plugin marketplace add athenabriana/skills
 claude plugin install ath@athenabriana
 ```
 
-it ships a `SessionStart` operating-context hook, auto-active on install. skills are invoked as `/ath:<skill>` — e.g. `/ath:shape`, `/ath:night-shift`, `/ath:answer-yourself`.
+it ships a `SessionStart` operating-context hook, auto-active on install. skills are invoked as `/ath:<skill>` — e.g. `/ath:shape`, `/ath:ship`, `/ath:answer-yourself`.
 
 ## what's inside
 
@@ -26,7 +26,7 @@ one plugin, `ath`; the skills are organized by use.
 | skill                        | description                                                                                                                                                              |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `/ath:shape`                 | align on the idea before building — develop, loop on gray areas via questions, validate                                                                                  |
-| `/ath:implement`             | implement a validated shape brief — build the slices, run the gate, stop ready to ship                                                                                   |
+| `/ath:implement`             | implement a validated shape brief — build the slices, run the gate, then offer to ship (or chain straight to it)                                                         |
 | `/ath:ship`                  | land the branch your way — review + green the checks, then push to a branch, prep a push to main, or open a PR & auto-tend it (handle comments, green CI, keep watching) |
 | `/ath:address-comments`      | address review comments on github PRs                                                                                                                                    |
 | `/ath:gather-branch-context` | summarize all changes on the branch vs main                                                                                                                              |
@@ -34,12 +34,11 @@ one plugin, `ath`; the skills are organized by use.
 
 ### loops — run across time (scheduled / event-driven)
 
-for the unattended (Cloud Routine) path, never-merge is enforced by **capability scoping** — the routine runs with a token that has no merge/branch-push permission and no merge-capable connector — backed by GitHub branch protection. Server-side controls, not a local hook.
+there's no dedicated overnight skill — the unattended path **is** the trio: a [Cloud Routine](plugins/ath/references/routines.md) sets `ATH_UNATTENDED` and runs `/ath:implement` → `/ath:ship` against a committed brief, building the whole backlog and leaving a draft PR. for that path, never-merge is enforced by **capability scoping** — the routine runs with a token that has no merge/branch-push permission and no merge-capable connector — backed by GitHub branch protection. server-side controls, not a local hook.
 
 | skill                  | description                                                              |
 | ---------------------- | ------------------------------------------------------------------------ |
 | `/ath:maintain-repo`   | triage PRs + dependabot/outdated, report what's mergeable (never merges) |
-| `/ath:night-shift`     | run one pre-shaped task overnight, ending at a draft PR (never merges)   |
 | `/ath:digest-research` | scheduled, read-only research/monitoring digest to slack or a branch     |
 
 ### helpers — standalone

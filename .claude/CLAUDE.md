@@ -13,10 +13,14 @@ plugins/ath/
 │   ├── enter_worktree.py               # worktree isolation for local autonomous runs
 │   ├── scheduling-decision.md          # /loop vs Desktop task vs Cloud Routine decision table
 │   ├── inject_operating_context.py     # SessionStart hook script
-│   └── operating-context.md            # the injected operating frame (edit to tune)
+│   ├── operating-context.md            # the injected operating frame (edit to tune)
+│   └── unattended-context.md           # addendum appended when ATH_UNATTENDED is truthy
+├── references/                        # plugin-level docs (not skill-scoped)
+│   ├── routines.md                     # Cloud Routine guide — the unattended trio path
+│   └── scripts/scaffold_routine.py     # emit a routine prompt + setup for a brief slug
 └── skills/                             # all skills flat; verb-led names, grouped by use in docs only
     ├── shape, implement, ship, address-comments, gather-branch-context, improve-code
-    ├── maintain-repo, night-shift, digest-research
+    ├── maintain-repo, digest-research
     └── research-topic, research-code, write-readme, answer-yourself
 ```
 
