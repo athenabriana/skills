@@ -6,6 +6,11 @@ Emits operating-context.md as `additionalContext`.
 Deliberately light and principle-level (not a procedure): it loads on EVERY
 session in every repo where the plugin is enabled, so it nudges the way of
 working, it does not force a mode. Edit operating-context.md to change the frame.
+
+On an unattended run (ATH_UNATTENDED truthy) it appends unattended-context.md —
+the no-questions / draft-PR / capped-retries addendum. That addendum is UX and
+loop discipline only; never-merge is enforced server-side by capability scoping,
+not by this frame.
 """
 
 from __future__ import annotations
@@ -14,14 +19,29 @@ import json
 import os
 import sys
 
+# Truthy values for ATH_UNATTENDED (case-insensitive). Anything else — including
+# unset, "0", "false", "" — is supervised.
+UNATTENDED_TRUTHY = {"1", "true", "yes"}
+
+
+def is_unattended() -> bool:
+    return os.environ.get("ATH_UNATTENDED", "").strip().lower() in UNATTENDED_TRUTHY
+
+
+def read_frame(here: str, filename: str) -> str:
+    try:
+        return open(os.path.join(here, filename), encoding="utf-8").read().strip()
+    except OSError:
+        return ""  # missing file -> stay silent, never block the session
+
 
 def main() -> int:
     here = os.path.dirname(os.path.abspath(__file__))
-    path = os.path.join(here, "operating-context.md")
-    try:
-        ctx = open(path, encoding="utf-8").read().strip()
-    except OSError:
-        return 0  # no context file -> stay silent, never block the session
+    ctx = read_frame(here, "operating-context.md")
+    if is_unattended():
+        addendum = read_frame(here, "unattended-context.md")
+        if addendum:
+            ctx = f"{ctx}\n\n{addendum}".strip()
     if not ctx:
         return 0
     print(

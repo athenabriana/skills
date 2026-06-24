@@ -12,11 +12,11 @@ live tree.
 NOTE: this is for LOCAL / Desktop-scheduled runs and parallel local tasks. A
 Cloud Routine already runs on a disposable fresh clone writing to a
 claude/-prefixed branch, so it does NOT need this — see
-../references/scheduling-decision.md.
+scheduling-decision.md.
 
 Usage:
-  python enter_worktree.py --label night-shift
-  python enter_worktree.py --label night-shift --base main --repo /path/to/repo
+  python enter_worktree.py --label implement
+  python enter_worktree.py --label implement --base main --repo /path/to/repo
 """
 
 from __future__ import annotations

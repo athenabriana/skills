@@ -1,10 +1,10 @@
 ---
 name: shape
-description: Align on the idea before building — Claude develops a draft, loops with you through the question tool on the gray areas (the load-bearing technical decisions AND a meticulous behavior map — happy path + edge cases with expected outcomes), runs an adversarial completeness pass (generators + an independent reviewer subagent + behavior↔task traceability), and gates on adjust-or-build, blocking while any load-bearing decision or behavior is still open. Auto-sizes by complexity. Reads upstream `## problem` / `## hypothesis` / `## fit` from /ath:frame-problem and /ath:assess-fit when present, building the design on the framed intent. Use when the user says "shape this", "let's plan", "think this through", "what should we build", "discuss before building", or starts a non-trivial feature or project. Do NOT use for tiny mechanical changes (just do them), for code-quality cleanups (use /ath:improve-code), or to find bugs (use /ath:ship).
+description: Align on the idea before building — Claude develops a draft, loops with you through the question tool on the gray areas (the load-bearing technical decisions AND a meticulous behavior map — happy path + edge cases with expected outcomes), runs an adversarial completeness pass (generators + an independent reviewer subagent + behavior↔task traceability), and gates on a three-way build / build-and-ship / stop pick, blocking while any load-bearing decision or behavior is still open. Auto-sizes by complexity. Reads upstream `## problem` / `## hypothesis` / `## fit` from /ath:frame-problem and /ath:assess-fit when present, building the design on the framed intent. Use when the user says "shape this", "let's plan", "think this through", "what should we build", "discuss before building", or starts a non-trivial feature or project. Do NOT use for tiny mechanical changes (just do them), for code-quality cleanups (use /ath:improve-code), or to find bugs (use /ath:ship).
 license: MIT
 metadata:
   author: Athena Briana - github.com/athenabriana
-  version: 1.12.0
+  version: 1.13.0
 ---
 
 # Shape
@@ -39,14 +39,14 @@ You bring the idea; Claude develops it, then loops with you through the **`AskUs
 
 5. **Adversarial completeness pass (when the gray areas run dry).** Don't _review_ the brief — try to **break** it; the same model that wrote the map rubber-stamps it on a re-read. Three moves, looping anything they surface back to step 3:
    - **Run the generators** (`references/completeness-generators.md`) to manufacture questions along the axes omission hides in — input dimensions, external outputs' empty/limit/shape-change cases, state & lifecycle, failure & recovery, concurrency, trust boundary, data lifecycle, observability. Output is questions, not filled sections.
-   - **Spawn an independent reviewer** (Agent tool, fresh context) given ONLY the brief and the mandate _"you did not write this — find what's missing, unmapped, or self-contradicting."_ The author can't see its own omissions; a reviewer with no memory of the conversation that produced the brief can. Large always; Medium when it's worth the one fan-out.
+   - **Spawn an independent reviewer** (Agent tool, fresh context) given ONLY the brief and the mandate _"you did not write this — find what's missing, unmapped, or self-contradicting."_ The author can't see its own omissions; a reviewer with no memory of the conversation that produced the brief can. **Run it for every Medium-and-up brief** — one fan-out is cheap against a hole the gate then certifies as closed. Carry its verdict to the gate (the gate shows it).
    - **Render the trace** — lay out behavior → slice → test as a coverage table, not a mental check: every mapped behavior traces to a slice and every slice to a behavior. An unlinked row IS the omission — made visible rather than asserted. This is the table the gate shows; "I checked traceability" becomes proof the user can see.
 
    What you're hunting: (a) **unresolved load-bearing decisions** (a technical fork building can't proceed without, still blank or "TBD"); (b) **unmapped or unanswered behavior** (a happy-path step glossed over, an edge with no decided outcome); (c) **material contradictions**. Load-bearing gaps, behavior holes, and real conflicts only — don't manufacture nitpicks, or the loop never closes.
 
-6. **The exit gate — blocks on open load-bearing decisions.** Don't gate blind: first **show the artifact the user is signing off on** — a tight recap of the happy path, the full edge→outcome table, and the **coverage table** (behavior → slice → test) with `⚠️` on any unmapped row plus a one-line counter (`N behaviors, M mapped, K open`) — so "is this complete?" is answerable at a glance instead of forcing them to reopen the file. Rendering the coverage is what turns the completeness pass from a claim into something the user can verify. Then list what's **still open** (unresolved load-bearing decisions + parked questions). Then ask one `AskUserQuestion`:
+6. **The exit gate — blocks on open load-bearing decisions.** Don't gate blind: first **show the artifact the user is signing off on** — a tight recap of the happy path, the full edge→outcome table, the **coverage table** (behavior → slice → test) with `⚠️` on any unmapped row plus a one-line counter (`N behaviors, M mapped, K open`), and (Medium+) the **independent reviewer's verdict** in one line (clean, or what it flagged and how it was resolved) — so "is this complete?" is answerable at a glance instead of forcing them to reopen the file. Rendering the coverage and the verdict is what turns the completeness pass from a claim into something the user can verify. Then list what's **still open** (unresolved load-bearing decisions + parked questions). Then ask one `AskUserQuestion`:
    - **If any load-bearing decision is still open:** do NOT offer a clean "build". The only options are **resolve it now** or **defer explicitly** ("decide at build time" — recorded as such in the brief). Never a silent "build anyway".
-   - **If nothing load-bearing is open:** _adjust something, or ready to build?_ Adjust → back into the loop. Ready → write/finalize `.ath/tasks/<slug>/shape.md`, **stop**, and tell the user exactly what to run (see "Hand off").
+   - **If nothing load-bearing is open:** finalize `.ath/tasks/<slug>/shape.md`, then offer three paths — **Build** (invoke `/ath:implement` now), **Build and ship** (invoke `/ath:implement`, and pre-authorize ship for this session so implement chains into `/ath:ship` once the build is clean — see "Hand off"), or **Stop here** (leave the brief; the user picks up later). Choosing to adjust instead is always available — that loops back into the question tool; a Build pick is the affirmative start, not a silent roll-through.
 
 Size the ask to the stakes: cheap-to-reverse decisions lead with your pick (the user vetoes if wrong); expensive-to-undo ones lay the options out and let them choose. Full playbook in `references/draft-first.md`.
 
@@ -78,7 +78,7 @@ Write a single `.ath/tasks/<slug>/shape.md` — the converged draft itself: **wh
 
 `<slug>` is a short kebab name for the idea. If `.ath/tasks/<slug>/shape.md` already exists for a _different_ idea, suffix it (`-2`) or ask — never silently overwrite another brief.
 
-For **Large** work, capture the closed technical decisions in a `## design` section — components and their boundaries, the data model, key data flows, and the decisions that bite — so the architecture is reviewable as one block and the build side (`/ath:implement`, `/ath:night-shift`) reads it as the intent. **Medium** work keeps these inline in the decisions above; no `## design` block (that would be ceremony for a small feature).
+For **Large** work, capture the closed technical decisions in a `## design` section — components and their boundaries, the data model, key data flows, and the decisions that bite — so the architecture is reviewable as one block and the build side (`/ath:implement`, then `/ath:ship`) reads it as the intent. **Medium** work keeps these inline in the decisions above; no `## design` block (that would be ceremony for a small feature).
 
 For Large work, also capture the **behavior map** in a `## behavior` section — the happy path step by step plus an edge→outcome table whose rows are phrased `WHEN … THEN …` (each row a test). It's the acceptance contract the build and review check against (Medium keeps it inline).
 
@@ -88,12 +88,13 @@ Also for Large work, add a `## tasks` section to the same file — **vertical sl
 
 Before asserting how something works: check the codebase, then its docs, then the web; if you still don't know, **say so**. A wrong assumption here cascades into the build — and a draft full of confident guesses is worse than one that flags what it's unsure of. Uncertainty flagged beats confidence invented.
 
-## Hand off — you invoke, the skill points the way
+## Hand off — the gate decides whether to roll on
 
-shape ends at a validated `.ath/tasks/<slug>/shape.md` and does **not** build — shaping and execution stay separate. But don't leave the user guessing: when they pick "ready" at the gate, state the exact next step.
+shape always ends at a validated `.ath/tasks/<slug>/shape.md`; the brief is the durable asset either way. What changes is what happens next, and the gate's 3-way pick (above) decides it — the seam between shaping and building is a checkpoint the user crosses on purpose, not a wall.
 
-- **Daytime:** "Brief saved at `.ath/tasks/<slug>/shape.md`. To build it: `/ath:implement`, then `/ath:ship` — both load this brief as the intent."
-- **Overnight:** "Commit `.ath/tasks/<slug>/shape.md`, then schedule `/ath:night-shift` — it builds one slice per run."
+- **Build:** invoke `/ath:implement` now — it loads this brief as the intent and stops ready to ship, where it offers `/ath:ship`.
+- **Build and ship:** invoke `/ath:implement` and pre-authorize ship for this session (a conversational hand-off — no env var). Implement builds, and on a clean run chains straight into `/ath:ship` without re-asking. This is the natural daytime flow.
+- **Stop here:** leave the brief and say the next step plainly — "Brief saved at `.ath/tasks/<slug>/shape.md`. To build it later: `/ath:implement`, then `/ath:ship`." For an unattended overnight run, point to the routine guide (`references/routines.md` at the plugin root): commit the brief, then schedule `implement → ship` under `ATH_UNATTENDED`.
 
 **Safety valve:** if building later reveals the idea was underspecified (surprises pile up), STOP and re-shape — that's the signal alignment was incomplete, not a license to improvise.
 
